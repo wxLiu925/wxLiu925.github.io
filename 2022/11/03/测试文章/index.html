@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>基础数论一 | lwx-blog</title><meta name="author" content="lwx"><meta name="copyright" content="lwx"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="下面先给出一些基本定义及其符号表示   整除: 记 $a|b$ 为 $b$ 可以被 $a$ 整除。即 $\exist q\in \Zeta$, 使得 $b &#x3D; aq$。且称 $a$ 为 $b$ 的约数, $a$ 为 $b$ 的倍数。 带余除法(欧几里得除法): 对于一个被除数 $a$ 和一个除数 $b$, 有一个整数 $p$ 和一个介于一定范围的余数 $r$ ，使得 $a &#x3D; bq + r$ 等式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础数论一">
+<meta property="og:url" content="http://liuwx.cn/2022/11/03/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:site_name" content="lwx-blog">
+<meta property="og:description" content="下面先给出一些基本定义及其符号表示   整除: 记 $a|b$ 为 $b$ 可以被 $a$ 整除。即 $\exist q\in \Zeta$, 使得 $b &#x3D; aq$。且称 $a$ 为 $b$ 的约数, $a$ 为 $b$ 的倍数。 带余除法(欧几里得除法): 对于一个被除数 $a$ 和一个除数 $b$, 有一个整数 $p$ 和一个介于一定范围的余数 $r$ ，使得 $a &#x3D; bq + r$ 等式">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://liuwx.cn/img/article1.png">
+<meta property="article:published_time" content="2022-11-03T04:09:00.000Z">
+<meta property="article:modified_time" content="2022-11-03T08:35:09.786Z">
+<meta property="article:author" content="lwx">
+<meta property="article:tag" content="基础数论">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://liuwx.cn/img/article1.png"><link rel="shortcut icon" href="/img/favicon-32x32.png"><link rel="canonical" href="http://liuwx.cn/2022/11/03/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基础数论一',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-03 16:35:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/picture/"><i class="fa-fw fas fa-pictue"></i><span> 图片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/article1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">lwx-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/picture/"><i class="fa-fw fas fa-pictue"></i><span> 图片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基础数论一</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-03T04:09:00.000Z" title="Created 2022-11-03 12:09:00">2022-11-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-11-03T08:35:09.786Z" title="Updated 2022-11-03 16:35:09">2022-11-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E8%AE%BA/">数论</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/object-Object/">[object Object]</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">341</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>1min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="基础数论一"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>下面先给出一些基本定义及其符号表示</p>
+<blockquote>
+<ul>
+<li><strong>整除</strong>: 记 $a|b$ 为 $b$ 可以被 $a$ 整除。即 $\exist q\in \Zeta$, 使得 $b = aq$。且称 $a$ 为 $b$ 的约数, $a$ 为 $b$ 的倍数。</li>
+<li><strong>带余除法(欧几里得除法)</strong>: 对于一个被除数 $a$ 和一个除数 $b$, 有一个整数 $p$ 和一个介于一定范围的余数 $r$ ，使得 $a = bq + r$ 等式成立。$a|b$ 等价于 $a|r$。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>同余</strong>: 对于两个整数除以同一个正整数时, 若得到的余数相同, 记为$p$, 则称这两个数在模 $p$ 意义下同余, 记作 $a \equiv b(mod p)$。</li>
+<li><strong>素数(质数)</strong>: 在大于1的自然数中, 只能被1和它本身整除而不能被其他数整除的数, 反之则为合数, 特别地, 规定1不属于素数也不属于合数。</li>
+<li><p><strong>最大公约数和最小公倍数</strong>: 最大公约数记为 $gcd$, 最小公倍数记为 $lcm$。特别地有 $lcm(a, b) = \frac{a*b}{gcd(a, b)}$。</p>
+</li>
+<li><p><strong>互素(互质)</strong>: 若 $gcd(a, b) = 1$, 则称 $a$ 和 $b$ 互素, 同样地, 若有 $gcd(a_1, a_2, a_3,…, a_n) = 1$, 则称 $a_1, a_2, a_3,…, a_n$ 互素。</p>
+</li>
+</ul>
+<p>下面再给出一些基本定理(附简要证明)<br>&gt;</p>
+<h3 id="算数基本定理-正整数的唯一分解定理"><a href="#算数基本定理-正整数的唯一分解定理" class="headerlink" title="算数基本定理(正整数的唯一分解定理)"></a>算数基本定理(正整数的唯一分解定理)</h3><script type="math/tex; mode=display">\forall A\in N,A>1,\exist\prod^n_{i=1}p_i^{a_i}=A, p_1<p_2<...<p_n</script><p> 其中 $p_i$ 是<strong>质数</strong>, 且 $a_i\in\Zeta^+$<br> 这样的表示是<strong>存在且唯一</strong>的</p>
+<p>下面利用反证法给出简单证明:</p>
+<p>首先给出下面两个定理<br><strong>最小数定理:</strong> 设 $N$ 是全体自然数组成的集合，$M$ 是 $N$ 的一个非空子集，则 $M$ 中必有最小数。<br><strong>欧几里得引理:</strong> 对于正整数 $p, a, b$, 若有</p>
+<script type="math/tex; mode=display">p|ab\ \ 且 \ \ p是质数</script><p>那么</p>
+<script type="math/tex; mode=display">p|a \ 或 \ p|b</script><p><strong>存在性证明:</strong><br>首先对于一切的质数, 该定理显然满足。</p>
+<p>假设存在不能分解成有限个质数乘积的合数集合, 则由最小数定理, 其中必然有一个最小的合数 $x$, 又由合数定义可以得到 $\mathbf{x=ab}$(其中 $1&lt;a\le b&lt;x$)</p>
+<p>1、假设 $a, b$ 都是质数, 与假设矛盾<br>2、假设存在 $a$ 和 $b$ 中存在合数, 而这个合数小于 $x$, 故可以将该合数分解为有限个质数的乘积, 替换到 $x=ab$里, 发现 $x$ 也可以表示为有限个质数的乘积, 与题设矛盾。<br><strong>唯一性证明:</strong><br>假设存在可以分解为两组不同约数系的正整数, 则存在一个最小的正整数记为 $x$ , 假设</p>
+<script type="math/tex; mode=display">x=p_1p_2p_3\cdots p_s=q_1q_2q_3\cdots q_r</script><p>其中</p>
+<script type="math/tex; mode=display">p_1\le p_2\le p_3\cdots \le p_s\quad q_1\le q_2\le q_3\cdots \le q_r</script><p>不妨设 $p_1 \le q_1$</p>
+<p>这里的等号是不成立的, 否则 $x/p_1(x/q_1)$ 就是一个更小的数, 这与假设矛盾, 因此有 $p_1 &lt; q_1 \le q_i(2 \le i \le r)$</p>
+<p>由欧几里得引理</p>
+<script type="math/tex; mode=display">p_1|q_1q_2q_3...q_n</script><p>即在 $q_1q_2q_3…q_n$ 中存在 $q_i$ 使得 $q_i$ 能被 $p_1$ 整除, 又因为 $p_1$ 和 $q_i$ 都是质数, 所以 $p_1=q_i$, 与上述证明矛盾。<br>证毕。</p>
+<p><em>试除法求约数 Code</em><br> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt;mp;</span><br><span class="line"><span class="type">int</span> x; cin &gt;&gt; x;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">2</span>; j &lt;= x / j; j++) &#123;</span><br><span class="line">    <span class="keyword">while</span>(x % j == <span class="number">0</span>) &#123;</span><br><span class="line">        mp[j]++;</span><br><span class="line">        x /= j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(x &gt; <span class="number">1</span>) mp[x]++;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> &amp;[p, a]: mp) &#123;</span><br><span class="line">    cout &lt;&lt; q &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; s &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="裴蜀定理-贝祖定理"><a href="#裴蜀定理-贝祖定理" class="headerlink" title="裴蜀定理(贝祖定理)"></a>裴蜀定理(贝祖定理)</h3><p>设 $a, b$ 是不全为 $0$ 的整数, 则存在整数 $x, y$, 使得</p>
+<script type="math/tex; mode=display">ax + by = gcd(a, b)</script><p>对于不定方程 $ax+by=m$ , 当且仅当 $gcd(a, b)|m$ 时有解, 并且有解时有无穷多组解。</p>
+<p>证明(辗转相除法):<br>1、若其中任意一个等于 $0$, 则有 $gcd(a, b)=a(b)$, 此时结论显然成立。<br>2、$a, b$ 都不为 $0$, 由于 $gcd(a, b)=gcd(-a, b)$, 不妨设 $a, b$ 都大于 $0$, 且 $b \le a$ 。<br>令 $gcd(a, b) = d$<br>对上式两边同时除以 $d$ , 进而转证</p>
+<script type="math/tex; mode=display">a_1x+b_1y=1</script><p>其中 $gcd(a_1, b_1)=1$<br>由带余除法</p>
+<script type="math/tex; mode=display">
+% \begin{equation}
+1.\quad a_1=q_1b+r_1\quad (0\le r_1<b_1)\\
+2. \quad b_1=q_2r_1+r_2\quad (0\le r_2<r_1)\\
+3. \quad r_1=q_3r_2+r_3\quad (0\le r_3<r_2) \\
+\cdots \cdots \\
+4. \quad r_{n-4}=q_{n-2}r_{n-3}+r_{n-2} \\
+5. \quad r_{n-3}=q_{n-1}r_{n-2}+r_{n-1} \\
+6. \quad r_{n-2}=q_nr_{n-1}+r_n \\
+7. \quad r_{n-1}=q_{n+1}r_n+1 \\
+% \end{equation}</script><!-- $\quad\quad\quad\quad\quad\quad 1.\quad a_1=q_1b+r_1\quad (0\le r_1<b_1)$
+$\quad\quad\quad\quad\quad\quad 2. \quad b_1=q_2r_1+r_2\quad (0\le r_2<r_1)$
+$\quad\quad\quad\quad\quad\quad 3. \quad r_1=q_3r_2+r_3\quad (0\le r_3<r_2)$
+$\quad\quad\quad\quad\quad\quad\quad ......$
+$\quad\quad\quad\quad\quad\quad 4. \quad r_{n-4}=q_{n-2}r_{n-3}+r_{n-2}$
+$\quad\quad\quad\quad\quad\quad 5. \quad r_{n-3}=q_{n-1}r_{n-2}+r_{n-1}$
+$\quad\quad\quad\quad\quad\quad 6. \quad r_{n-2}=q_nr_{n-1}+r_n$
+$\quad\quad\quad\quad\quad\quad 7. \quad r_{n-1}=q_{n+1}r_n+1$ -->
+<p>由 $7$ 式和 $6$ 式可推出</p>
+<script type="math/tex; mode=display">r_{n-2}A_{n-2} + r_{n-1}B_{n-1} = 1</script><p>结合 $5$</p>
+<script type="math/tex; mode=display">r_{n-3}A_{n-3} + r_{n-2}B_{n-2} = 1</script><p>结合 $4$</p>
+<script type="math/tex; mode=display">r_{n-4}A_{n-4} + r_{n-3}B_{n-3} = 1</script><script type="math/tex; mode=display">......</script><p>结合 $2$</p>
+<script type="math/tex; mode=display">b_1A_0 + r_1B_0 = 1</script><p>最后结合 $1$</p>
+<script type="math/tex; mode=display">a_1x + b_1y = 1</script><p>证毕。<br>同时, 裴蜀定理在 $n$ 个元素中也是成立的。</p>
+<h3 id="扩展欧几里得算法"><a href="#扩展欧几里得算法" class="headerlink" title="扩展欧几里得算法"></a>扩展欧几里得算法</h3><p>若要求 $ax+by=gcd(a, b)$ 的一组解。</p>
+<p>在普通欧几里得算法求 $gcd$ 的过程中, 通常利用辗转相除法将求 $gcd(a, b)$ 的问题转化为求 $gcd(b, a\%b)$, 而当递归到终点即 $gcd(gcd, 0)$ 时, 显然有</p>
+<script type="math/tex; mode=display">a \times 1 + b \times 0 = gcd</script><p>考虑回推<br>当求 $gcd(a, b)$ 和 $gcd(b, a\%b)$时有</p>
+<script type="math/tex; mode=display">ax_1+by_1=bx_2+(a\%b)y_2=gcd(a, b)</script><p>又考虑到</p>
+<script type="math/tex; mode=display">a\%b=a-\lfloor \frac{a}{b} \rfloor b</script><p>因此有</p>
+<script type="math/tex; mode=display">ax_1+by_1=ay_1+b(x_2-\frac{a}{b}y_2)</script><p>整理后可以得到</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\left\{
+    \begin{array}{ll}
+        x_1=y_2 \\
+        y_1=x_2-\frac{a}{b}y_2
+    \end{array}\right.
+\end{equation}</script><p><em>扩展欧几里得 Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> i64 = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">exgcd</span><span class="params">(i64 a, i64 b, i64 &amp;x, i64 &amp;y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!b)&#123;</span><br><span class="line">        x = <span class="number">1</span>, y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exgcd</span>(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h3><p>若 $p$ 为<strong>素数</strong>, $gcd(a, p)=1$, 则 $a^{p-1}\equiv 1(\%p)$</p>
+<p>特别地, 虽然所有的素数都满足该性质, 但并非合数就不满足该性质, 有一类满足该性质的合数被成为卡迈克尔数, 也被成为伪素数。</p>
+<p>在<strong>Korselt定理</strong>中首次给出了卡迈克尔数的等价定义:<br>一个正合数 $n$ 是卡迈克尔数, 当且仅当 $n$ 无平方数因数且对于所有 $n$ 的质因数 $p$ , 且 $p-1|n-1$ 。<br>这个定理说明了所有卡迈克尔数都是奇数。</p>
+<p>本定理证明略</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://liuwx.cn">lwx</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://liuwx.cn/2022/11/03/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/">http://liuwx.cn/2022/11/03/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80%E6%95%B0%E8%AE%BA/">基础数论</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="/img/article1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">lwx</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wxLiu925" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1557172715@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86-%E6%AD%A3%E6%95%B4%E6%95%B0%E7%9A%84%E5%94%AF%E4%B8%80%E5%88%86%E8%A7%A3%E5%AE%9A%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">算数基本定理(正整数的唯一分解定理)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86-%E8%B4%9D%E7%A5%96%E5%AE%9A%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">裴蜀定理(贝祖定理)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">扩展欧几里得算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">费马小定理</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/03/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="基础数论一"><img src="/img/article1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基础数论一"/></a><div class="content"><a class="title" href="/2022/11/03/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="基础数论一">基础数论一</a><time datetime="2022-11-03T04:09:00.000Z" title="Created 2022-11-03 12:09:00">2022-11-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/article1.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By lwx</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
