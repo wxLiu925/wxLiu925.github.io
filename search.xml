@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>数学符号测试</title>
+      <link href="/2022/12/31/%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E6%B5%8B%E8%AF%95/"/>
+      <url>/2022/12/31/%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E6%B5%8B%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<h3 id="仅测试latex符号">仅测试latex符号</h3><p><span class="math inline">\(a+b\)</span> <spanclass="math display">\[\sum_{i=1}^{n} 2^i\]</span> <span class="math inline">\(1\le 2\le c\)</span></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>test2</title>
       <link href="/2022/12/31/test2/"/>
       <url>/2022/12/31/test2/</url>
