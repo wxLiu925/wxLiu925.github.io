@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer | 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        我们应该如何进行 Code Review ? - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停. </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E4%B8%8E%E8%A7%84%E8%8C%83"><span class="toc-text">格式与规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="toc-text">稳定性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E7%94%A8%E6%88%B7%E9%9A%90%E7%A7%81"><span class="toc-text">保护用户隐私</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%9A%84%E9%9A%90%E7%A7%81%E4%B8%8D%E5%8F%AF%E6%B3%84%E6%BC%8F"><span class="toc-text">用户的隐私不可泄漏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9A%90%E7%A7%81%E4%B8%8D%E5%8F%AF%E6%B3%84%E6%BC%8F"><span class="toc-text">自己的隐私不可泄漏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%AF%BB%E6%80%A7-%E7%BB%B4%E6%8A%A4%E6%80%A7"><span class="toc-text">可读性&#x2F;维护性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D"><span class="toc-text">命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4%E7%9A%84%E6%B3%A8%E9%87%8A"><span class="toc-text">代码提交的注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%8F%AF%E8%AF%BB%E6%80%A7"><span class="toc-text">日志可读性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%9A%84%E9%80%9A%E7%94%A8%E6%80%A7"><span class="toc-text">代码的通用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8C%96"><span class="toc-text">配置化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%B2%BE%E7%AE%80"><span class="toc-text">代码精简</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A7%86%E6%80%A7%E8%83%BD"><span class="toc-text">重视性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E6%B3%84%E6%BC%8F"><span class="toc-text">防止泄漏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E6%AD%BB%E9%94%81"><span class="toc-text">防止死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%8A%A5%E5%91%8A"><span class="toc-text">性能报告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-text">兼容性</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停. </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        我们应该如何进行 Code Review ?
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-04-25 20:35:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#编程综合" title="编程综合">编程综合</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>笔者在日常工作中会发现，时常会存在一些比较显而易见或者已知的一类问题，在开发者提交代码以及相关同学 Review 中均未被发现。</p>
+<p>这里的一个原因在于，代码开发者在某些时候会提交较多代码，而此时 Reviewer 面对较多代码的 Review 的时候，很可能会漏掉一些 Review 的要点，甚至可能会感到无所适从。本文希望，针对一些非场景化的内容，整理出一些较为普适的一些原则，从而帮助 Reviewer（以及开发者本身）解决一些通用的问题。</p>
+<h2 id="格式与规范"><a href="#格式与规范" class="headerlink" title="格式与规范"></a>格式与规范</h2><p>原则上，这部分内容不应该在 Review 的时候去处理，我们应该配置代码格式规范工具，在提交代码前或者 MR 的 CI 流水线中做这个事情。</p>
+<p>这里对于不同类型的语言，大多社区都有现成的方案，不过多赘述，如果你在代码 Review 的时候还在纠结于格式和规范，那么现在就去配置好对应的工具。</p>
+<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h2><p>这里的稳定性，指的是我们程序在运行阶段的稳定性，以及当出现错误，我们能够第一时间发现。</p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>关于这里，最常见的一种代码是：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (some<span class="number">_</span>error<span class="number">_</span><span class="keyword">case</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于这种类似的代码，虽然看似兜底兜住了错误，但是并没有日志输出，也没有更多的提示，长久之后很可能会形成暗坑。</p>
+<p>对于这种代码我们应该思考：</p>
+<ul>
+<li>是否应该打一个错误日志，提供一些上下文信息。</li>
+<li>是否应该增加异常上报，让我们优化这种问题。</li>
+<li>是否需要将这个错误信息返回给调用方或者调用端。</li>
+<li>用户层面是否需要感知此信息，如果需要，方法是什么。</li>
+</ul>
+<p>另外还有一种比较常见的是异常，包括代码运行抛出的异常和我们自己捕获/抛出的异常：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (some_error_case) &#123;</span><br><span class="line">    throw new <span class="built_in">Error</span>(&#x27;some error&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">    <span class="built_in">error_call</span>()</span><br><span class="line">&#125; <span class="built_in">catch</span>(e) &#123;</span><br><span class="line">    <span class="built_in">log</span>(e)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这类异常的处理逻辑，和上面的异常条件逻辑比较类似，我们应该同样思考上述四点。</p>
+<h2 id="保护用户隐私"><a href="#保护用户隐私" class="headerlink" title="保护用户隐私"></a>保护用户隐私</h2><p>隐私通常涉及到法律合规，因此可能是最重要的一环。</p>
+<h3 id="用户的隐私不可泄漏"><a href="#用户的隐私不可泄漏" class="headerlink" title="用户的隐私不可泄漏"></a>用户的隐私不可泄漏</h3><ul>
+<li>比如在开发功能打日志的时候，我们应该不能泄漏用户的隐私，例如用户的自定义信息、聊天信息等。</li>
+</ul>
+<p>这一部分建议在团队内部形成一个统一的规范文档，在开发和 Review 的过程中，大家都可以以此为依据。</p>
+<h3 id="自己的隐私不可泄漏"><a href="#自己的隐私不可泄漏" class="headerlink" title="自己的隐私不可泄漏"></a>自己的隐私不可泄漏</h3><p>很多时候，我们虽然注意到了用户的隐私，但是<strong>自己的隐私</strong>却没有注意，这里主要是我们的一些 appKey、密钥等内容。无论是在以下哪些场景，我们都需要格外注意：</p>
+<ul>
+<li>对产物进行二次分发，例如分发到内部或外部 npm、github 以及其他团队，特别是外网可访问的情况更需要注意。</li>
+<li>直接给到用户使用，例如在 Web 环境使用，或者打包到桌面端应用，尽量避免用户直接接触到这些内容。</li>
+</ul>
+<h2 id="可读性-维护性"><a href="#可读性-维护性" class="headerlink" title="可读性/维护性"></a>可读性/维护性</h2><h3 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h3><p>代码中函数和变量的命名，是可读性中比较重要的一个关注点。</p>
+<p>关于如何命名，实际上很多架构书籍也都会额外列出一章来讲，在这里我不想过多进行赘述。不过一般来说，我们的命名应当清晰易懂，避免出现没有实际意义的含糊的变量名。</p>
+<h3 id="代码提交的注释"><a href="#代码提交的注释" class="headerlink" title="代码提交的注释"></a>代码提交的注释</h3><ul>
+<li><p>对于 bug fix：很多时候我们是在处理一个边界问题，或者某种兜底，这个时候 fix 的代码可能比较难以理解，在这种情况下我们最好是写明注释，如果有相关的文档和 bug 单，我们也可以一并贴到注释中。另外，如果我们的 bug fix 是一个临时方案，请在代码中写明 <strong>TODO</strong>，来提醒自己和别人这个地方后续还会继续更改。</p>
+</li>
+<li><p>对于新功能添加：一般我们需要在关键入口处写明功能的说明文档链接、完善相关关键路径的注释，同时删除功能开发中的冗余代码：例如我们在开发过程中测试用到但是最终却没有用到的大段注释掉的代码，以及大段的注释和 TODO，我们都需要在最终提交的时候<strong>删除掉</strong>，如果需要找回建议使用 git 的能力，可以适当进行注释备注。</p>
+</li>
+<li><p>另外，对于注释来说，<strong>禁止出现</strong>模糊的词汇，例如 <strong><code>感觉</code>，<code>好像</code>，<code>大概</code></strong> 等这种模糊的词汇，而是要培养自己严谨的意识，已经提交的代码必须有严格的佐证。</p>
+</li>
+</ul>
+<h3 id="日志可读性"><a href="#日志可读性" class="headerlink" title="日志可读性"></a>日志可读性</h3><p>大多数项目的问题定位非常依赖日志。</p>
+<p>对于日志，我们应该有如下几个约束：</p>
+<ul>
+<li>避免太多太长的内容，无论日志是以何种方式存储，规模上去之后的消耗都非常可观。</li>
+<li>适当使用简写，但是避免完全不知所云，应该符合普遍约定。</li>
+</ul>
+<h3 id="代码的通用性"><a href="#代码的通用性" class="headerlink" title="代码的通用性"></a>代码的通用性</h3><p>当我们提交一个功能，或者修复一个问题的时候，很多时候我们只是从这个问题的角度护发，但是并没有从全局的角度出发，例如：</p>
+<ul>
+<li>当我们新增一个上报的时候，有没有考虑把整个上报聚合到一起，或者架构上支持更方便的上报能力？</li>
+<li>当我们新增一个通用能力的时候，有没有考虑到其他模块或项目也可能有类似需求，我们是否可以将其单独抽离成一个独立的包进行分发？</li>
+<li>当我们遇到一个问题有多种修复方案的时候，有没有综合考虑，哪一种方案对后续维护的同学更加友好（比如，最好是高内聚、低耦合的设计）？</li>
+</ul>
+<p>这里的大体原则，就是我们需要从整体性的角度出发，不断地迭代让整个架构更加夯实，而不是出个问题贴一个创可贴，新增功能又贴一个创可贴。</p>
+<h3 id="配置化"><a href="#配置化" class="headerlink" title="配置化"></a>配置化</h3><p>这里的配置化，比较典型的比如是：多语言文案、项目 Settings 配置等。</p>
+<ul>
+<li>一般来说，配置化的内容最好是走云端下发。</li>
+<li>如果不具备云端下发的环境，或者我们的配置<strong>比较敏感不适合直接下发</strong>，可以考虑在代码中创建配置文件的方式。</li>
+</ul>
+<p>如果我们在 Review 中发现有可以配置化的内容但是却直接写死在代码里面了，应当需要提出质疑。</p>
+<h3 id="代码精简"><a href="#代码精简" class="headerlink" title="代码精简"></a>代码精简</h3><p>代码精简对后期的可维护性是非常重要的，代码精简的一个比价有效的办法就是充分理解业务，写出精简不多余的代码，不过这一点在 MR 中可能会比较难进行 Review，因为一般来说提交代码的同学本身已经是对这部分业务是理解的最透彻的。</p>
+<p>但是有一点代码的 Reviewer 会比较容易判断，如果我们提交的代码里面有<strong>两处以上超过三行的极其相似的代码</strong>，我们就应当重新审视是否可以进行一定程度的抽离，建议不要由于一时的效率允许不符合规范的代码合入，这些在后期都可能演化成代码屎山。</p>
+<p>例如，笔者对于 Rust 代码精简的一些建议：</p>
+<ul>
+<li>避免任何一次多余的 Clone。</li>
+<li>文件头部引用中去除没有必要的引用。</li>
+<li>避免多余的日志，同时避免在日志里面加太长的前缀内容（有的时候一行日志里面有多半都是元信息，而且这些元信息还是有所重复的）。</li>
+<li>避免多余的 pub，应该有一个理念就是默认的内容不要 pub 出去，就像 c++ 的成员方法默认是 private 一样。</li>
+<li>重复代码使用宏来替代。</li>
+</ul>
+<h2 id="重视性能"><a href="#重视性能" class="headerlink" title="重视性能"></a>重视性能</h2><h3 id="防止泄漏"><a href="#防止泄漏" class="headerlink" title="防止泄漏"></a>防止泄漏</h3><p>在考察性能之前，我们需要保证自己的代码没有泄漏，因为泄漏造成的恶劣性通常比性能差更严重，而且通常需要更长的时间来排查。</p>
+<p>这里主要的检查点可以是：</p>
+<ul>
+<li>addListener 之后是否及时释放了。</li>
+<li>setInterval/setTimeout 等定时器调用是否存在多次调用的可能性，以及是否可能无法释放。</li>
+<li>分配在堆上的内存是否释放了。</li>
+<li>是否有 detach dom 泄漏。</li>
+</ul>
+<h3 id="防止死锁"><a href="#防止死锁" class="headerlink" title="防止死锁"></a>防止死锁</h3><p>这一点如果是前端开发，一般没有机会遇到，但如果你用 rust、c++ 等语言，都很有可能出现死锁的风险（严格来说，死锁并不能直接归类到性能）。</p>
+<p>对于死锁的防止，我建议团队内的基础设施部分先配置好死锁检测和上报机制（例如 parking_lot 提供了死锁检查的能力）。</p>
+<p>一些死锁相关的 Review 建议：</p>
+<ul>
+<li>用到锁的地方，尽可能通过工具函数进行封装，类似 getter 和 setter，增加原子性，减少调用代码直接解锁的场景。</li>
+<li>锁的粒度不应该太大，<strong>我们应该是对数据进行加锁，而不是对过程进行加锁</strong>，锁粒度过大很容易出现死锁的风险。</li>
+<li>在函数脱离控制权之前，例如准备开始调用到其他外部函数了，这个时候最好把持有的锁都释放掉，防止外部函数再次用到造成锁重入。</li>
+</ul>
+<h3 id="性能报告"><a href="#性能报告" class="headerlink" title="性能报告"></a>性能报告</h3><p>关于这一部分，也建议团队基建先行，有一个比较标准的性能测试方法，这样大家在做性能测试的时候，不会那么有压力。比较反对的一种方式就是团队内部不同成员都有自己的一套性能测试方法，这样有些新同学缺乏必要的上下文，自然不了解如何去做性能测试。</p>
+<p>一般来说，我们涉及到比较大的功能都要进行一些性能报告，相关的指标可以是：</p>
+<ul>
+<li>整体包体积的增加幅度。</li>
+<li>初始化响应速度的变化。</li>
+<li>运行该功能一段时间的 CPU 消耗。</li>
+<li>运行该功能一段时间的 内存 消耗。</li>
+<li>运行该功能较长时间的 CPU/内存 消耗。</li>
+</ul>
+<p>不过，具体这一部分还是建议团队内部根据项目的实际情况有一个统一的标准，并且将性能测试方法标准化，而不要成为一个负担。</p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>在兼容性这方面，无论是 web 开发还是桌面客户端开发，都需要重点关注，这里其实细分为两个维度：</p>
+<ul>
+<li>版本支持，例如我们可能会实现约定好支持到 Chrome 的哪个版本（针对 web）或者 macOS 的哪个版本（针对 macOS 桌面端），并且如果提交涉及到兼容性改动需要重点测试所支持的最低版本。</li>
+<li>异常情况支持，这一点可能大多数时候都会被大家忽略，这里举一个例子就是 webgl 的支持，实际上，虽然大多数时候浏览器已经支持到了 webgl，但是仍然有不少场景，webgl 会初始化失败，这个原因可能和用户的硬件比如系统显卡有关，如果我们的项目只有 webgl 实现，我们需要考虑是否放弃 webgl 初始化失败的场景（从商业化的角度，一般来说都是希望不要放弃），或者说为此增加软渲染降级。</li>
+</ul>
+<p>所以，在 Code Review 环节，针对可能出现兼容性风险的地方，我们需要确认是否已经进行了兼容性测试。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://www.10000h.top">10000H</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://niexiaotao.com">Xiaotao&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">浙ICP备16035324号-1</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="aircloud/hexo-aircloud-blog"
+    data-repo-id="MDEwOlJlcG9zaXRvcnkxMjkwNDgyNjg="
+    data-category="Announcements"
+    data-category-id="DIC_kwDOB7EezM4COhKJ"
+    data-mapping="title"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="light"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>

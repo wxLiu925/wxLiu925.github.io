@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer | 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        从源码分析sentry的错误信息收集 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停. </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#raven-js-%E6%98%AF%E5%A6%82%E4%BD%95%E6%94%B6%E9%9B%86%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E7%9A%84%EF%BC%9F"><span class="toc-text">raven.js 是如何收集错误信息的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raven-js-%E6%9C%80%E7%BB%88%E4%B8%8A%E6%8A%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-text">raven.js 最终上报数据的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raven-js-%E9%9D%A2%E5%8C%85%E5%B1%91%E6%94%B6%E9%9B%86"><span class="toc-text">raven.js 面包屑收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raven-js-%E5%A6%82%E4%BD%95%E5%92%8C%E6%A1%86%E6%9E%B6%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8"><span class="toc-text">raven.js 如何和框架配合使用</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停. </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        从源码分析sentry的错误信息收集
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-08-18 19:23:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#前端监控" title="前端监控">前端监控</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>raven.js 是 sentry 为 JavaScript 错误上报提供的 JS-SDK，本篇我们基于其源代码对其原理进行分析，本篇文章只分析前端部分，对应的文件目录是<code>https://github.com/getsentry/sentry-javascript/tree/master/packages/raven-js</code>。</p>
+<p>首先抛出几个问题：</p>
+<ul>
+<li><strong>raven.js 是如何收集浏览器错误信息的？</strong></li>
+<li><strong>raven.js 上报的错误信息格式是什么样的？又是如何把这些信息传给后端？支不支持合并上报？</strong></li>
+<li><strong>面包屑（breadcrumbs）是什么？raven.js 如何来收集面包屑信息？</strong></li>
+<li><strong>raven.js 如何和框架配合使用（比如 vue、react）？</strong></li>
+</ul>
+<p>在回答以上这几个问题之前，我们首先来对 raven.js 做一个宏观的分析，主要涉及其文件目录、所引用的第三方框架等。</p>
+<p>raven.js 的核心文件内容并不多，其中使用了三个第三方库，放在了 vendor 文件夹下：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/moll/json-stringify-safe">json-stringify-safe</a> ：一个对 <code>JSON.stringify</code> 的封装，安全的 json 序列化操作函数，不会抛出循环引用的错误。<ul>
+<li>这里面有一个注意点要单独说一下，我们熟知的 <code>JSON.stringify</code> , 可以接受三个参数：第一个参数是我们要序列化的对象；第二个参数是对其中键值对的处理函数；第三个参数是控制缩进空格。reven.js 的 <code>json-stringify-safe</code> 就是充分利用了这三个参数。</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blueimp/JavaScript-MD5">md5</a>：js 的 md5 函数。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/csnover/TraceKit">TraceKit</a>：TraceKit 是一个已经比较完善的错误收集、堆栈格式化的库，reven.js 的功能在很大程度上对它有所依赖。</li>
+</ul>
+<p>除此之外，raven.js 支持插件，官方提供的一些知名库的 sentry 插件主要放在了 plugin 文件夹下面，raven.js 的一些核心文件，则放在了 src 文件夹下面。</p>
+<h3 id="raven-js-是如何收集错误信息的？"><a href="#raven-js-是如何收集错误信息的？" class="headerlink" title="raven.js 是如何收集错误信息的？"></a>raven.js 是如何收集错误信息的？</h3><p>我们知道，在前端收集错误，肯定离不开 <code>window.onerror</code> 这个函数，那么我们就从这个函数说起。</p>
+<p>实际上，这部分工作是 raven.js 引用的第三方库 TraceKit 完成的：</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function installGlobalHandler() &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable">_onErrorHandlerInstalled</span>) &#123; <span class="comment">// 一个起到标志作用的全局变量</span></span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable">_oldOnerrorHandler</span> = <span class="variable">_window</span>.onerror; </span><br><span class="line">  <span class="comment">// _oldOnerrorHandler 是防止对用户其他地方定义的回调函数进行覆盖</span></span><br><span class="line">  <span class="comment">// 该 _window 经过兼容，实际上就是 window</span></span><br><span class="line">  <span class="variable">_window</span>.onerror = traceKitWindowOnError;</span><br><span class="line">  <span class="variable">_onErrorHandlerInstalled</span> = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相关错误回调函数交给 traceKitWindowOnError 处理，下面我们来看一下 traceKitWindowOnError 函数，为了避免太多冗余代码，我们仅分析一种主要情况：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function traceKitWindowOnError(msg, url, lineNo, colNo, <span class="keyword">ex</span>) &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> exception = utils.isErrorEvent(<span class="keyword">ex</span>) ? <span class="keyword">ex</span>.<span class="keyword">error</span> : <span class="keyword">ex</span>;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">    <span class="keyword">stack</span> = TraceKit.computeStackTrace(exception);</span><br><span class="line">    notifyHandlers(<span class="keyword">stack</span>, true);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">   </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span> (_oldOnerrorHandler) &#123;</span><br><span class="line">       <span class="keyword">return</span> _oldOnerrorHandler.apply(this, arguments);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中调用的最重要的一个函数，就是 computeStackTrace，而这个函数也是 TraceKit 的核心函数，简单来讲，它做的事情就是统一格式化报错信息调用栈，因为对于各个浏览器来说，返回的 Error 调用栈信息格式不尽相同，另外甚至还有的浏览器并不返回调用栈，computeStackTrace 函数对这些情况都做了兼容性处理，并且对于一些不返回调用栈的情况，还使用了 caller 来向上回溯函数的调用栈，最终把报错信息转化成一个键相同的对象数组，做到了报错信息格式的统一。</p>
+<p>notifyHandlers 函数则是通知相关的回调函数。 实际上，raven.js 在 install 函数中会调用 TraceKit.report.subscribe 函数，并把对错误的处理逻辑写入回调：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function <span class="built_in">subscribe</span>(handler) &#123;</span><br><span class="line">    <span class="built_in">installGlobalHandler</span>();</span><br><span class="line">    handlers<span class="selector-class">.push</span>(handler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上过程完成了错误处理过程中的负责角色转换，并且借助 TraceKit，可以使 raven.js 得到一个结构比较清晰的带有格式化好的调用栈信息的错误内容对象，之后，raven.js 对错误内容进一步处理并最终上报。</p>
+<p>下面我们对错误处理 raven.js 控制的部分做了一些梳理：</p>
+<figure class="highlight wren"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"> <span class="variable">_handleOnErrorStackInfo</span>: <span class="title function_">function</span>(<span class="params">stackInfo</span>, <span class="params">options</span>) &#123;</span><br><span class="line">    <span class="variable">options</span>.<span class="property">mechanism</span> <span class="operator">=</span> <span class="variable">options</span>.<span class="property">mechanism</span> <span class="operator">||</span> &#123;</span><br><span class="line">      <span class="variable">type</span>: &#x27;<span class="variable">onerror</span>&#x27;,</span><br><span class="line">      <span class="variable">handled</span>: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// mechanism 和错误统计来源有关</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="operator">!</span><span class="variable language_">this</span>.<span class="variable">_ignoreOnError</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="variable">_handleStackInfo</span>(<span class="variable">stackInfo</span>, <span class="variable">options</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="variable">_handleStackInfo</span>: <span class="title function_">function</span>(<span class="params">stackInfo</span>, <span class="params">options</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="variable">frames</span> <span class="operator">=</span> <span class="variable language_">this</span>.<span class="variable">_prepareFrames</span>(<span class="variable">stackInfo</span>, <span class="variable">options</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="variable">_triggerEvent</span>(&#x27;<span class="variable">handle</span>&#x27;, &#123;</span><br><span class="line">      <span class="variable">stackInfo</span>: <span class="variable">stackInfo</span>,</span><br><span class="line">      <span class="variable">options</span>: <span class="variable">options</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="variable">_processException</span>(</span><br><span class="line">      <span class="variable">stackInfo</span>.<span class="property">name</span>,</span><br><span class="line">      <span class="variable">stackInfo</span>.<span class="property">message</span>,</span><br><span class="line">      <span class="variable">stackInfo</span>.<span class="property">url</span>,</span><br><span class="line">      <span class="variable">stackInfo</span>.<span class="property">lineno</span>,</span><br><span class="line">      <span class="variable">frames</span>,</span><br><span class="line">      <span class="variable">options</span></span><br><span class="line">    );</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="variable">_processException</span>: <span class="title function_">function</span>(<span class="params">type</span>, <span class="params">message</span>, <span class="params">fileurl</span>, <span class="params">lineno</span>, <span class="params">frames</span>, <span class="params">options</span>) &#123;</span><br><span class="line">    <span class="comment">// 首先根据 message 信息判断是否是需要忽略的错误类型</span></span><br><span class="line">    <span class="comment">// 然后判断出错的文件是否在黑名单中或者白名单中</span></span><br><span class="line">    <span class="comment">// 接下来对错误内容进行必要的整合与转换，构造出 data 对象</span></span><br><span class="line">    <span class="comment">// 最后调用上报函数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="variable">_send</span>(<span class="variable">data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">_send</span>: <span class="title function_">function</span>(<span class="params">data</span>) &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 对 data 进一步处理，增加必要的信息，包括后续会提到的面包屑信息</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 交由 _sendProcessedPayload 进行进一步处理</span></span><br><span class="line">	<span class="variable language_">this</span>.<span class="variable">_sendProcessedPayload</span>(<span class="variable">data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">_sendProcessedPayload</span>: <span class="title function_">function</span>(<span class="params">data</span>, <span class="params">callback</span>) &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 对 data 增加一些必要的元信息</span></span><br><span class="line">	<span class="comment">// 可以通过自定义 globalOptions.transport 的方式来自定义上报函数 </span></span><br><span class="line">	(<span class="variable">globalOptions</span>.<span class="property">transport</span> <span class="operator">||</span> <span class="variable language_">this</span>.<span class="variable">_makeRequest</span>).<span class="property">call</span>(<span class="variable language_">this</span>, &#123;</span><br><span class="line">	     <span class="variable">url</span>: <span class="variable">url</span>,</span><br><span class="line">	     <span class="variable">auth</span>: <span class="variable">auth</span>,</span><br><span class="line">	     <span class="variable">data</span>: <span class="variable">data</span>,</span><br><span class="line">	     <span class="variable">options</span>: <span class="variable">globalOptions</span>,</span><br><span class="line">	     <span class="variable">onSuccess</span>: <span class="variable">function</span> <span class="title function_">success</span>() &#123;</span><br><span class="line">	       </span><br><span class="line">	     &#125;,</span><br><span class="line">	     <span class="variable">onError</span>: <span class="variable">function</span> <span class="title function_">failure</span>(<span class="params">error</span>) &#123;</span><br><span class="line">	       </span><br><span class="line">	     &#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"><span class="comment">// 真正发起请求的函数</span></span><br><span class="line"><span class="variable">_makeRequest</span>: <span class="title function_">function</span>(<span class="params">opts</span>) &#123;</span><br><span class="line">	<span class="comment">// 对于支持 fetch 的浏览器，直接使用 fetch 的方式发送 POST 请求</span></span><br><span class="line">	<span class="comment">// 如果浏览器不支持 fetch，则使用 XHR 的传统方式发送 POST 请求</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上我们可以发现，从拿到已经初步格式化的报错信息，到最终真正执行数据上报，raven.js 的过程非常漫长，这其中我分析有如下几个原因：</p>
+<ul>
+<li>每个函数只处理一件或者一些事情，保持函数的短小整洁。</li>
+<li>部分函数可以做到复用（因为除了自动捕获错误的方式， raven.js 还提供通过 captureException，即 <code>try &#123;   doSomething(a[0]) &#125; catch(e) &#123;   Raven.captureException(e) &#125;</code> 的方式来上报错误，两个过程中有一些函数的调用是有重叠的）。</li>
+</ul>
+<p>但是笔者认为，raven.js 的代码设计还有很多值得优化的地方，比如：</p>
+<ul>
+<li>对最终上报数据（data）的属性处理和增加分散在多个函数，并且有较多可选项目，很难梳理出一个完整的 data 格式，并且不便于维护。</li>
+<li>部分函数的拆分必要性不足，并且会增加链路的复杂性，比如 <code>_processException </code>、<code>_sendProcessedPayload </code>、<code>_makeRequest </code>等都只在一个链路中被调用一次。</li>
+<li>部分属性重命名会造成资源浪费，由于 TraceKit 部分最终返回的数据格式并不完全满足 raven.js 的需要，所以 raven.js 之后又在较后阶段进行了重命名等处理，实际上这些内容完全可以通过一些其他的方式避免。</li>
+</ul>
+<p>最后，非常遗憾，sentry 目前完全不支持合并上报，就算是在同一个事件循环（甚至事件循环的同一个阶段，关于事件循环，可以参考我之前绘制的<a target="_blank" rel="noopener" href="https://www.processon.com/view/link/5b6ec8cbe4b053a09c2fb977">一张图</a>）的两个错误，sentry 都是分开来上报的，这里有一个简单例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Raven</span>.<span class="title function_">config</span>(<span class="string">&#x27;http://8ec3f1a9f652463bb58191bd0b35f20c@localhost:9000/2&#x27;</span>).<span class="title function_">install</span>()</span><br><span class="line"><span class="keyword">let</span> s = <span class="variable language_">window</span>.<span class="property">ss</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> b = s.<span class="property">b</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="title class_">Raven</span>.<span class="title function_">captureException</span>(e)</span><br><span class="line">    <span class="comment">// sentry should report error now</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">s.<span class="title function_">nomethod</span>();</span><br><span class="line"><span class="comment">// sentry should report error now</span></span><br></pre></td></tr></table></figure>
+
+<p>以上例子中，sentry 会发送两个 POST 请求。</p>
+<h3 id="raven-js-最终上报数据的格式"><a href="#raven-js-最终上报数据的格式" class="headerlink" title="raven.js 最终上报数据的格式"></a>raven.js 最终上报数据的格式</h3><p>这一部分，我们并不会详细地分析 raven.js 上报的数据的每一项内容，仅会给读者展示一个比较典型的情况。</p>
+<p>我们看一下对于一个一般的 js 错误，raven.js 上报的 json 中包含哪些内容，下面是一个已经删掉一些冗余内容的典型上报信息：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;project&quot;</span>: <span class="string">&quot;2&quot;</span>,</span><br><span class="line">  <span class="string">&quot;logger&quot;</span>: <span class="string">&quot;javascript&quot;</span>,</span><br><span class="line">  <span class="string">&quot;platform&quot;</span>: <span class="string">&quot;javascript&quot;</span>,</span><br><span class="line">  <span class="string">&quot;request&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;headers&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:63342/sentry-test1/test1.html?_ijt=j54dmgn136gom08n8v8v9fdddu&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;exception&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;values&quot;</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;TypeError&quot;</span>,</span><br><span class="line">        <span class="string">&quot;value&quot;</span>: <span class="string">&quot;Cannot read property &#x27;b&#x27; of undefined&quot;</span>,</span><br><span class="line">        <span class="string">&quot;stacktrace&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;frames&quot;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&quot;filename&quot;</span>: <span class="string">&quot;http://localhost:63342/sentry-test1/test1.html?_ijt=j54dmgn136gom08n8v8v9fdddu&quot;</span>,</span><br><span class="line">              <span class="string">&quot;lineno&quot;</span>: 19,</span><br><span class="line">              <span class="string">&quot;colno&quot;</span>: 19,</span><br><span class="line">              <span class="string">&quot;function&quot;</span>: <span class="string">&quot;?&quot;</span>,</span><br><span class="line">              <span class="string">&quot;in_app&quot;</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;mechanism&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;type&quot;</span>: <span class="string">&quot;generic&quot;</span>,</span><br><span class="line">      <span class="string">&quot;handled&quot;</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;transaction&quot;</span>: <span class="string">&quot;http://localhost:63342/sentry-test1/test1.html?_ijt=j54dmgn136gom08n8v8v9fdddu&quot;</span>,</span><br><span class="line">  <span class="string">&quot;extra&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;session:duration&quot;</span>: 6</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;breadcrumbs&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;values&quot;</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;timestamp&quot;</span>: 1534257309.996,</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;_prepareFrames stackInfo: [object Object]&quot;</span>,</span><br><span class="line">        <span class="string">&quot;level&quot;</span>: <span class="string">&quot;log&quot;</span>,</span><br><span class="line">        <span class="string">&quot;category&quot;</span>: <span class="string">&quot;console&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">//</span> <span class="string">...</span></span><br><span class="line">   ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;ea0334adaf9d43b78e72da2b10e084a9&quot;</span>,</span><br><span class="line">  <span class="string">&quot;trimHeadFrames&quot;</span>: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中支持的信息类型重点分为以下几种：</p>
+<ul>
+<li>sentry 基本配置信息，包括库本身的配置和使用者的配置信息，以及用户的一些自定义信息</li>
+<li>错误信息，主要包括错误调用栈信息</li>
+<li>request 信息，主要包括浏览器的 User-Agent、当前请求地址等</li>
+<li>面包屑信息，关于面包屑具体指的是什么，我们会在下一环节进行介绍</li>
+</ul>
+<h3 id="raven-js-面包屑收集"><a href="#raven-js-面包屑收集" class="headerlink" title="raven.js 面包屑收集"></a>raven.js 面包屑收集</h3><p>面包屑信息，也就是错误在发生之前，一些用户、浏览器的行为信息，raven.js 实现了一个简单的队列（有一个最大条目长度，默认为 100），这个队列在时刻记录着这些信息，一旦错误发生并且需要上报，raven.js 就把这个队列的信息内容，作为面包屑 breadcrumbs，发回客户端。</p>
+<p>面包屑信息主要包括这几类：</p>
+<ul>
+<li>用户对某个元素的点击或者用户对某个可输入元素的输入</li>
+<li>发送的 http 请求</li>
+<li>console 打印的信息（支持配置 ‘debug’, ‘info’, ‘warn’, ‘error’, ‘log’ 等不同级别）</li>
+<li>window.location 变化信息</li>
+</ul>
+<p>接下来，我们对这几类面包屑信息 sentry 的记录实现进行简单的分析。</p>
+<p>实际上，sentry 对这些信息记录的方式比较一致，都是通过对原声的函数进行包装，并且在包装好的函数中增加自己的钩子函数，来实现触发时候的事件记录，实际上，sentry 总共包装的函数有：</p>
+<ul>
+<li>window.setTimeout</li>
+<li>window.setInterval</li>
+<li>window.requestAnimationFrame</li>
+<li>EventTarget.addEventListener</li>
+<li>EventTarget.removeEventListener</li>
+<li>XMLHTTPRequest.open</li>
+<li>XMLHTTPRequest.send</li>
+<li>window.fetch</li>
+<li>History.pushState</li>
+<li>History.replaceState</li>
+</ul>
+<blockquote>
+<p>备注：这里包装的所有函数，其中有一部分只是使 raven.js 具有捕获回调函数中错误的能力（对回调函数进行包装）</p>
+</blockquote>
+<p>接下来我们看一段典型的代码，来分析 raven.js 是如何记录用户的点击和输入信息的（通过对 EventTarget.addEventListener 进行封装）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">wrapEventTarget</span>(<span class="params"><span class="variable language_">global</span></span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> proto = _window[<span class="variable language_">global</span>] &amp;&amp; _window[<span class="variable language_">global</span>].<span class="property"><span class="keyword">prototype</span></span>;</span><br><span class="line">      <span class="keyword">if</span> (proto &amp;&amp; proto.<span class="property">hasOwnProperty</span> &amp;&amp; proto.<span class="title function_">hasOwnProperty</span>(<span class="string">&#x27;addEventListener&#x27;</span>)) &#123;</span><br><span class="line">        <span class="title function_">fill</span>(</span><br><span class="line">          proto,</span><br><span class="line">          <span class="string">&#x27;addEventListener&#x27;</span>,</span><br><span class="line">          <span class="keyword">function</span>(<span class="params">orig</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">evtName, fn, capture, secure</span>) &#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (fn &amp;&amp; fn.<span class="property">handleEvent</span>) &#123; <span class="comment">//兼容通过 handleEvent 的方式进行绑定事件</span></span><br><span class="line">                  fn.<span class="property">handleEvent</span> = self.<span class="title function_">wrap</span>(</span><br><span class="line">                    &#123;</span><br><span class="line">                      <span class="attr">mechanism</span>: &#123;</span><br><span class="line">                        <span class="attr">type</span>: <span class="string">&#x27;instrument&#x27;</span>,</span><br><span class="line">                        <span class="attr">data</span>: &#123;</span><br><span class="line">                          <span class="attr">target</span>: <span class="variable language_">global</span>,</span><br><span class="line">                          <span class="attr">function</span>: <span class="string">&#x27;handleEvent&#x27;</span>,</span><br><span class="line">                          <span class="attr">handler</span>: (fn &amp;&amp; fn.<span class="property">name</span>) || <span class="string">&#x27;&lt;anonymous&gt;&#x27;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                      &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    fn.<span class="property">handleEvent</span></span><br><span class="line">                  );</span><br><span class="line">                &#125;</span><br><span class="line">              &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">              <span class="keyword">var</span> before, clickHandler, keypressHandler;</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span> (</span><br><span class="line">                autoBreadcrumbs &amp;&amp;</span><br><span class="line">                autoBreadcrumbs.<span class="property">dom</span> &amp;&amp;</span><br><span class="line">                (<span class="variable language_">global</span> === <span class="string">&#x27;EventTarget&#x27;</span> || <span class="variable language_">global</span> === <span class="string">&#x27;Node&#x27;</span>)</span><br><span class="line">              ) &#123;</span><br><span class="line">                <span class="comment">// <span class="doctag">NOTE:</span> generating multiple handlers per addEventListener invocation, should</span></span><br><span class="line">                <span class="comment">//       revisit and verify we can just use one (almost certainly)</span></span><br><span class="line">                clickHandler = self.<span class="title function_">_breadcrumbEventHandler</span>(<span class="string">&#x27;click&#x27;</span>);</span><br><span class="line">                keypressHandler = self.<span class="title function_">_keypressEventHandler</span>();</span><br><span class="line">                before = <span class="keyword">function</span>(<span class="params">evt</span>) &#123; <span class="comment">// 钩子函数，用于在回调函数调用的时候记录信息</span></span><br><span class="line">                  <span class="keyword">if</span> (!evt) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">var</span> eventType;</span><br><span class="line">                  <span class="keyword">try</span> &#123;</span><br><span class="line">                    eventType = evt.<span class="property">type</span>;</span><br><span class="line">                  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">                    <span class="comment">// just accessing event properties can throw an exception in some rare circumstances</span></span><br><span class="line">                    <span class="comment">// see: https://github.com/getsentry/raven-js/issues/838</span></span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                  &#125;</span><br><span class="line">                  <span class="keyword">if</span> (eventType === <span class="string">&#x27;click&#x27;</span>) <span class="keyword">return</span> <span class="title function_">clickHandler</span>(evt);</span><br><span class="line">                  <span class="keyword">else</span> <span class="keyword">if</span> (eventType === <span class="string">&#x27;keypress&#x27;</span>) <span class="keyword">return</span> <span class="title function_">keypressHandler</span>(evt);</span><br><span class="line">                &#125;;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span> orig.<span class="title function_">call</span>(</span><br><span class="line">                <span class="variable language_">this</span>,</span><br><span class="line">                evtName,</span><br><span class="line">                self.<span class="title function_">wrap</span>(</span><br><span class="line">                  &#123;</span><br><span class="line">                    <span class="attr">mechanism</span>: &#123;</span><br><span class="line">                      <span class="attr">type</span>: <span class="string">&#x27;instrument&#x27;</span>,</span><br><span class="line">                      <span class="attr">data</span>: &#123;</span><br><span class="line">                        <span class="attr">target</span>: <span class="variable language_">global</span>,</span><br><span class="line">                        <span class="attr">function</span>: <span class="string">&#x27;addEventListener&#x27;</span>,</span><br><span class="line">                        <span class="attr">handler</span>: (fn &amp;&amp; fn.<span class="property">name</span>) || <span class="string">&#x27;&lt;anonymous&gt;&#x27;</span></span><br><span class="line">                      &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                  &#125;,</span><br><span class="line">                  fn,</span><br><span class="line">                  before</span><br><span class="line">                ),</span><br><span class="line">                capture,</span><br><span class="line">                secure</span><br><span class="line">              );</span><br><span class="line">            &#125;;</span><br><span class="line">          &#125;,</span><br><span class="line">          wrappedBuiltIns</span><br><span class="line">        );</span><br><span class="line">        <span class="title function_">fill</span>(</span><br><span class="line">          proto,</span><br><span class="line">          <span class="string">&#x27;removeEventListener&#x27;</span>,</span><br><span class="line">          <span class="keyword">function</span>(<span class="params">orig</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">evt, fn, capture, secure</span>) &#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                fn = fn &amp;&amp; (fn.<span class="property">__raven_wrapper__</span> ? fn.<span class="property">__raven_wrapper__</span> : fn);</span><br><span class="line">              &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">                <span class="comment">// ignore, accessing __raven_wrapper__ will throw in some Selenium environments</span></span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span> orig.<span class="title function_">call</span>(<span class="variable language_">this</span>, evt, fn, capture, secure);</span><br><span class="line">            &#125;;</span><br><span class="line">          &#125;,</span><br><span class="line">          wrappedBuiltIns</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码兼容了通过 handleEvent 的方式进行绑定事件（如果没有听说过这种方式，可以在<a target="_blank" rel="noopener" href="http://www.ayqy.net/blog/handleevent%E4%B8%8Eaddeventlistener/">这里</a>补充一些相关的知识）。</p>
+<p>默认情况下，raven.js 只记录通过 <code>EventTarget.addEventListener</code> 绑定的点击和输入信息，实际上这是比较科学的，并且这些信息较为有效。另外，raven.js 也提供了记录所有点击和输入信息的可选项，其实现方式更为简单，直接在 document 上添加相关的监听即可。</p>
+<h3 id="raven-js-如何和框架配合使用"><a href="#raven-js-如何和框架配合使用" class="headerlink" title="raven.js 如何和框架配合使用"></a>raven.js 如何和框架配合使用</h3><p>raven.js 和框架配合使用的方式非常简单，但是我们要知道，很多框架内置了错误边界处理，或者对错误进行转义。以至于我们通过 window.onerror 的方式得不到完整的错误信息。同时，有些框架提供了错误处理的接口（比如 vue），利用错误处理的接口，我们能够获取到和错误有关的更多更重要的信息。</p>
+<p>raven.js 利用各个框架的官方接口，提供了 vue、require.js、angular、ember、react-native 等各个框架的官方插件。</p>
+<p>插件内容本身非常简单，我们可以看一下 vue 插件的代码：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatComponentName</span>(<span class="params">vm</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (vm.<span class="symbol">$root</span> === vm) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;root instance&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> name = vm._isVue ? vm.<span class="symbol">$optio</span>ns.name || vm.<span class="symbol">$optio</span>ns._componentTag : vm.name;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    (name ? <span class="string">&#x27;component &lt;&#x27;</span> + name + <span class="string">&#x27;&gt;&#x27;</span> : <span class="string">&#x27;anonymous component&#x27;</span>) +</span><br><span class="line">    (vm._isVue &amp;&amp; vm.<span class="symbol">$optio</span>ns.__file ? <span class="string">&#x27; at &#x27;</span> + vm.<span class="symbol">$optio</span>ns.__file : <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">vuePlugin</span>(<span class="params">Raven, Vue</span>) &#123;</span><br><span class="line">  Vue = Vue || window.Vue;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// quit if Vue isn&#x27;t on the page</span></span><br><span class="line">  <span class="keyword">if</span> (!Vue || !Vue.config) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _oldOnError = Vue.config.errorHandler;</span><br><span class="line">  Vue.config.errorHandler = <span class="keyword">function</span> <span class="title function_">VueErrorHandler</span>(<span class="params">error, vm, info</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> metaData = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// vm and lifecycleHook are not always available</span></span><br><span class="line">    <span class="keyword">if</span> (Object.prototype.toString.call(vm) === <span class="string">&#x27;[object Object]&#x27;</span>) &#123;</span><br><span class="line">      metaData.componentName = formatComponentName(vm);</span><br><span class="line">      metaData.propsData = vm.<span class="symbol">$optio</span>ns.propsData;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">typeof</span> info !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">      metaData.lifecycleHook = info;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Raven.captureException(error, &#123;</span><br><span class="line">      <span class="attr">extra</span>: metaData</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">typeof</span> _oldOnError === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      _oldOnError.call(this, error, vm, info);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = vuePlugin;</span><br></pre></td></tr></table></figure>
+
+<p>应该不用进行过多解释。</p>
+<p>你也许想知道为什么没有提供 react 插件，事实上，react 16 以后才引入了<a target="_blank" rel="noopener" href="https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html">Error Boundaries</a>，这种方式由于灵活性太强，并不太适合使用插件，另外，就算不使用插件，也非常方便地使用 raven.js 进行错误上报，可以参考<a target="_blank" rel="noopener" href="https://docs.sentry.io/clients/javascript/integrations/react/">这里</a></p>
+<blockquote>
+<p>但笔者认为，目前 react 的引入方式会对源代码进行侵入，并且比较难通过构建的方式进行 sentry 的配置，也许我们可以寻找更好的方式。</p>
+</blockquote>
+<p>完。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://www.10000h.top">10000H</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://niexiaotao.com">Xiaotao&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">浙ICP备16035324号-1</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="aircloud/hexo-aircloud-blog"
+    data-repo-id="MDEwOlJlcG9zaXRvcnkxMjkwNDgyNjg="
+    data-category="Announcements"
+    data-category-id="DIC_kwDOB7EezM4COhKJ"
+    data-mapping="title"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="light"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
