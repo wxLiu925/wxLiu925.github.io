@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C++面经Part1 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#const"><span class="toc-text">const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-text">static</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this-%E6%8C%87%E9%92%88"><span class="toc-text">this 指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%80%BC%E5%92%8C%E5%8F%B3%E5%80%BC-%E5%BC%95%E7%94%A8"><span class="toc-text">左值和右值(引用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inline-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">inline 内联函数</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C++面经Part1
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-10-25 14:26:07</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>主要有以下作用:</p>
+<ol>
+<li>修饰变量，说明该变量不可改变;</li>
+<li>修饰指针，这里分为<strong>指向常量的指针(指针常量，pointer to const)<strong>和</strong>自身是常量的指针(常量指针，const pointer)</strong><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0</span>, b = <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *p1 = &amp;a; <span class="comment">// 指针常量，指向的值不可以使用*p修改，*p = 10 错误，可以修改指向的地址</span></span><br><span class="line"><span class="type">int</span> *<span class="type">const</span> p2 = &amp;a; <span class="comment">// 常量指针，指针指向的地址不可改变，p2 = &amp;b 错误，可以修改该地址的变量值</span></span><br></pre></td></tr></table></figure></li>
+<li>修饰引用，指向常量的引用，用于形参类型，既避免了拷贝，又避免了函数对值进行修改</li>
+<li>类内修饰成员函数，说明该成员函数内不能修改成员变量</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> a;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">A</span>() : <span class="built_in">a</span>(<span class="number">0</span>) &#123; &#125;;</span><br><span class="line">    <span class="built_in">A</span>(<span class="type">int</span> x) : <span class="built_in">a</span>(x) &#123; &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// const可用于对重载函数的区分</span></span><br><span class="line">    <span class="comment">// 普通成员函数</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;这是一个普通函数&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 常成员函数，不得修改类中任何数据的值</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;这是一个常函数&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    A obj1;</span><br><span class="line">    <span class="type">const</span> A obj2;</span><br><span class="line">    obj1.<span class="built_in">func</span>(); <span class="comment">// &quot;这是一个普通函数&quot;</span></span><br><span class="line">    obj2.<span class="built_in">func</span>(); <span class="comment">// &quot;这是一个常函数&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，普通对象可以调用普通函数也可以调用常函数，前者优先，如果是常量对象的话，只能调用常函数，如果调用普通函数会导致报错。</p>
+<p>进一步地</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">function1</span><span class="params">(<span class="type">const</span> <span class="type">int</span> Var)</span></span>;           <span class="comment">// 传递过来的参数在函数内不可变</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">function2</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* Var)</span></span>;         <span class="comment">// 参数指针所指内容为常量</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">function3</span><span class="params">(<span class="type">char</span>* <span class="type">const</span> Var)</span></span>;         <span class="comment">// 参数指针为常量</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">function4</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; Var)</span></span>;          <span class="comment">// 引用参数在函数内为常量</span></span><br><span class="line"><span class="comment">// 没有 const reference，因为引用只是对象的别名，引用不是对象，不能用 const 修饰</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数返回值</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span> <span class="title">function5</span><span class="params">()</span></span>;      <span class="comment">// 返回一个常数</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span>* <span class="title">function6</span><span class="params">()</span></span>;     <span class="comment">// 返回一个指向常量的指针变量，使用：const int *p = function6();</span></span><br><span class="line"><span class="function"><span class="type">int</span>* <span class="type">const</span> <span class="title">function7</span><span class="params">()</span></span>;     <span class="comment">// 返回一个指向变量的常指针，使用：int* const p = function7();</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>主要有以下作用:</p>
+<ol>
+<li><strong>修饰普通变量:</strong> 修改变量的存储区域和生命周期，使变量存储在静态区域，在main函数运行前就分配了空间，如果有初始值就用初始值初始化它，如果没有初始值系统用默认值初始化它。需要注意的是: 在函数内部定义了一个静态变量，生命周期到程序结束，但是这个变量的作用域仅限于声明它的函数内部。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">myFunction</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> count = <span class="number">0</span>; <span class="comment">// 静态局部变量</span></span><br><span class="line">    count++;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Count: &quot;</span> &lt;&lt; count &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">myFunction</span>(); <span class="comment">// 输出 Count: 1</span></span><br><span class="line">    <span class="built_in">myFunction</span>(); <span class="comment">// 输出 Count: 2</span></span><br><span class="line">    <span class="comment">// 这里无法直接访问 count</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>修饰普通函数:</strong> 表明函数的作用范围，仅在定义该函数的文件内才能使用，它的作用域被限制在声明它的文件中，即它变成了一个“内部链接”的函数，只能在当前文件内部访问。在多人开发项目时，为了防止与他人命名空间里的函数重名，可以将函数定位为 static。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// File1.cpp</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">myFunction</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;这是一个静态函数&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// File2.cpp</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">anotherFunction</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">myFunction</span>(); <span class="comment">// 错误，无法访问静态函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>修饰成员变量:</strong> 修饰成员变量时该变量将被所有该类的对象共享，而不是每个对象拥有一份副本，而且不需要生成对象就可以访问该成员。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> count; <span class="comment">// 静态成员变量</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> MyClass::count = <span class="number">0</span>; <span class="comment">// 静态成员变量的初始化</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyClass obj1;</span><br><span class="line">    MyClass obj2;</span><br><span class="line"></span><br><span class="line">    obj1.count = <span class="number">5</span>;</span><br><span class="line">    std::cout &lt;&lt; obj2.count &lt;&lt; std::endl; <span class="comment">// 输出 5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>修饰成员函数:</strong> 修饰成员函数使得不需要生成对象就可以访问该函数，但是在 static 函数内只能访问 static 成员。</li>
+</ol>
+<h3 id="this-指针"><a href="#this-指针" class="headerlink" title="this 指针"></a>this 指针</h3><p><code>this</code> 指针是一个特殊的指针，它指向当前对象的地址。在 C++ 中，每个类的非静态成员函数都有一个隐含的 `this`` 指针，它指向调用该成员函数的对象。</p>
+<p>当一个类对象调用成员函数时，编译程序先将对象的地址赋给了 <code>this</code> 指针，然后调用该成员函数，每次成员函数存取数据成员时，都其实是在隐式地使用 <code>this</code> 指针。</p>
+<p><code>this</code> 指针是一个常量指针，被隐含地声明为: <code>ClassName *const this</code> ，这意味着不能给 <code>this</code> 指针赋值，而在 <code>const</code> 成员函数里被声明为 <code>const ClassName* const</code></p>
+<p>最后还需要注意的是，<code>this</code> 并不是一个常规变量，而是个右值，所以不能取得 <code>this</code> 的地址(不能 <code>&amp;this</code>)</p>
+<h3 id="左值和右值-引用"><a href="#左值和右值-引用" class="headerlink" title="左值和右值(引用)"></a>左值和右值(引用)</h3><ol>
+<li>左值(lvalue)</li>
+</ol>
+<ul>
+<li>左值既能够出现在等号左边，也能出现在等号右边</li>
+<li>左值可以被赋值，可以作为赋值语句的目标</li>
+<li>左值是可寻址的变量，有持久性</li>
+<li>具体来说，变量、对象或者通过解引用获得的指针都属于左值<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">5</span>; <span class="comment">// x 是左值，因为它代表一个内存位置，可以被赋值</span></span><br><span class="line"><span class="type">int</span>* ptr = &amp;x; <span class="comment">// &amp;x 是左值，因为它是变量 x 的地址</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>右值(rvalue)</li>
+</ol>
+<ul>
+<li>右值是不能被赋值的表达式，它们代表的是一个数值或者临时值，通常在赋值语句的右侧</li>
+<li>右值可以是一个常数、一个临时的计算结果或者一个表达式的返回值。</li>
+<li>右值在使用后就失去意义，因此不能被取地址<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> y = <span class="number">10</span>; <span class="comment">// 10 是右值，因为它代表一个数值，不能被赋值</span></span><br><span class="line"><span class="type">int</span> z = x + y; <span class="comment">// x + y 是右值，因为它代表一个临时计算结果</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>C++ Prime:” 当一个对象被用作右值的时候，用的是对象的值(内容);当对象被用作左值时，用的是对象的身份(在内存中的位置)”</p>
+</blockquote>
+<p>左值引用(lvalue reference)和右值引用(rvalue reference)是C++中引入的两种不同类型的引用。</p>
+<ol start="3">
+<li><strong>左值引用:</strong> 左值引用是最常见的引用类型。它们使用 <code>&amp;</code> 符号声明，并且只能绑定到左值(可以取地址的表达式)。</li>
+<li><strong>右值引用:</strong> 右值引用是在C++11中引入的新特性，用 &amp;&amp; 符号表示。它们可以绑定到临时值、表达式结果或具有名称的右值。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">6</span>; <span class="comment">// x是左值，6是右值</span></span><br><span class="line"><span class="type">int</span> &amp;y = x; <span class="comment">// 左值引用，y引用x</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> &amp;z1 = x * <span class="number">6</span>; <span class="comment">// 错误，x*6是一个右值</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> &amp;&amp;z2 = x * <span class="number">6</span>; <span class="comment">// 正确，右值引用</span></span><br><span class="line"><span class="type">int</span> &amp;&amp;z3 = x; <span class="comment">// 错误，x是一个左值</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以引用右值的除了右值引用外还有 const 左值引用，例如 <code>const int &amp;z4 =  x * 6;</code> 正确，可以将一个const引用绑定到一个右值。例如 <code>std::vector</code> 的 <code>push_back</code> 函数就使用了 const 左值引用(<code>void push_back (const value_type&amp; val);</code>) ，这样能让我们使用 <code>v.push_back(1)</code> 这样的代码。</p>
+</blockquote>
+</li>
+</ol>
+<p><code>std::move</code> 可以实现将左值转换成右值以实现对左值进行右值引用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">3</span>, j;</span><br><span class="line">j = std::<span class="built_in">move</span>(<span class="number">2</span>); <span class="comment">// 合法，从一个右值移动数据</span></span><br><span class="line">j = std::<span class="built_in">move</span>(i); <span class="comment">// 合法，从一个左值移动数据，i的值之后是不确定的。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="inline-内联函数"><a href="#inline-内联函数" class="headerlink" title="inline 内联函数"></a>inline 内联函数</h3><p>主要有以下特征:</p>
+<ul>
+<li>相当于把内联函数里面的内容写在调用内联函数处;</li>
+<li>相当于不用执行进入函数的步骤，直接执行函数体;</li>
+<li>相当于宏，却比宏多了类型检查，真正具有函数特性;</li>
+<li>编译器一般不内联包含循环、递归、switch 等复杂操作的内联函数;</li>
+<li>在类声明中定义的函数，除了虚函数的其他函数都会自动隐式地当成内联函数。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一般在类内定义的成员函数会隐式成为inline，而在类外定义的成员函数不会(当然是否内联完全取决于编译器)</span></span><br><span class="line"><span class="comment">// 类内定义，隐式内联</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">doA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;         <span class="comment">// 隐式内联</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 类外定义，需要显式内联</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">doA</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">A::doA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;   <span class="comment">// 需要显式内联</span></span><br></pre></td></tr></table></figure>
+
+<p>虚函数可以是内联函数吗？<br><a target="_blank" rel="noopener" href="https://isocpp.org/wiki/faq/value-vs-ref-semantics#:~:text=Therefore%20the%20only%20time%20an,or%20reference%20to%20an%20object.">Standard C++: Are “inline virtual” member functions ever actually “inlined”?</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18432040/can-virtual-functions-be-inlined">Stackoverflow: Can virtual functions be inlined [duplicate]</a></p>
+<p>虚函数可以是内联函数，但是当虚函数表现出多态性的时候不能内联，因为内联是在编译期建议编译器内联，而虚函数的多态性在运行期，编译器无法知道运行期调用哪个代码，因此虚函数表现为多态性的时候不可以内联。</p>
+<p>下面是虚函数内联使用例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">virtual</span> <span class="type">void</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;I am Base&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Base</span>() &#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span>: <span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// // 不写 inline 时会隐式内联</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;I am Derived&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Base fa;</span><br><span class="line">    fa.<span class="built_in">who</span>(); <span class="comment">// 此处的虚函数 who()，是通过类（Base）的具体对象（b）来调用的，编译期间就能确定了，所以它可以是内联的，但最终是否内联取决于编译器。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 此处的虚函数是通过指针调用的，呈现多态性，需要在运行时期间才能确定，所以不能为内联。</span></span><br><span class="line">    Base *ptr = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line">    ptr-&gt;<span class="built_in">who</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 因为Base有虚析构函数（virtual ~Base() &#123;&#125;），所以 delete 时，会先调用派生类（Derived）析构函数，再调用基类（Base）析构函数，防止内存泄漏。</span></span><br><span class="line">    <span class="keyword">delete</span> ptr;</span><br><span class="line">    ptr = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体来说，就是</p>
+<ol>
+<li>当使用类的对象来调用时，则虚函数可以当做是内联的，因为编译器在编译时就确切知道对象是哪个类的;</li>
+<li>当使用基类指针或引用来调用虚函数时，它都不能是内联函数，因为调用发生在运行时，是动态绑定的。</li>
+</ol>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>

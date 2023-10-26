@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        CSAPP-计算机系统漫游 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90"><span class="toc-text">系统的硬件组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%BB%E7%BA%BF"><span class="toc-text">1.总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-I-O-%E8%AE%BE%E5%A4%87"><span class="toc-text">2.I&#x2F;O 设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%BB%E5%AD%98"><span class="toc-text">3.主存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E7%A1%AC%E4%BB%B6"><span class="toc-text">操作系统管理硬件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-text">进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B"><span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-text">虚拟内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-text">文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%B9%8B%E9%97%B4%E5%88%A9%E7%94%A8%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="toc-text">系统之间利用网络通信</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        CSAPP-计算机系统漫游
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-10-23 11:21:29</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#CSAPP" title="CSAPP">CSAPP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>之前在读 xv6-book 的时候，发现自己对一些计算机底层的知识了解的太少，导致看到虚拟内存映射、物理地址这些东西的时候就很头大。在一个群友的推荐下，我决定先来看一下CSAPP的1、2、3、6、7、8、9章(当然，还有一种方案是学习CS61C)，于是有了这个系列。</p>
+<p>gitbook: <a target="_blank" rel="noopener" href="https://hansimov.gitbook.io/csapp/">https://hansimov.gitbook.io/csapp/</a></p>
+<h2 id="系统的硬件组成"><a href="#系统的硬件组成" class="headerlink" title="系统的硬件组成"></a>系统的硬件组成</h2><h3 id="1-总线"><a href="#1-总线" class="headerlink" title="1.总线"></a>1.总线</h3><p>总线是贯穿整个系统的一组电子管道。它们携带者信息字节在各个部件之间传递，传送定长的字节块(字)。字中的字节数(字长)是一个基本的系统参数，通常是4个字节(32位)、8个字节(64位)。</p>
+<h3 id="2-I-O-设备"><a href="#2-I-O-设备" class="headerlink" title="2.I/O 设备"></a>2.I/O 设备</h3><p>示例有作为用户输入的键盘和鼠标，作为用户输出的显示器，用于长期存储数据和程序的磁盘驱动器(磁盘)。每个 I/O 设备都通过一个<strong>控制器</strong>或者<strong>适配器</strong>与 I/O 总线相连。</p>
+<blockquote>
+<p>控制器和适配器之间的区别在于它们的封装方式: 控制器是 I/O 设备本身或系统的主板上的芯片组，而适配器则是一块插在主板插槽上的卡。功能都是在 I/O 总线和 I/O 设备之间传递信息。</p>
+</blockquote>
+<h3 id="3-主存"><a href="#3-主存" class="headerlink" title="3.主存"></a>3.主存</h3><p>主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组 <strong>动态随机获取存储器(DRAM)</strong> 芯片组成;从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址，这些地址是从零开始的。</p>
+<h3 id="4-处理器"><a href="#4-处理器" class="headerlink" title="4.处理器"></a>4.处理器</h3><p><strong>中央处理单元(CPU)<strong>简称为处理器，是解释(或执行)存储在主存中指令的引擎。处理器的核心是一个大小为一个字的存储设备(或</strong>寄存器</strong>)，称为**程序计数器(PC)**。在任何时刻，PC都指向主存中的某条机器语言指令(该指令的地址)</p>
+<p>处理器从通电到系统断电一直在不断从程序计数器指向的内存处读取指令，解释指令中的位，执行该指令指示的简单操作，然后更新 PC，使其指向下一条指令。</p>
+<p>这样的操作围绕着主存、寄存器文件(register file)和算数/逻辑单元(ALU)进。寄存器文件是一个小的存储设备，由一些单个字长的寄存器组成，每个寄存器都有唯一的名字。ALU计算新的数据和地址值。</p>
+<p>CPU在指令的要求下可能会执行如下操作:</p>
+<ul>
+<li><strong>加载:</strong> 从主存复制一个字节或者一个字到寄存器，以覆盖寄存器原来的内容;</li>
+<li><strong>存储:</strong> 从寄存器复制一个字节或者一个字到主存的某个位置，以覆盖这个位置上原来的内容;</li>
+<li><strong>操作:</strong> 把两个寄存器的内容复制到ALU，ALU对这两个字做算数运算，并将结果存放到一个寄存器中;</li>
+<li><strong>跳转:</strong> 从指令本身抽取一个字，并将这个字复制到PC中，以覆盖PC中原先的值。</li>
+</ul>
+<h2 id="操作系统管理硬件"><a href="#操作系统管理硬件" class="headerlink" title="操作系统管理硬件"></a>操作系统管理硬件</h2><p>操作系统有两个基本功能∶ </p>
+<ol>
+<li>防止硬件被失控的应用程序滥用;</li>
+<li>向应用程序提供简单一致的机制来控制复杂而又通常大不相同的低级硬件设备。</li>
+</ol>
+<p>操作系统通过几个基本的抽象概念(<strong>进程、虚拟内存和文件</strong>)来实现。</p>
+<blockquote>
+<p>文件是对 I/O 设备的抽象表示，虚拟内存是对主存和磁盘 I/O 设备的抽象表示，进程则是对处理器、主存和 I/O 设备的抽象表示。</p>
+</blockquote>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是操作系统对一个正在运行的程序进行的一种抽象。一个CPU在同一时间只能执行一个进程，但是可以<strong>并发运行</strong>，即一个进程的指令和另一个进程的指令是交错执行，操作系统实现这种交错执行的机制称为<strong>上下文切换</strong>，而上下文就是操作系统保持跟踪进程运行所需的所有状态信息。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>在现代操作系统中，一个进程实际上可以由多个称为<strong>线程</strong>的执行单元组成，每个线程都运行在进程的上下文中，并共享同样的代码和全局数据。</p>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>使用 xv6 里的解释</p>
+<p>虚拟内存是每个进程都会有自己独立的 page table，每一个进程只能访问出现在自己page table中的物理内存。操作系统会设置page table，使得每一个进程都有不重合的物理内存，这样一个进程就不能访问其他进程的物理内存，因为其他进程的物理内存都不在它的 page table 中。</p>
+<blockquote>
+<p>就比如 ls 程序会有一个内存地址 0，echo 程序也会有一个内存地址 0，但是操作系统会将两个程序的内存地址0映射到不同的物理内存地址，所以ls程序不能访问echo程序的内存，同样echo程序也不能访问ls程序的内存。</p>
+</blockquote>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件就是字节序列。每个I/O设备，包括磁盘、键盘、显示器，甚至网络，都可以看成是文件。系统中的所有输入输出都是通过使用一小组称为 Unix I/O 的系统函数调用读写文件来实现的。</p>
+<h2 id="系统之间利用网络通信"><a href="#系统之间利用网络通信" class="headerlink" title="系统之间利用网络通信"></a>系统之间利用网络通信</h2><p>从一个单独的系统来看，网络可视为一个 I/O 设备，当系统从主存复制一串字节到网络适配器时，数据流经过网络到达另一台机器，相似地，系统可以读取从其他机器发送来的数据，并把数据复制到自己的主存。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
