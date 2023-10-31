@@ -174,7 +174,7 @@
 <li><strong>修饰成员变量:</strong> 修饰成员变量时该变量将被所有该类的对象共享，而不是每个对象拥有一份副本，而且不需要生成对象就可以访问该成员。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> count; <span class="comment">// 静态成员变量</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> MyClass::count = <span class="number">0</span>; <span class="comment">// 静态成员变量的初始化</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyClass obj1;</span><br><span class="line">    MyClass obj2;</span><br><span class="line"></span><br><span class="line">    obj1.count = <span class="number">5</span>;</span><br><span class="line">    std::cout &lt;&lt; obj2.count &lt;&lt; std::endl; <span class="comment">// 输出 5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><strong>修饰成员函数:</strong> 修饰成员函数使得不需要生成对象就可以访问该函数，但是在 static 函数内只能访问 static 成员。</li>
 </ol>
-<h3 id="this-指针"><a href="#this-指针" class="headerlink" title="this 指针"></a>this 指针</h3><p><code>this</code> 指针是一个特殊的指针，它指向当前对象的地址。在 C++ 中，每个类的非静态成员函数都有一个隐含的 `this`` 指针，它指向调用该成员函数的对象。</p>
+<h3 id="this-指针"><a href="#this-指针" class="headerlink" title="this 指针"></a>this 指针</h3><p><code>this</code> 指针是一个特殊的指针，它指向当前对象的地址。在 C++ 中，每个类的非静态成员函数都有一个隐含的 <code>this</code> 指针，它指向调用该成员函数的对象。</p>
 <p>当一个类对象调用成员函数时，编译程序先将对象的地址赋给了 <code>this</code> 指针，然后调用该成员函数，每次成员函数存取数据成员时，都其实是在隐式地使用 <code>this</code> 指针。</p>
 <p><code>this</code> 指针是一个常量指针，被隐含地声明为: <code>ClassName *const this</code> ，这意味着不能给 <code>this</code> 指针赋值，而在 <code>const</code> 成员函数里被声明为 <code>const ClassName* const</code></p>
 <p>最后还需要注意的是，<code>this</code> 并不是一个常规变量，而是个右值，所以不能取得 <code>this</code> 的地址(不能 <code>&amp;this</code>)</p>
@@ -198,7 +198,7 @@
 </li>
 </ul>
 <blockquote>
-<p>C++ Prime:” 当一个对象被用作右值的时候，用的是对象的值(内容);当对象被用作左值时，用的是对象的身份(在内存中的位置)”</p>
+<p>C++ Primer:” 当一个对象被用作右值的时候，用的是对象的值(内容);当对象被用作左值时，用的是对象的身份(在内存中的位置)”</p>
 </blockquote>
 <p>左值引用(lvalue reference)和右值引用(rvalue reference)是C++中引入的两种不同类型的引用。</p>
 <ol>
