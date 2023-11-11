@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        CSAPP-第二章(Homework) - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-57"><span class="toc-text">2.57</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-58"><span class="toc-text">2.58</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-59"><span class="toc-text">2. 59</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-60"><span class="toc-text">2.60</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-61"><span class="toc-text">2.61</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-62"><span class="toc-text">2. 62</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        CSAPP-第二章(Homework)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-11-01 20:17:36</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#CSAPP" title="CSAPP">CSAPP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="2-57"><a href="#2-57" class="headerlink" title="2.57"></a>2.57</h3><blockquote>
+<p>编写程序 <code>show_short</code> 、<code>show_long</code> 、<code>show_double</code>，它们分别打印类型为 <code>short</code>、<code>long</code> 和 <code>double</code> 的字节表示。</p>
+</blockquote>
+<p><code>char</code> 是字符型，但也是属于整形的，因为 <code>char</code> 最终存储的是 ASCLL 码值到内存的。一个 <code>char</code> 有 8 个位，所以能存储的范围为 $-128\sim 127$ ，而 <code>unsigned char</code> 存储的范围为 $0\sim 255$ 。因为它占用一个字节，所以 <code>unsigned char</code> 可以精确地表示一个字节的所有可能值，所以它通常用于存储和处理字节数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> *byte_pointer;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 大端</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_byte</span><span class="params">(byte_pointer start, <span class="type">size_t</span> sz)</span> &#123;</span><br><span class="line">    <span class="comment">// 展示十六进制</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; sz; i ++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%.2x&quot;</span>, start[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="comment">// 展示二进制(大端)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; sz; i ++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">7</span>; j &gt;= <span class="number">0</span>; j --) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, (start[i] &gt;&gt; j) &amp; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(j % <span class="number">4</span> == <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_short</span><span class="params">(<span class="type">short</span> num)</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;short: \n&quot;</span>);</span><br><span class="line">    show_byte((byte_pointer)&amp;num, <span class="keyword">sizeof</span>(<span class="type">short</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_long</span><span class="params">(<span class="type">long</span> num)</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;long: \n&quot;</span>);</span><br><span class="line">    show_byte((byte_pointer)&amp;num, <span class="keyword">sizeof</span>(<span class="type">long</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_float</span><span class="params">(<span class="type">float</span> num)</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;float: \n&quot;</span>);</span><br><span class="line">    show_byte((byte_pointer)&amp;num, <span class="keyword">sizeof</span>(<span class="type">float</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_double</span><span class="params">(<span class="type">double</span> num)</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;double: \n&quot;</span>);</span><br><span class="line">    show_byte((byte_pointer)&amp;num, <span class="keyword">sizeof</span>(<span class="type">double</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">365</span>;</span><br><span class="line">    show_short((<span class="type">short</span>)num);</span><br><span class="line">    show_long((<span class="type">long</span>)num);</span><br><span class="line">    show_float((<span class="type">float</span>)num);</span><br><span class="line">    show_double((<span class="type">double</span>)num);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-58"><a href="#2-58" class="headerlink" title="2.58"></a>2.58</h3><blockquote>
+<p>编写过程 <code>is_little_endian</code> ，当在小端法机器上编译和运行时返回1，在大端法机器上编译运行时则返回0。这个程序应该可以运行在任何机器上，无论机器的字长是多少。</p>
+</blockquote>
+<p>计算机存储数据在地址上都是由低到高，大小端的区别为小端法存储数据由低位到高位，而大端法则是由高位到低位，例如数据 <code>0x12345678</code> 小端法存储就是 <code>78 56 34 12</code>，而大端法存储则是 <code>12 34 56 78</code> 。<br>可以使用 <code>union</code> 来实现，在 <code>union</code> 中存放两个数据，一个 <code>int</code> 一个 <code>char</code> ，<code>char</code> 占的地址为 <code>int</code> 数据的第一个字节，修改 <code>int</code> 值为1，这样就只需要判断 char 数据是否为 1 即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">is_little_endian</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="type">char</span> c;</span><br><span class="line">    &#125; test;</span><br><span class="line">    test.i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>)test.c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-59"><a href="#2-59" class="headerlink" title="2. 59"></a>2. 59</h3><blockquote>
+<p>编写一个 C 表达式，它生成一个字，由 $x$ 的最低有效字节和 $y$ 中剩下的字节组成。对于运算数 <code>x = 0x89ABCDEF</code> 和 <code>y = 0x76543210</code> 得到 <code>0x765432EF</code>。</p>
+</blockquote>
+<ul>
+<li><strong>位(bit)是计算机内部数据存储的最小单位</strong>，只能取0或者取1;</li>
+<li><strong>字节(byte)是计算机数据处理的最小单位</strong>，每个字节有8个二进制位，其中最右边的一位为最低位，最左边的一位为最高位;</li>
+<li><strong>字是计算机进行数据处理和运算的单位</strong>，即cpu一次处理二进制代码的位数，字的位数叫做字长，字长的大小与计算架构有关，通常说的32位机就是一个字有4个字节，32个位。</li>
+</ul>
+<p><code>x &amp; 0xFF</code>, 得到 x 最低有效位，<code>y &amp; ~0xFF</code> 得到 y 最低有效位之外的位，两者进行或运算，得到组合结果<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> *byte_pointer;</span><br><span class="line">...</span><br><span class="line"><span class="type">size_t</span> x = <span class="number">0x89ABCDEF</span>;</span><br><span class="line"><span class="type">size_t</span> y = <span class="number">0x76543210</span>;</span><br><span class="line"><span class="type">size_t</span> mask = <span class="number">0xff</span>;</span><br><span class="line"><span class="type">size_t</span> res = ((x &amp; mask) | (y &amp; ~mask));</span><br><span class="line">byte_pointer start = (byte_pointer)&amp; res;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(<span class="type">size_t</span>); i ++) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%.2x&quot;</span>, start[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出: ef32547600000000 (小端法机器)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-60"><a href="#2-60" class="headerlink" title="2.60"></a>2.60</h3><blockquote>
+<p>假设我们将一个 $w$ 位的字中的字节从 0(最低位)到 $\frac{w}{8} - 1$(最高位)编号。写出下面C函数代码，它会返回一个无符号值，其中参数 $x$ 的字节 $i$ 被替换成字节 $b$ :<br><code>unsigned replace_byte (unsigned x, inti, unsigned char b);</code><br>以下示例说明其如何工作:<br><code>replace_byte(Ox12345678, 2, OxAB) --&gt; Ox12AB5678</code><br><code>replace_byte(Ox12345678, 0, OxAB) --&gt; Ox123456AB</code></p>
+</blockquote>
+<p>按要求模拟就好了<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> *byte_pointer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @brief 参数 x 的字节 i 被替换成字节 b</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">unsigned</span> <span class="title function_">replace_byte</span> <span class="params">(<span class="type">unsigned</span> x, <span class="type">int</span> i, <span class="type">unsigned</span> <span class="type">char</span> b)</span> &#123;</span><br><span class="line">    byte_pointer start = (byte_pointer)&amp; x;</span><br><span class="line">    start[i] = b;</span><br><span class="line">    <span class="keyword">return</span> *(<span class="type">unsigned</span>*)start;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_byte</span><span class="params">(byte_pointer start, <span class="type">size_t</span> sz)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; sz; i ++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%.2x&quot;</span>, start[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> res1 = replace_byte(<span class="number">0x12345678</span>, <span class="number">2</span>, <span class="number">0xAB</span>);</span><br><span class="line">    <span class="type">unsigned</span> res2 = replace_byte(<span class="number">0x12345678</span>, <span class="number">0</span>, <span class="number">0xAB</span>);</span><br><span class="line">    show_byte((byte_pointer)&amp;res1, <span class="keyword">sizeof</span>(<span class="type">unsigned</span>));</span><br><span class="line">    show_byte((byte_pointer)&amp;res2, <span class="keyword">sizeof</span>(<span class="type">unsigned</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">output:</span></span><br><span class="line"><span class="comment">7856ab12</span></span><br><span class="line"><span class="comment">ab563412</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><br>这里提一下最后为什么返回 <code>*(unsigned*)start</code> ，这里先要将 <code>unsigned char *</code> 类型的 <code>start</code> 转变为 <code>unsigned*</code> ，即先转换指针类型，再去指针指向地址的值，而如果使用 <code>(unsigned)(*start)</code> 的话，<code>*start</code> 由于是 <code>unsigned char</code> 类型的指针，所以只会取出第一个地址的值，而不是所有的内存单元。</p>
+<p>在接下来的作业中，我们特意限制了你能使用的编程结构，来帮你更好地理解 C 语言的位级、逻辑<br>和算术运算。在回答这些问题时，你的代码必须遵守以下规则:</p>
+<ul>
+<li>假设:<ul>
+<li>整数用补码形式表示;</li>
+<li>有符号数的右移是算术右移;</li>
+<li>数据类型 <code>int</code> 是 $w$ 位长的。对于某些题目，会给定 $w$ 的值，但是在其他情况下，只要 $2$ 是 8 的整数倍，你的代码就应该能工作。你可以用表达式 <code>sizeof(int)&lt;&lt;3</code> 来计算 $w$。</li>
+</ul>
+</li>
+<li>禁止使用<ul>
+<li>条件语句、循环、分支语句、函数调用和宏调用;</li>
+<li>除法、模运算和乘法;</li>
+<li>相对比较运算($&gt;$ 、$&lt;$ 、$\le$ 和 $\ge$)。</li>
+</ul>
+</li>
+<li>允许的运算<ul>
+<li>所有的位级和逻辑运算;</li>
+<li>左移和右移，但是位移量只能在 $0$ 到 $w-1$ 之间;</li>
+<li>加法和减法;</li>
+<li>相等(==)和不等(!=)测试。(有些题目里也不允许这些运算);</li>
+<li>整型常数 <code>INT_MAX</code> 和 <code>INT_MIN</code>;</li>
+<li>对 <code>int</code> 和 <code>unsigned</code> 进行强制类型转换，无论是显式的还是隐式的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-61"><a href="#2-61" class="headerlink" title="2.61"></a>2.61</h3><blockquote>
+<p>写一个C表达式，在下列描述的条件下产生1, 而在其他情况下得到 0。假设 $x$ 是 <code>int</code> 类型。<br>A. $x$ 的任何位都等于 1<br>B. $x$ 的任何位都等于 0<br>C. $x$ 的最低有效字节中的位都等于1<br>D. $x$ 的最高有效字节中的位都等于0</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> *byte_pointer;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_byte</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> mask = <span class="number">1u</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> cnt = <span class="number">1</span>; mask; mask &gt;&gt;= <span class="number">1</span>, cnt ++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, x &amp; mask ? <span class="number">1</span>: <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>(cnt % <span class="number">4</span> == <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">A</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !~x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">B</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">C</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !~(x | ~<span class="number">0xFF</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">D</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !(x &gt;&gt; ((<span class="keyword">sizeof</span>(<span class="type">int</span>) - <span class="number">1</span>) &lt;&lt; <span class="number">3</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> all_bit_one = ~<span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> all_bit_zero = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	assert(A(all_bit_one));</span><br><span class="line">	assert(!B(all_bit_one));</span><br><span class="line">	assert(C(all_bit_one));</span><br><span class="line">	assert(!D(all_bit_one));</span><br><span class="line">	</span><br><span class="line">	assert(!A(all_bit_zero));</span><br><span class="line">	assert(B(all_bit_zero));</span><br><span class="line">	assert(!C(all_bit_zero));</span><br><span class="line">	assert(D(all_bit_zero));</span><br><span class="line">	</span><br><span class="line">	assert(!A(<span class="number">0x1234FF</span>));</span><br><span class="line">	assert(!B(<span class="number">0x1234FF</span>));</span><br><span class="line">	assert(C(<span class="number">0x1234FF</span>));</span><br><span class="line">	assert(D(<span class="number">0x1234FF</span>));</span><br><span class="line">	</span><br><span class="line">	assert(!A(<span class="number">0x1234</span>));</span><br><span class="line">	assert(!B(<span class="number">0x1234</span>));</span><br><span class="line">	assert(!C(<span class="number">0x1234</span>));</span><br><span class="line">	assert(D(<span class="number">0x1234</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释:</p>
+<ol>
+<li><code>~</code> 是对每一位取反</li>
+<li><code>!</code> 是对值取反</li>
+</ol>
+<p>而 C 部分，首先是和 <code>~0xFF</code> (亦即 <code>0xFFFFFF00</code>) 做或运算，前 3 个字节都为 1，最后一个字节为 $x$ 本来的最低字节，要判断是否为全 1 只需要全部取反再判断是否为0即可</p>
+<p>D 部分，<code>(x &gt;&gt; ((sizeof(int) - 1) &lt;&lt; 3))</code> 会得到最高位字节右移后的结果，例如<code>0011 1011 1001 1010 1100 1010 0000 0000</code> 会变为 <code>0000 0000 0000 0000 0000 0000 0011 1011</code> ，最后判断即可。</p>
+<h3 id="2-62"><a href="#2-62" class="headerlink" title="2. 62"></a>2. 62</h3><blockquote>
+<p>编写一个函数 <code>int_shifts_are_arithmetic()</code> 在对 <code>int</code> 类型的数使用算术右移的机器上运行时这个函数生成 1, 而其他情况下生成 0 。你的代码应该可以运行在任何字长的机器上。在几种机器上测试你的代码。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">int_shifts_are_arithmetic</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> !(x ^ (x &gt;&gt; <span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后面的有时间慢慢做…</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>

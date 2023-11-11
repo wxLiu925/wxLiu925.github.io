@@ -160,7 +160,7 @@
         <blockquote>
 <p>人总是对记忆有一种放不下的假清高，渴望在过去里找一点存在感，却因此而陷入更深的纠结。这并不能减少人的迷茫彷徨，反而会加剧内心的动荡。<br>理解和接受过去的自己，这很重要。同时也要带着乐观派、理想主义和克制活着。<br>—— 2023.10.31记。</p>
 </blockquote>
-<div align=center><img src="https://i0.imgs.ovh/2023/10/28/Fq8hp.png" width=""></div>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/Fq8hp.png" width=""></div>
 
 <h2 id="信息存储"><a href="#信息存储" class="headerlink" title="信息存储"></a>信息存储</h2><p>大多数计算机使用 8 位的块，或者字节作为最小的可寻址的内存单位，而不是访问内存中单独的位。机器级程序将内存视为一个非常大的字节数组，称为<strong>虚拟内存(virtual memory)</strong>。内存的每个字节都由一个唯一的数字来标识，称为它的<strong>地址(address)</strong>，所有可能地址的集合就称为<strong>虚拟地址空间(virtual address space)</strong>。</p>
 <ul>
@@ -181,13 +181,13 @@
 4 &= 0\times 16 + 4 \tag{4}
 \end{align*}</script><p>所以 314156 的十六进制表示就是 0x4CB2C 。反过来，将16进制转换为10进制只需要不断乘上16的幂次相加即可，例如 $314156 = 4\times 16^4 + 12\times 16^3 + 11\times 16^2 + 2\times 16^1 + 12$ .</p>
 <h3 id="字数据大小"><a href="#字数据大小" class="headerlink" title="字数据大小"></a>字数据大小</h3><p>每台计算机都有一个<strong>字长(word size)</strong>，指明指针数据的<strong>标称大小(nominal size)</strong>，字长决定了虚拟地址空间的最大大小: 对于一台字长为 $\omega$ 位的机器，虚拟地址的范围为 $0\sim 2^{\omega}-1$</p>
-<div align=center><img src="https://i0.imgs.ovh/2023/10/27/FgDwe.png" width=""></div>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/FgDwe.png" width=""></div>
 
 <h3 id="寻址和字节顺序"><a href="#寻址和字节顺序" class="headerlink" title="寻址和字节顺序"></a>寻址和字节顺序</h3><p>基本上，多字节对象都被存储为连续的字节序列，对象的地址为所使用字节中最小的地址。</p>
 <p>排列表示一个对象的字节有两个通用的规则:</p>
 <ul>
-<li><strong>小端法(little ending)</strong>: 最低有效字节在前面的方式</li>
-<li><strong>大端法(big ending)</strong>: 最高有效字节在前面</li>
+<li><strong>小端法(little ending)</strong>: 最低有效字节在前面的方式(低位放在低地址)</li>
+<li><strong>大端法(big ending)</strong>: 最高有效字节在前面(高位放在低地址)</li>
 </ul>
 <blockquote>
 <p>CSAPP里关于大小端之争记录的一个有趣故事: “ ‘……我下面要告诉你的是， Lilliput 和 Blefuscu 这两大强国在过去 36 个月里一直在苦战。战争开始是由于以下的原因：我们大家都认为，吃鸡蛋前，原始的方法是打破鸡蛋较大的一端，可是当今皇帝的祖父小时候吃鸡蛋，一次按古法打鸡蛋时碰巧将一个手指弄破了，因此他的父亲，当时的皇帝，就下了一道敕令，命令全体臣民吃鸡蛋时打破鸡蛋较小的一端，违令者重罚。老百姓们对这项命令极为反感。历史告诉我们，由此曾发生过六次叛乱，其中一个皇帝送了命，另一个丢了王位。这些叛乱大多都是由 Ble­fuscu 的国王大臣们煽动起来的。叛乱平息后，流亡的人总是逃到那个帝国去寻救避难。据估计，先后几次有 11000 人情愿受死也不肯去打破鸡蛋较小的一端。关于这一争端，曾出版过几百本大部著作，不过大端派的书一直是受禁的，法律也规定该派的任何人不得做官。’(此段译文摘自网上蒋剑锋译的 《 格利佛游记 》 第一卷第 4 章。)<br>在他那个时代，Swift 是在讽刺英国(Lilliput)和法国(Blefuscu)之间持续的冲突。Danny Cohen, 一位网络协议的早期开创者，第一次使用这两个术语来指代字节顺序, 后来这个术语被广泛接纳了 。“</p>
@@ -309,7 +309,8 @@ b = \sum_{i=-n}^{m} 2^i\times b_i</script><p>二进制小数点向左移动一�
 </ul>
 <p>在单精度浮点格式(C语言中的 <code>float</code> ) 中，$\rm s$、$\rm exp$ 和 $\rm frac$ 的字段分别为 1 位，$k=8$ 位和 $n = 23$ 位，得到一个 32 位的表示。<br>在双精度浮点格式(C语言中的 <code>double</code> ) 中，$\rm s$、$\rm exp$ 和 $\rm frac$ 的字段分别为 1 位，$k=11$ 位和 $n = 52$ 位，得到一个 64 位的表示。</p>
 <p>以一个 32 位的 <code>float</code> 为例，由符号位、指数位和小数位组成，如图所示</p>
-<div align=center><img src="https://i0.imgs.ovh/2023/10/29/ALnuv.png" width=""></div>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/ALnuv.png" width=""></div>
+
 
 <ul>
 <li>符号位: 1 位，0 表示正数，1 表示负数;</li>
@@ -340,7 +341,8 @@ b = \sum_{i=-n}^{m} 2^i\times b_i</script><p>二进制小数点向左移动一�
 </ul>
 <p>C++ 中可以使用 <code>1/0.0</code> 或者 <code>1e1000</code> 等赋值来得到一个无穷，他们都是一样的无穷，本质上是表示”超过存储范围”。输出 <code>inf</code> 或者 <code>-inf</code> 。</p>
 <h3 id="非数值-NaN"><a href="#非数值-NaN" class="headerlink" title="非数值(NaN)"></a>非数值(NaN)</h3><p>非数值与无穷一样使用全为1的指数位表示，为了区分开来，小数位全为0时表示无穷，其他所有情况表示非数值情况。</p>
-<h3 id="浮点数的范围和精度"><a href="#浮点数的范围和精度" class="headerlink" title="浮点数的范围和精度"></a>浮点数的范围和精度</h3><div align=center><img src="https://i0.imgs.ovh/2023/10/31/AIb4d.png" width=""></div>
+<h3 id="浮点数的范围和精度"><a href="#浮点数的范围和精度" class="headerlink" title="浮点数的范围和精度"></a>浮点数的范围和精度</h3><div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/AIb4d.png" width=""></div>
+
 
 <p>对于32位规约数来说，指数位包括 $[-127, 128]$ ，但是由于左右端点表示其他值，所以实际指数位为 $[-126,127]$ 。</p>
 <p><strong>范围:</strong> 考虑正数，前面计算过最小的规约数为 $2^{-126}$ ，而最大的规约数为 $0(11111110)1…1_2 \approx 2^{128}$ ，所以极限范围就是 $[2^{-126}, 2^{128})$ ，转换为十进制就大约是 $[1.175\times 10^{-38}, 3.403\times 10^{38}]$ 。如果算上非规约数，那下界可以达到 $2^{-149}\approx 1.401\times 10^{-45}$ 。</p>

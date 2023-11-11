@@ -13,7 +13,7 @@
 
     <title>
         
-        刘刘大顺wx
+        CSAPP-程序的机器级表示 - 刘刘大顺wx
         
     </title>
 
@@ -71,7 +71,7 @@
                     <span>主页</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
@@ -106,6 +106,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A0%81"><span class="toc-text">程序编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-text">C编译过程</span></a></li></ol></li></ol>
+</div>
+    
 </div>
 
 
@@ -133,155 +137,67 @@
         
 
 
-<!-- 归档列表 -->
+<div class="post-container">
+    <div class="post-title">
+        CSAPP-程序的机器级表示
+    </div>
 
-<div class="archives-container">
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-11-01 19:28:02</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#CSAPP" title="CSAPP">CSAPP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>历史上出现过很多知名的指令集架构，比如Alpha， SPARC，PowerPC，MIPS等，而在今天最流行的则是x86(-64)，ARM，RISC-V。这一章以x86-64为重点。</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/isa.png" width=""></div>
 
-<div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2023">
-                    <span class="tag-text">2023</span>
-                </span>
-    <ul>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>11-11</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/11/11/数字图像处理Lab1-图像增强的空域方法/">
-                        <span>
-                            数字图像处理Lab1-图像增强的空域方法
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>11-01</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/11/01/CSAPP-第二章-Homework/">
-                        <span>
-                            CSAPP-第二章(Homework)
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>11-01</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/11/01/CSAPP-程序的机器级表示/">
-                        <span>
-                            CSAPP-程序的机器级表示
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>10-26</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/10/26/CSAPP-信息的表示和处理/">
-                        <span>
-                            CSAPP-信息的表示和处理
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>10-26</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/10/26/机器学习与模式识别-手写数字识别/">
-                        <span>
-                            机器学习与模式识别:手写数字识别
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>10-25</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/10/25/C-面经Part1/">
-                        <span>
-                            C++面经Part1
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>10-23</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/10/23/CSAPP-计算机系统漫游/">
-                        <span>
-                            CSAPP-计算机系统漫游
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>10-22</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/10/22/微信Robot使用手册/">
-                        <span>
-                            微信Robot使用手册
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>10-19</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2023/10/19/hello/">
-                        <span>
-                            Hello World
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
 
-    </ul>
-</div>
+<blockquote>
+<p>指令集体系结构或指令集架构(nstruetion Set Arehiteeture, ISA)，定义机器级程序的<br>格式和行为，它定义了处理器状态、指令的格式，以及每条指令对状态的影响。大多数ISA, 包括 x86-64, 将程序的行为描述成好像每条指令都是按顺序执行的。</p>
+</blockquote>
+<p>虽然我们日常使用的编程语言多种多样，但对于计算机来说，其唯一能理解的无非就是二进制，即0和1而已。 CPU的工作流程基本可以看作为控制器从计数器(PC)取出下一条指令并执行，同时更新程序计数器的值。下面是一些基本概念:</p>
+<ul>
+<li><strong>Instructure Set Architecture:</strong> 指令集架构 (包括指令规格，寄存器等)，简称ISA，它是软硬件之间的“合同”</li>
+<li><strong>Mircoarchitecture:</strong> 指令集架构的具体实现方式 (比如流水线级数，缓存大小等)，它是可变的</li>
+<li><strong>Machine Code:</strong> 机器码，也就是机器可以直接执行的二进制指令</li>
+<li><strong>Assembly Code:</strong> 汇编码，也就是机器码的文本形式 (主要是给人类阅读)</li>
+</ul>
+<h2 id="程序编码"><a href="#程序编码" class="headerlink" title="程序编码"></a>程序编码</h2><h3 id="C编译过程"><a href="#C编译过程" class="headerlink" title="C编译过程"></a>C编译过程</h3><p>C程序的编译过程: 源代码 <code>-&gt;</code> 编译 <code>-&gt;</code> 汇编 <code>-&gt;</code> 链接 <code>-&gt;</code> 可执行文件 <code>-&gt;</code> 装载 <code>-&gt;</code> 执行</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/05AFB7EEA96F9F7EEC5ADE1BEA97CC09.png" width=""></div> 
 
+<p>更具体的是:</p>
+<ol>
+<li>预处理器(preprocessor) 把诸如 <code>#include</code>、<code>#define</code>、<code>#if</code>、<code>#else</code>、<code>#elif</code>、<code>#ifdef</code>、<code>#endif</code> 等预编译指令替换掉</li>
+<li>编译器(compiler)把.c源文件编译成.s的汇编代码文件</li>
+<li>汇编器(assembler)把汇编代码文件转换成相应的二进制目标文件.o，目标文件已经是机器码了，只是没有填入全局变量的地址</li>
+<li>链接器(linker)，把多目标文件和库函数链接在一起，形成可执行文件</li>
+</ol>
+<p>在整个编译过程中，编译器会完成大部分工作，将把用 C 语言提供的相对比较抽象的执行模型表示的程序转化成处理器执行的非常基本的指令。汇编代码表示非常接近于机器代码。与机器代码的二进制格式相比，汇编代码的主要特点是它用可读性更好的文本格式表示。</p>
+<ul>
+<li>程序计数器(“PC”)，在 x86-64 中用 <code>%rip</code> 表示，给出将要执行的下一条指令在内存中的地址;</li>
+<li>整数寄存器文件包含16个命名的位置，分别存储64位的值，这些寄存器可以存储地址或整数数据，有的寄存器被用来记录某些重要的程序状态，而其他的寄存器用来保存临时数据，例如过程的参数和局部变量，以及函数的返回值;</li>
+<li>条件码寄存器保存着最近执行的算术或逻辑指令的状态信息，可以用来实现条件控制代码比如 <code>if</code> 和 <code>while</code></li>
+<li>向量寄存器可以存放一个或多个整数或浮点数值。</li>
+</ul>
+<p>未完待续…</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
 </div>
 
     </div>
@@ -373,7 +289,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
@@ -382,6 +298,24 @@
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
 
 
 

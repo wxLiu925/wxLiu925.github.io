@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        数字图像处理Lab1-图像增强的空域方法 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9-Lab1"><span class="toc-text">实验内容(Lab1)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="toc-text">实验原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#T6"><span class="toc-text">T6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T7"><span class="toc-text">T7</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        数字图像处理Lab1-图像增强的空域方法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-11-11 17:58:56</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>这个系列是针对数学图像处理课程的实验以及大作业写的手册。原始代码已上传至github。四次实验的内容分别为:<br>Lab1: 图像增强的空域方法<br>Lab2: 图像增强的频域方法<br>Lab3: 图像压缩编码实现<br>Lab4(大作业): 美颜算法原理及其实现</p>
+<p>地址: <a target="_blank" rel="noopener" href="https://github.com/wxLiu925/Whut-ExperimentProject/tree/main/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80">https://github.com/wxLiu925/Whut-ExperimentProject/tree/main/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80</a></p>
+<h2 id="实验内容-Lab1"><a href="#实验内容-Lab1" class="headerlink" title="实验内容(Lab1)"></a>实验内容(Lab1)</h2><ol>
+<li>读入一副彩色图像(非卡通), 大小为256*256, 观察它的每个点象素;将该彩色图像变成灰度图像; 将该图像的直方图画出来, 要求自己编写函数绘制直方图的函数。</li>
+<li>自己编写函数，进行直方图均衡化，并显示均衡化后的图像。</li>
+<li>将该彩色图像使用 imnoise 函数加入各种噪声，显示图像；或者读入一副低<br>质量被噪声污染的图像。</li>
+<li>分别使用 conv2 函数、fspecial 函数和 imfilter 函数，对受噪声污染的图像进行均值滤波和中值滤波、高斯滤波。要求设置不同大小的均值滤波模板，改变权值，测试试验结果。中值滤波要求能设置不同的滤波窗口大小，显示结果。请尽量使用矩阵的整体运算，来代替循环计算。</li>
+<li>读入另外一副图像，对其采取不同的 roberts/laplace/sobel/priwitt 边缘锐化算子进行边缘增强和锐化，并显示不同算子的计算结果。对原始图像加入噪声，观察锐化后的效果。要求：请尽量避免循环运算，而使用矩阵整体运算。</li>
+<li>结合试验结果，对不同图像空域增强方法进行分析和比较，写出你的实验体会。</li>
+<li>对锐化算子的处理结果中，如果计算得到小于零的值，对小于 0 的部分，采用不同的方法标准化到[0,255]时，图像的显示效果有什么不同？为什么？</li>
+</ol>
+<h2 id="实验原理"><a href="#实验原理" class="headerlink" title="实验原理"></a>实验原理</h2><p>这个实验没什么好讲的，实验内容比较简单，也比较繁杂，更多细节请看代码注释。</p>
+<h3 id="T6"><a href="#T6" class="headerlink" title="T6"></a>T6</h3><ol>
+<li>均值滤波和高斯滤波：这两种方法都是线性滤波器，主要用于减少图像中的噪声。均值滤波器简单易用，但可能会使图像变得模糊。高斯滤波器可以更好地保留图像的细节，但计算复杂度较高。</li>
+<li>中值滤波：中值滤波是一种非线性滤波器，特别适合于去除椒盐噪声。它可以保留图像的边缘信息，但可能会导致图像的纹理信息丢失。</li>
+<li>Sobel、Laplace、Prewitt和Roberts边缘检测：这些方法都是用于图像的边缘检测和锐化。Sobel和Prewitt操作符可以更好地保留边缘信息，但对噪声敏感。Laplace操作符可以检测所有方向的边缘，但可能会导致边缘变得较薄。Roberts操作符简单易用，但可能会错过一些细微的边缘信息。</li>
+</ol>
+<p>总的来说，如果图像中存在大量的高斯噪声，应该选择使用高斯滤波器。如果需要检测图像的边缘，则应该选择使用Sobel或Laplace操作符。</p>
+<h3 id="T7"><a href="#T7" class="headerlink" title="T7"></a>T7</h3><p>在图像处理中，像素值通常被标准化或缩放到[0,255]的范围。当我们应用锐化算子后，有可能得到小于0的值。对于这些小于0的值，我们需要进行处理以便能在[0,255]的范围内表示。以下是两种常用的处理方法：</p>
+<ol>
+<li>截断处理：这种方法将所有小于0的值设为0。这是最直接的方法，但可能会导致一些信息丢失，因为所有小于0的值都变成了同样的值（即0）。</li>
+<li>缩放处理：这种方法将所有的值（包括大于0的值）线性缩放到[0,255]的范围。这种方法可以保留更多的信息，因为它保持了原始数据中的相对差异。但这种方法可能会使图像看起来较暗，因为所有的值都被缩小了。<br>这两种方法会导致不同的显示效果。截断处理可能会导致图像在某些地方看起来有”断裂”，因为所有小于0的值都变成了0，可能会造成边缘信息的丢失。而缩放处理则能保留更多的边缘信息，但可能会使整个图像看起来较暗。</li>
+</ol>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
