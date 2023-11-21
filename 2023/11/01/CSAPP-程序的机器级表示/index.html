@@ -107,7 +107,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A0%81"><span class="toc-text">程序编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-text">C编译过程</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A0%81"><span class="toc-text">程序编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-text">C编译过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%96%87%E4%BB%B6-x86-64"><span class="toc-text">寄存器文件(x86-64)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PC%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">PC寄存器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80-AT-amp-T"><span class="toc-text">汇编语言(AT&amp;T)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-text">指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="toc-text">操作数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%A0%81"><span class="toc-text">操作码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%A0%81"><span class="toc-text">条件码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-text">实例</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -188,7 +188,91 @@
 <li>条件码寄存器保存着最近执行的算术或逻辑指令的状态信息，可以用来实现条件控制代码比如 <code>if</code> 和 <code>while</code></li>
 <li>向量寄存器可以存放一个或多个整数或浮点数值。</li>
 </ul>
-<p>未完待续…</p>
+<blockquote>
+<p>以下并不严格按照CSAPP的内容</p>
+</blockquote>
+<p>例如有如下 C 代码 <code>mstore.c</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="title function_">mult2</span><span class="params">(<span class="type">long</span>, <span class="type">long</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">multstore</span><span class="params">(<span class="type">long</span> x, <span class="type">long</span> y, <span class="type">long</span> *dest)</span> &#123;</span><br><span class="line">    <span class="type">long</span> t = mult2(x, y);</span><br><span class="line">    *dest = t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在命令行使用 <code>gcc -Og -S mstore.c</code> , <code>-S</code> 选项会使GCC运行编译器,产生一个汇编文件 <code>mstore.s</code> , 但是不做进一步工作</p>
+<p>查看该汇编文件，内容如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">	.file	<span class="string">&quot;mstore.c&quot;</span></span><br><span class="line">	.text</span><br><span class="line">	.globl	multstore</span><br><span class="line">	.type	multstore, @function</span><br><span class="line">multstore:</span><br><span class="line">.LFB0:</span><br><span class="line">	.cfi_startproc</span><br><span class="line">	endbr64</span><br><span class="line">	pushq	%rbx</span><br><span class="line">	.cfi_def_cfa_offset <span class="number">16</span></span><br><span class="line">	.cfi_offset <span class="number">3</span>, <span class="number">-16</span></span><br><span class="line">	movq	%rdx, %rbx</span><br><span class="line">	call	mult2@PLT</span><br><span class="line">	movq	%rax, (%rbx)</span><br><span class="line">	popq	%rbx</span><br><span class="line">	.cfi_def_cfa_offset <span class="number">8</span></span><br><span class="line">	ret</span><br><span class="line">	.cfi_endproc</span><br><span class="line">.LFE0:</span><br><span class="line">	.size	multstore, .-multstore</span><br><span class="line">	.ident	<span class="string">&quot;GCC: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0&quot;</span></span><br><span class="line">	.section	.note.GNU-<span class="built_in">stack</span>,<span class="string">&quot;&quot;</span>,@progbits</span><br><span class="line">	.section	.note.gnu.property,<span class="string">&quot;a&quot;</span></span><br><span class="line">	.align <span class="number">8</span></span><br><span class="line">	.<span class="type">long</span>	<span class="number">1f</span> - <span class="number">0f</span></span><br><span class="line">	.<span class="type">long</span>	<span class="number">4f</span> - <span class="number">1f</span></span><br><span class="line">	.<span class="type">long</span>	<span class="number">5</span></span><br><span class="line"><span class="number">0</span>:</span><br><span class="line">	.<span class="built_in">string</span>	<span class="string">&quot;GNU&quot;</span></span><br><span class="line"><span class="number">1</span>:</span><br><span class="line">	.align <span class="number">8</span></span><br><span class="line">	.<span class="type">long</span>	<span class="number">0xc0000002</span></span><br><span class="line">	.<span class="type">long</span>	<span class="number">3f</span> - <span class="number">2f</span></span><br><span class="line"><span class="number">2</span>:</span><br><span class="line">	.<span class="type">long</span>	<span class="number">0x3</span></span><br><span class="line"><span class="number">3</span>:</span><br><span class="line">	.align <span class="number">8</span></span><br><span class="line"><span class="number">4</span>:</span><br></pre></td></tr></table></figure></p>
+<p>我们其实只需要关注其中的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">multstore:</span><br><span class="line">.LFB0:</span><br><span class="line">	.cfi_startproc</span><br><span class="line">	endbr64</span><br><span class="line">	pushq	%rbx</span><br><span class="line">	.cfi_def_cfa_offset <span class="number">16</span></span><br><span class="line">	.cfi_offset <span class="number">3</span>, <span class="number">-16</span></span><br><span class="line">	movq	%rdx, %rbx</span><br><span class="line">	call	mult2@PLT</span><br><span class="line">	movq	%rax, (%rbx)</span><br><span class="line">	popq	%rbx</span><br><span class="line">	.cfi_def_cfa_offset <span class="number">8</span></span><br><span class="line">	ret</span><br><span class="line">	.cfi_endproc</span><br></pre></td></tr></table></figure></p>
+<h3 id="寄存器文件-x86-64"><a href="#寄存器文件-x86-64" class="headerlink" title="寄存器文件(x86-64)"></a>寄存器文件(x86-64)</h3><p>16个64位的寄存器，构成了寄存器文件。</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/5948E8CF263182DEE3C28521452B4405.png" width=""></div> 
+
+<p>16个寄存器文件，但是有64个命名，这是因为字节数量的不同。比如 <code>%rax</code> ，存储 <code>char</code> 类型的变量时只会用到低八位，即 <code>al</code> ，存储 <code>short</code> 类型的变量则需要用到低16位，即 <code>%ax</code> ，而 <code>int</code> 类型的变量需要用到32位，即 <code>%eax</code> 。</p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>在 x86-64 中存在着栈空间，它存储着临时变量，担任过程调用的中转站，即保留返回地址、参数等。栈遵循先进后出原则(LIFO)。栈空间有一个栈顶指针，也就是十六个寄存器里的 <code>%rsp</code> ，在 x86-64 中，程序栈存放在内存中某个区域，栈向下增长，这样可以使得栈顶元素的地址是所有栈中元素地址最低的。栈指针 <code>%rsp</code> 保存着栈顶元素的地址，如下图</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/4F2CBA99F7FB1F479FC93BC217889736.png" width=""></div> 
+
+<p>栈有两个操作:</p>
+<ul>
+<li>压入栈(push): 将栈顶指针往下移动若干个字节，使得栈的容量增大，再把新的数据填入栈顶;</li>
+<li>弹出栈(pop): 将栈顶指针上移若干字节，随着栈顶指针的上移，原来的栈顶已经被排除在栈的范围之外。</li>
+</ul>
+<h3 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h3><p>PC(Program counter)寄存器，也就是前面说的程序计数器，用 <code>%rip</code> 表示，它并不是通用寄存器的一员，它存储着下一条要执行的指令的地址。此外，PC寄存器并不会显式地出现在汇编代码中，其值的变化都是暗地里进行的。</p>
+<h2 id="汇编语言-AT-amp-T"><a href="#汇编语言-AT-amp-T" class="headerlink" title="汇编语言(AT&amp;T)"></a>汇编语言(AT&amp;T)</h2><h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><p>汇编代码是由多条指令组成的序列，指令序列存在内存里，PC指向下一条指令的地址，一个指令可以完成一个CPU操作。一条指令由<strong>操作码</strong>和 $0\sim 2$ 个<strong>操作数</strong>组成，操作码指定了当前指令要执行的操作，例如两数相加，操作数则是操作码的作用对象。由此可见，指令的长度并不固定。</p>
+<h3 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h3><p>操作数可以是<strong>立即数、寄存器、内存地址</strong>，以下是三种操作数的表示方法</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/9812E8E00347A8E30C20E1A2635EC8D1.png" width=""></div> 
+
+<p>举例子对上图进行说明:</p>
+<ol>
+<li><code>$5</code> 是立即数，它的值为 5;</li>
+<li><code>%rax</code> 是寄存器，它的值是寄存器 <code>%rax</code> 中的值;</li>
+<li><code>0x07</code> 是内存地址，它的值是内存中地址为 <code>0x07</code> 的某种类型的值;</li>
+<li><code>(%rax)</code> 是内存地址，该地址保留在寄存器 <code>%rax</code> 中;</li>
+<li><code>0xf7(%rax, %rbp, 4)</code> 是内存地址，所有的内存寻址方式都可以写成这种类型。</li>
+</ol>
+<p>最后一种表示一个基址寻址，寻址方式是: <code>displacement(base register, index register, scale factor)</code> ，在上面个例子中:</p>
+<ul>
+<li>displacement(偏移)是 <code>0xf7</code>，即十六进制的偏移值F7</li>
+<li>base register(基址寄存器)是 <code>%rax</code></li>
+<li>index register(索引寄存器)是 <code>%rbp</code></li>
+<li>scale factor(倍数因子)是 4</li>
+</ul>
+<p>也就是说，该表达式表示的内存地址是: <code>0xf7 + (%rax) + 4 * (%rbp)</code></p>
+<h3 id="操作码"><a href="#操作码" class="headerlink" title="操作码"></a>操作码</h3><p>操作码分为<strong>算数逻辑类、数据传输类、控制类</strong>等。</p>
+<ol>
+<li>算术和逻辑指令操作码<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">addq $<span class="number">3</span>, %rdi</span><br></pre></td></tr></table></figure>
+<code>add</code> 表示相加，第一个操作数是源操作数，第二个操作数是目标操作数，表示将立即数 3 加到寄存器 <code>%rdi</code> 中。而 <code>add</code> 的后缀表示操作数的大小，分别为:</li>
+</ol>
+<ul>
+<li><code>b</code> —— 字节(byte, 8bit);</li>
+<li><code>w</code> —— 字(word, 16bit);</li>
+<li><code>l</code> —— 双字(doubleword, 32bit);</li>
+<li><code>q</code> —— 四字(quadword, 64bit)</li>
+</ul>
+<p>算数和逻辑类指令操作码被分为四组: <strong>加载有效地址、一元操作、二元操作和移位</strong>，二元操作有两个操作数，而一元操作有一个操作数。如下图所示</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/E1D9A89ED6FD8CBE5E3D5B4CD9FFCAF7.png" width=""></div> 
+
+<ol>
+<li>数据传输指令操作码<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movb %bl, %al</span><br></pre></td></tr></table></figure>
+将 <code>%bl</code> 寄存器中的值赋给<code>%al</code> 寄存器。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushq %rbp</span><br></pre></td></tr></table></figure>
+<p>表示将 <code>%rbp</code> 的值压入栈中，即先使栈顶指针寄存器<code>%rsp</code>的值减少8个字节，再将<code>%rbp</code>的值赋值给<code>%rsp</code>所指的内存单元。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">popq %rsi</span><br></pre></td></tr></table></figure>
+<p>将栈顶的8个字节的值弹出，并赋给 <code>%rsi</code></p>
+<p>除此之外，还有诸如控制类、比较和测试类操作码。</p>
+<h3 id="条件码"><a href="#条件码" class="headerlink" title="条件码"></a>条件码</h3><p>除了整数寄存器，CPU还维护了一组单个位的条件码(condition code)寄存器，它们<br>描述了最近的算术或逻辑操作的属性。可以检测这些寄存器来执行条件分支指令。最常用<br>的条件码有:</p>
+<ul>
+<li><code>CF</code> : 进位标志。最近的操作使最高位产生了进位。可用来检查无符号操作的溢出;</li>
+<li><code>ZF</code> : 零标志。最近的操作得出的结果为 0;</li>
+<li><code>SF</code> : 符号标志。最近的操作得到的结果为负数;</li>
+<li><code>OF</code> : 溢出标志。最近的操作导致一个补码溢出正溢出或负溢出。</li>
+</ul>
+<p>比如说，当使用一条 <code>add</code> 指令来完成等价于 C 表达式 <code>t = a + b</code> 的功能后，这里的变量都是整型的。然后由下面的 C 表达式来设置条件码</p>
+<ul>
+<li>CF —— (unsigned) t &lt; (unsigned) a —— 无符号溢出</li>
+<li>ZF —— (t == 0) —— 零</li>
+<li>SF —— (t &lt; 0) —— 负数</li>
+<li>OF —— (a &lt; 0 == b &lt; 0) &amp;&amp; (t &lt; 0 != a &lt; 0) —— 有符号溢出</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>准备一个 <code>test.c</code> 文件，写入如下代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">foo</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用 <code>gcc -Og -S test.c</code> 命令可以得到 *.s 的汇编语言文件，加入 <code>-Og</code> 的目的是使得到的汇编代码与源代码尽可能的对应。更好的办法是:</p>
+<p>首先编译源代码得到目标文件test.o<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c -Og test.c</span><br></pre></td></tr></table></figure></p>
+<p>然后用反汇编命令<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objdump -d test.o</span><br></pre></td></tr></table></figure></p>
+<p>得到如下:</p>
+<div align=center><img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/521877CBD05A3E6B85EAAA99A1A59C92.png" width=""></div> 
+
+<p>首先 <code>0000000000000000 &lt;main&gt;</code> ，前面的 16 个 0 是十六进制下的 0，也就是二进制下的 64 个 0, 表示该函数所在的虚拟地址，而 <code>&lt;main&gt;</code> 则是函数名。接下来是函数体，0、4、8、f…是各指令的地址，也是十六进制，因为第一条指令有4个字节(f3、0f、1e、fa)所以第二条指令的地址和第一条指令地址相差 4。</p>
 
         
         <br />

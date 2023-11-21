@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        万物的开始:Riemann积分 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Riemann%E7%A7%AF%E5%88%86%E5%AE%9A%E4%B9%89"><span class="toc-text">Riemann积分定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Riemann%E5%8F%AF%E7%A7%AF%E6%9D%A1%E4%BB%B6"><span class="toc-text">Riemann可积条件</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        万物的开始:Riemann积分
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-11-15 19:46:37</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#数学分析" title="数学分析">数学分析</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#积分" title="积分">积分</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <blockquote>
+<p><em>“微积分是近代数学中最伟大的成就，对它的重要性无论做怎样的估计都不会。”</em></p>
+</blockquote>
+<p>在现代数学体系里，「微积分」是及其重要的组成部分，而积分又由不定积分和定级分组成，后者又被称作「黎曼积分」(Riemann integral)。微积分发展至今，黎曼积分首次对函数在给定区间上的积分给出了一个精确定义。</p>
+<h3 id="Riemann积分定义"><a href="#Riemann积分定义" class="headerlink" title="Riemann积分定义"></a>Riemann积分定义</h3><p>设函数 $f$ 在区间 $[a,b]$ 上有定义</p>
+<p>$\rm \textbf{Definition 1.}$ 如果点集 $P=\{x_0,x_1,\cdots,x_n\}$ 满足 $a=x_0&lt;x_1&lt;\cdots&lt;x_{n-1}&lt;x_n=b$ , 则称 $P$ 为 $[a,b]$ 的一个<strong>分划</strong>. 设 $\Delta x_i = x_i-x_{i-1},i=1,2,\cdots,n$ , 则称 $||P|| = \max\limits_{1\le i\le n} \{\Delta x_i\}$ 为分划 $P$ 的<strong>细度</strong> . 如果 $\Delta x_i=\frac{b-a}{n},i=1,2,\cdots,n$ , 则称 $P$ 为<strong>等距分划</strong></p>
+<p>$\rm \textbf{Definition 2.}$ 设 $P$ 是区间 $[a, b]$ 的一个分划，对每个子区间 $[x_{i-1},x_i]$ , 任取 $\xi_i\in [x_{i-1},x_i]$ , 则称 $\xi = \{\xi_i|i=1,2,\cdots,n\}$ 为从属于 $P$ 的一个<strong>介点集</strong>; 并称和式 $\sum\limits_{i=1}^n f(\xi_i)\Delta x_i$ 为 $f$ 在区间 $[a,b]$ 上的一个<strong>Riemann和</strong>.</p>
+<p>$\rm \textbf{Definition 3.}$ 设 $I$ 为实数，且有 $\lim\limits_{||P||\to 0}\sum\limits_{i=1}^n f(\xi_i)\Delta x_i = I$ , 即 $\forall \varepsilon &gt;0$ , $\exists \delta &gt; 0$ , 对 $||P||&lt;\delta$ 的每个分划 $P$, 以及对从属于 $P$ 的每个介点集 $\xi$ , 成立 $|\sum\limits_{i=1}^n f(\xi_i)\Delta x_i - I|&lt;\varepsilon$ , 则称函数 $f$ 在区间 $[a,b]$ 上<strong>Riemann可积</strong>或简称<strong>可积</strong>, 记为 $f\in R[a,b]$ . 并称 $I$ 为 $f$ 在区间 $[a,b]$ 上的<strong>Riemann积分</strong>或<strong>定积分</strong>, 简称积分, 记为 $\int_a^b f = I$ .</p>
+<h3 id="Riemann可积条件"><a href="#Riemann可积条件" class="headerlink" title="Riemann可积条件"></a>Riemann可积条件</h3><p>$\rm \textbf{Definitions 4.}$ 设函数 $f$ 在 $[a,b]$ 上有界, $P$ 为 $[a,b]$ 的一个分划, 对 $i=1,2,\cdots,n$ , 记</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+M_i &= \sup\{f(x)|x\in [x_{i-1},x_i]\}\\
+m_i &= \inf\{f(x)|x\in [x_{i-1},x_i]\}\\
+\end{align*}</script><p>称 $w_i = M_i-m_i$ 为 $f$ 在 $[x_{i-1},x_i]$ 上的<strong>振幅</strong>, $\sum\limits_{i=1}^n w_i\Delta x_i$ 为 $f$ 的<strong>振幅面积</strong>.</p>
+<p>$\rm \textbf{Proposition 1.}$(可积的第一充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\lim_{||P||\to 0}\sum_{i=1}^n w_i \Delta x_i = 0
+\end{align}</script><p>$\rm \textbf{Proposition 2.}$(可积的第二充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是对每个 $\varepsilon &gt; 0$ , 存在区间 $[a,b]$ 的一个分划 $P$ 使得</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\sum_{P}w_i\Delta x_i< \varepsilon
+\end{align}</script><p>$\rm \textbf{Proposition 3.}$(可积的第三充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是 $\forall \varepsilon, \eta &gt;0$, 存在 $[a,b]$ 的分划 $P$ , 使振幅不小于 $\eta$ 的子区间的长度之和小于 $\varepsilon$ .</p>
+<p>利用定级分定义以及三个充分必要条件可以得到一些推论:</p>
+<ol>
+<li>设 $f\in R[a, b]$ , 则 $f$ 在 $[a, b]$ 上有界</li>
+<li>设 $f\in C[a, b]$ , 则 $f\in R[a, b]$</li>
+<li>设 $f$ 在 $[a, b]$ 上有界且只有有限个间断点，则 $f\in R[a, b]$</li>
+<li>设 $f$ 在 $[a, b]$ 上单调, 则 $f\in R[a, b]$</li>
+</ol>
+<p>下面对这四个结论一一进行证明</p>
+<p>$\rm \textbf{Corollary 1.1} \quad Proof.$ 记 $\int_a^b f = I$ , 由定积分定义知, 对于 $\varepsilon = 1$, 存在一个分划 $P$ , 使得对于从属于这个 $P$ 的任何介点集 $\xi$ 均成立</p>
+<script type="math/tex; mode=display">
+\left|\sum_{i=1}^n f(\xi_i)\Delta x_i - I\right| < 1</script><p>对于确定的子区间 $[x_{i-1},x_i]$ , 固定所有的 $\xi_k$($k\ne i$) 对 $f(\xi_i)$ 作出如下估计</p>
+<script type="math/tex; mode=display">
+\frac{1}{\Delta x_i}(I-1-\sum_{k\ne i}f(\xi_{k}\Delta x_k)) < f(\xi_i)<\frac{1}{\Delta x_i}(I+1-\sum_{k\ne i}f(\xi_k)\Delta x_k)</script><p>由于 $\xi_i \in I_i = [x_{i-1},x_i]$ 的任意性, 可得 $f$ 在 $[a, b]$ 上有界.</p>
+<p>$\rm \textbf{Corollary 1.2} \quad Proof.$</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
