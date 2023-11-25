@@ -13,7 +13,7 @@
 
     <title>
         
-        万物的开始:Riemann积分 - 刘刘大顺wx
+        CSAPP-处理器体系结构 - 刘刘大顺wx
         
     </title>
 
@@ -107,7 +107,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Riemann%E7%A7%AF%E5%88%86%E5%AE%9A%E4%B9%89"><span class="toc-text">Riemann积分定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Riemann%E5%8F%AF%E7%A7%AF%E6%9D%A1%E4%BB%B6"><span class="toc-text">Riemann可积条件</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%AD%A3%E5%BC%8F%E5%BC%80%E5%A7%8B%E4%B9%8B%E5%89%8D"><span class="toc-text">写在正式开始之前</span></a></li></ol>
 </div>
     
 </div>
@@ -139,18 +139,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        万物的开始:Riemann积分
+        CSAPP-处理器体系结构
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2023-11-15 19:46:37</span></span>
+        <span class="attr">发布于：<span>2023-11-21 19:55:13</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#数学分析" title="数学分析">数学分析</a>
-        <span>/</span>
-        
-        <a class="tag" href="/tags/#积分" title="积分">积分</a>
+        <a class="tag" href="/tags/#CSAPP" title="CSAPP">CSAPP</a>
         <span>/</span>
         
         
@@ -160,56 +157,15 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <blockquote>
-<p><em>“微积分是近代数学中最伟大的成就，对它的重要性无论做怎样的估计都不会。”</em></p>
-</blockquote>
-<p>在现代数学体系里，「微积分」是及其重要的组成部分，而积分又由不定积分和定级分组成，后者又被称作「黎曼积分」(Riemann integral)。微积分发展至今，黎曼积分首次对函数在给定区间上的积分给出了一个精确定义。</p>
-<h3 id="Riemann积分定义"><a href="#Riemann积分定义" class="headerlink" title="Riemann积分定义"></a>Riemann积分定义</h3><p>设函数 $f$ 在区间 $[a,b]$ 上有定义</p>
-<p>$\rm \textbf{Definition 1.}$ 如果点集 $P=\{x_0,x_1,\cdots,x_n\}$ 满足 $a=x_0&lt;x_1&lt;\cdots&lt;x_{n-1}&lt;x_n=b$ , 则称 $P$ 为 $[a,b]$ 的一个<strong>分划</strong>. 设 $\Delta x_i = x_i-x_{i-1},i=1,2,\cdots,n$ , 则称 $||P|| = \max\limits_{1\le i\le n} \{\Delta x_i\}$ 为分划 $P$ 的<strong>细度</strong> . 如果 $\Delta x_i=\frac{b-a}{n},i=1,2,\cdots,n$ , 则称 $P$ 为<strong>等距分划</strong></p>
-<p>$\rm \textbf{Definition 2.}$ 设 $P$ 是区间 $[a, b]$ 的一个分划，对每个子区间 $[x_{i-1},x_i]$ , 任取 $\xi_i\in [x_{i-1},x_i]$ , 则称 $\xi = \{\xi_i|i=1,2,\cdots,n\}$ 为从属于 $P$ 的一个<strong>介点集</strong>; 并称和式 $\sum\limits_{i=1}^n f(\xi_i)\Delta x_i$ 为 $f$ 在区间 $[a,b]$ 上的一个<strong>Riemann和</strong>.</p>
-<p>$\rm \textbf{Definition 3.}$ 设 $I$ 为实数，且有 $\lim\limits_{||P||\to 0}\sum\limits_{i=1}^n f(\xi_i)\Delta x_i = I$ , 即 $\forall \varepsilon &gt;0$ , $\exists \delta &gt; 0$ , 对 $||P||&lt;\delta$ 的每个分划 $P$, 以及对从属于 $P$ 的每个介点集 $\xi$ , 成立 $|\sum\limits_{i=1}^n f(\xi_i)\Delta x_i - I|&lt;\varepsilon$ , 则称函数 $f$ 在区间 $[a,b]$ 上<strong>Riemann可积</strong>或简称<strong>可积</strong>, 记为 $f\in R[a,b]$ . 并称 $I$ 为 $f$ 在区间 $[a,b]$ 上的<strong>Riemann积分</strong>或<strong>定积分</strong>, 简称积分, 记为 $\int_a^b f = I$ .</p>
-<h3 id="Riemann可积条件"><a href="#Riemann可积条件" class="headerlink" title="Riemann可积条件"></a>Riemann可积条件</h3><p>$\rm \textbf{Definitions 4.}$ 设函数 $f$ 在 $[a,b]$ 上有界, $P$ 为 $[a,b]$ 的一个分划, 对 $i=1,2,\cdots,n$ , 记</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-M_i &= \sup\{f(x)|x\in [x_{i-1},x_i]\}\\
-m_i &= \inf\{f(x)|x\in [x_{i-1},x_i]\}\\
-\end{align*}</script><p>称 $w_i = M_i-m_i$ 为 $f$ 在 $[x_{i-1},x_i]$ 上的<strong>振幅</strong>, $\sum\limits_{i=1}^n w_i\Delta x_i$ 为 $f$ 的<strong>振幅面积</strong>.</p>
-<p>$\rm \textbf{Proposition 1.}$(可积的第一充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\lim_{||P||\to 0}\sum_{i=1}^n w_i \Delta x_i = 0
-\end{align}</script><p>$\rm \textbf{Proposition 2.}$(可积的第二充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是对每个 $\varepsilon &gt; 0$ , 存在区间 $[a,b]$ 的一个分划 $P$ 使得</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\sum_{P}w_i\Delta x_i< \varepsilon
-\end{align}</script><p>$\rm \textbf{Proposition 3.}$(可积的第三充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是 $\forall \varepsilon, \eta &gt;0$, 存在 $[a,b]$ 的分划 $P$ , 使振幅不小于 $\eta$ 的子区间的长度之和小于 $\varepsilon$ .</p>
-<p>利用定级分定义以及三个充分必要条件可以得到一些推论:</p>
-<ol>
-<li>设 $f\in R[a, b]$ , 则 $f$ 在 $[a, b]$ 上有界</li>
-<li>设 $f\in C[a, b]$ , 则 $f\in R[a, b]$</li>
-<li>设 $f$ 在 $[a, b]$ 上有界且只有有限个间断点，则 $f\in R[a, b]$</li>
-<li>设 $f$ 在 $[a, b]$ 上单调, 则 $f\in R[a, b]$</li>
-</ol>
-<p>下面对这四个结论一一进行证明</p>
-<p>$\rm \textbf{Corollary 1.1} \quad Proof.$ 记 $\int_a^b f = I$ , 由定积分定义知, 对于 $\varepsilon = 1$, 存在一个分划 $P$ , 使得对于从属于这个 $P$ 的任何介点集 $\xi$ 均成立</p>
-<script type="math/tex; mode=display">
-\left|\sum_{i=1}^n f(\xi_i)\Delta x_i - I\right| < 1</script><p>对于确定的子区间 $[x_{i-1},x_i]$ , 固定所有的 $\xi_k$($k\ne i$) 对 $f(\xi_i)$ 作出如下估计</p>
-<script type="math/tex; mode=display">
-\frac{1}{\Delta x_i}(I-1-\sum_{k\ne i}f(\xi_{k}\Delta x_k)) < f(\xi_i)<\frac{1}{\Delta x_i}(I+1-\sum_{k\ne i}f(\xi_k)\Delta x_k)</script><p>由于 $\xi_i \in I_i = [x_{i-1},x_i]$ 的任意性, 可得 $f$ 在 $[a, b]$ 上有界.</p>
-<p>$\rm \textbf{Corollary 1.2} \quad Proof.$</p>
-<p>考虑如下热传导方程的初边值问题</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-u_t -a^2u_{xx}=f(x,t), (x,t)\in(0,L)\times (0,+\infty)\\
-u(x,0) = \varphi(x), x\in (0, L)\\
-u_x(0, t) = g_1(t), u_x(L,t) = g_2(t), t\in (0, +\infty)
-\end{cases}</script><p>请证明该问题的解是唯一的. (提示: 请考虑与 Dirichlet 边界条件的异同和关系)</p>
-<p>考虑如下热传导方程的 Cauchy 问题</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-u_t - a^2 \Delta u = f(x, t), (x, t)\in R^3 \times (0, +\infty)\\
-u(x,0) = \varphi(x) , x\in R^3
-\end{cases}</script><p>若存在着某一正常数 $B$, 使对任何 $t\ge 0$ 和 $x\in R^3$ 都有 $|u(x, t)|\le B$ .请证明该 Cauchy 问题的解是唯一的</p>
+        <h2 id="写在正式开始之前"><a href="#写在正式开始之前" class="headerlink" title="写在正式开始之前"></a>写在正式开始之前</h2><p>这一部分内容，并非是CSAPP第四章笔记，因为该章节设计了一个 Y68-64 指令集架构，然而这并不通用，且并不优雅。这里选择 [RISC-V] 作为学习方式，阅读「RISC-V 手册」来写了这篇笔记。</p>
+<p>计算机体系结构的传统方法是增量ISA, 也就是在实现新的ISA扩展的同时还需要实现过去的所有扩展。而 RISC-V 的区别就在于它是模块化的，其核心是一个名为 RV32I 的基础 ISA，RV32I 是固定的，永远也不会改变，再次之外提供了可选的扩展标准，惯例是把代表扩展的字母附加到指令集名称之后作为指示，例如 RV32IMFD 将 乘法(RV32M)，单精度浮点(RV32F)和双精度浮点(RV32D)的扩展添加到了基础指令集(RV32I)中。</p>
+<p>在正式开始之前，推荐观看 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bE411C76e/?spm_id_from=333.999.list.card_archive.click">从沙子到芯片-中芯国际</a></p>
+<center>
+      <img src="https://raw.githubusercontent.com/wxLiu925/blog-images/master/74E7C9D2AD0A22A10EC654DF565EDFBE.png" width="" height="">
+</center>
+<center>
+      图一: 半导体IC的制造过程[计算机组成与设计:硬件/软件接口(RISC-V版)]
+</center>
 
         
         <br />

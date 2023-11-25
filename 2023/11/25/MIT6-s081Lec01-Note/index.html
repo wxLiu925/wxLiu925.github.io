@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        MIT6.s081Lec01 Note - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel%E7%9A%84Access-Control%E6%9C%BA%E5%88%B6"><span class="toc-text">Kernel的Access Control机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-System-Call"><span class="toc-text">Kernel的系统调用(System Call)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-copy"><span class="toc-text">系统调用-copy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-read"><span class="toc-text">系统调用-read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-open"><span class="toc-text">系统调用-open</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-text">文件描述符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shell"><span class="toc-text">Shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-fork"><span class="toc-text">系统调用-fork</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-exec-wait"><span class="toc-text">系统调用-exec, wait</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IO%E9%87%8D%E5%AE%9A%E5%90%91-Redirect"><span class="toc-text">IO重定向(Redirect)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E9%81%93-PIPE"><span class="toc-text">管道-PIPE</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        MIT6.s081Lec01 Note
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-11-25 19:05:26</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#OS" title="OS">OS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>操作系统经典的组织架构，一般最底层包括了计算机的一些硬件资源，包括CPU、内存、磁盘、网卡等。而在这个架构的最上层则运行着各种各样的应用程序，这些程序都运行在同一个空间中，这个空间被称为<strong>用户空间(Usersapce)</strong></p>
+<p>区别于运行在用户空间里的程序，有一个特殊的程序总是在运行，他称作<strong>Kernel</strong>。</p>
+<p>当打开计算机时，Kernel总是第一个启动，Kernel 程序只有一个，它维护数据来管理每一个用户空间进程，同时还维护了大量的数据结构来管理底层的硬件资源，以供用户空间的程序使用。因此，Kernel的核心功能就是: <strong>管理硬件设备，供应用程序使用</strong></p>
+<p>我们通常会比较关心Kernel中的服务，一个是<strong>文件系统</strong>，另一个是<strong>进程管理系统</strong></p>
+<blockquote>
+<p>每一个用户空间程序都被称为一个进程，他们有自己的内存和共享的CPU时间。<br>同时, Kernel会管理内存的分配，不同的进程需要不同数量的内存，Kernel会复用内存、划分内存，并为所有的进程分配内存。</p>
+</blockquote>
+<p>文件系统通常会有一些逻辑分区，我们可以认为文件系统的作用是管理文件内容并找出文件具体在磁盘中的哪个位置。文件系统还维护了一个独立的命名空间，其中每个文件都有文件名，并且命名空间中有一个层级的目录，每个目录包含了一些文件。所有的这些都被文件系统所管理。</p>
+<h3 id="Kernel的Access-Control机制"><a href="#Kernel的Access-Control机制" class="headerlink" title="Kernel的Access Control机制"></a>Kernel的Access Control机制</h3><p>当一个进程想要使用某些资源时，比如读取磁盘中的数据，使用某些内存，Kernel中的Access Control 机制会决定是否允许这样的操作。</p>
+<h3 id="Kernel的系统调用-System-Call"><a href="#Kernel的系统调用-System-Call" class="headerlink" title="Kernel的系统调用(System Call)"></a>Kernel的系统调用(System Call)</h3><p>我们同时也会对应用程序如何与Kernel交互，它们之间的接口长什么样感兴趣，这些通常称为Kernel的API，它们决定了应用程序如何访问Kernel。通常来说，这是通过 <strong>系统调用(System Call)</strong> 来实现的。</p>
+<p>系统调用于程序中的函数调用看起来是一样的，区别在于<strong>系统调用会实际运行到系统内核中，并执行内核中对于系统调用的实现</strong>。</p>
+<blockquote>
+<p>第一个例子是如果应用程序要打开一个文件，它会调用名为 open 的系统调用，并且把文件名作为参数传给 open。比如我要打开一个名为 “out” 的文件，那么 “out” 将会作为参数传人，同时还希望写入数据，那么还会有一个额外的参数 1 , 表明我想要写入参数，就是 </p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">API-Kernel</span><br><span class="line">fd = <span class="built_in">open</span>(<span class="string">&quot;out&quot;</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这里看起来就像是一个函数调用，但是 open 是一个系统调用，它会跳到Kernel, Kernel可以获取到 open 的参数，接下来执行实现 open 的 Kernel 代码，最后返回一个文件描述符对象，之后，应用程序可以使用这个文件描述符作为 handle , 来表示打开相应的文件。</p>
+<p>如果想要向文件写入数据，相应的系统调用则是 write .<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fd = <span class="built_in">open</span>(<span class="string">&quot;out&quot;</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">write</span>(fd, <span class="string">&quot;Hello\n&quot;</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>第一个参数是由 open 返回的文件描述符</li>
+<li>第二个参数是指向要写入数据的指针，通常是 char 型。实际上是内存中的地址</li>
+<li>第三个参数是写入字符的数量</li>
+</ol>
+<p>除此之外还可能用到的系统调用是 fork, 它会创建一个与调用进程一模一样的进程，并返回新进程的 process ID/pid。</p>
+<blockquote>
+<p>系统调用跳到内核与标准的函数调用跳到另一个函数相比，区别是什么？<br>A: Kernel会有特殊的权限能够直接访问到底层硬件，而普通的用户程序是没有办法直接访问这些硬件的。</p>
+</blockquote>
+<h4 id="系统调用-copy"><a href="#系统调用-copy" class="headerlink" title="系统调用-copy"></a>系统调用-copy</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//copy.c: copy input to output.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;kernel/types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user/user.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">64</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="type">int</span> n = read(<span class="number">0</span>, buf, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        write(<span class="number">1</span>, buf, n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个程序执行了三个系统调用：read、write、exit</p>
+<h4 id="系统调用-read"><a href="#系统调用-read" class="headerlink" title="系统调用-read"></a>系统调用-read</h4><p>它接收三个参数：</p>
+<ol>
+<li><strong>第一个参数是文件描述符</strong>，指向一个之前打开的文件。Shell 会确保在默认情况下，当一个程序启动时，文件描述符0链接到console的输入，文件描述符1链接到console的输出，所以可以通过这个程序看到console打印我的输入。当然，这里的程序会预期文件描述符已经被Shell打开并设置好。这里的0，1文件描述符是非常普遍的Unix风格，许多的Unix系统都会从文件描述符0读取数据，然后向文件描述符1写入数据。</li>
+<li><strong>第二个参数是指向某段内存的指针</strong>，程序可以通过指针对应的地址读取内存中的数据。</li>
+<li><strong>第三个参数是代码想读取的最大长度。</strong></li>
+</ol>
+<p><strong>read 的返回值是读到的字节数，如果读到文件结尾没有更多内容了read会返回0，如果发生了一些错误比如文件描述符不存在则会返回-1。</strong></p>
+<h4 id="系统调用-open"><a href="#系统调用-open" class="headerlink" title="系统调用-open"></a>系统调用-open</h4><p>前面 copy 代码假设文件描述符已经设置好了，但是一般情况下，我们需要创建文件描述符，最直接的创建文件描述符的方法就是使用open系统调用。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//open.c: create a file, write to it.</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;kernel/types&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user/user.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;kernel/fcntl.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> fd = open(<span class="string">&quot;output.txt&quot;</span>, O_WRONLY | O_CREATE);</span><br><span class="line">    write(fd, <span class="string">&quot;ooo\n&quot;</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个程序会创建一个叫做 output.txt 的新文件，并向它写入一些数据，最后退出。我们看不到任何输出，因为它只是向打开的文件中写入数据。</p>
+<ol>
+<li>第一个参数是文件名</li>
+<li>第二个参数是一些标志位，用来告诉 open 系统调用在内核中的实现：我们将要创建并写入一个文件。</li>
+</ol>
+<p>open 系统调用会返回一个新分配的文件描述符，通常是一个比较小的数字，2、3、4等。</p>
+<p>之后这个文件描述符作为第一个参数传入 write，数据被写入到了文件描述符对应的文件中。</p>
+<h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><p><strong>文件描述符本质上对应了一个内核中的表单数据</strong>。内核维护了每个运行程序的状态，内核会为每一个运行进程保存一个表单，表单的 key 是文件描述符。这个表单让内核知道，每个文件描述符对应的实际内容是什么。这里比较关键的是，<strong>每个进程都有自己独立的文件描述符空间</strong>，所以如果运行了两个不同的程序，对应两个不同的进程，如果他们都打开一个文件，他们或许可以得到相同数字的文件描述符，但是因为内核为每个进程都维护了一个独立的文件描述符空间，这里相同数字的文件描述符可能会对应到不同的文件。</p>
+<blockquote>
+<p>文件描述符（file descriptor）是内核为了高效管理已被打开的文件所创建的索引，用于指代被打开的文件，对文件所有 I/O 操作相关的系统调用都需要通过文件描述符。Linux中”万物皆可文件”</p>
+</blockquote>
+<h4 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h4><p>Shell 通常就是人们说的命令行接口。它提供了很多工具来管理文件，编写程序，编写脚本。通常来说，当你输入内容时，其实是在告诉Shell运行相应的程序，比如输入 ls 时，实际意义就是要求 Shell 运行名为 ls 的程序，文件系统中有一个文件名为 ls, 这个文件中包含一些计算机指令。</p>
+<p>除了运行程序以外，Shell还可以做其他事情，比如重定向IO<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls &gt; out</span><br></pre></td></tr></table></figure><br>要求Shell运行ls程序并将输出重定向到一个叫做out的文件中，然后可以通过 <code>cat</code> 命令来读取 out 中的数据。也可以运行一个叫做 <code>grep</code> 的程序。grep x会搜索输入中包含x的行，我可以告诉shell将输入重定向到文件out，这样我们就可以查看out中的x。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep x &lt; out</span><br></pre></td></tr></table></figure></p>
+<h4 id="系统调用-fork"><a href="#系统调用-fork" class="headerlink" title="系统调用-fork"></a>系统调用-fork</h4><p>下面是一个简单用例<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fork.c: create a new process</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;kernel/types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user/user.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fork() returned %d&quot;</span>, pid);</span><br><span class="line">    <span class="keyword">if</span>(pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child\n&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用 fork 会拷贝当前进程的内存并且创建一个新的进程，这里的内存包含了进程的指令和数据，之后就有了两个拥有完全一样内存的进程。fork系统调用在两个进程中都会返回，在原始的进程中，fork系统调用会返回大于0的整数，这个是新创建进程的ID。而在新创建的进程中，fork系统调用会返回0。所以即使两个进程的内存是完全一样的，我们还是可以通过fork的返回值区分旧进程和新进程。(完全相同的内存，但是是不同的内存地址，此外，文件描述符也会被拷贝)</p>
+<h4 id="系统调用-exec-wait"><a href="#系统调用-exec-wait" class="headerlink" title="系统调用-exec, wait"></a>系统调用-exec, wait</h4><p>echo是一个非常简单的命令，它接收任何你传递给它的输入，并将输入写到输出。</p>
+<p>下面是一个 exec 系统调用的简单使用<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// exec.c: replace a process with an executable file</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;kernel/types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user/user.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 指针0是一个NULL指针，它只表明结束</span></span><br><span class="line">    <span class="type">char</span> *argv[] = &#123;<span class="string">&quot;echo&quot;</span>, <span class="string">&quot;this&quot;</span>, <span class="string">&quot;is&quot;</span>, <span class="string">&quot;echo&quot;</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    exec(<span class="string">&quot;echo&quot;</span>, argv);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;exec failed!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码会执行 exec 系统调用，这个系统调用会从指定的文件中读取并加载命令，并替代当前调用进程的指令。从某种程度上来说相当于丢弃了调用进程的内存，并开始执行新加载的指令。所以上面的代码执行 exec 命令后会有这样的效果：操作系统从名为 echo 的文件中加载指令到当前的进程中，并替代了当前进程的内存，之后开始执行这些新加载的指令。同时，你可以传入命令行参数，exec允许传入一个命令行参数的数组，这里是一个C语言中的指针数组，这里的字符指针本质就是一个字符串。</p>
+<p>所以这里等价于运行 echo 命令，并且带上 “this is echo” 这三个参数。我们可以看到如下输出:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this is echo</span><br></pre></td></tr></table></figure><br>即我运行了exec程序，exec程序实际上会调用exec系统调用，并用echo指令来代替自己，所以这里是echo命令在产生输出。</p>
+<blockquote>
+<p>exec命令用于调用并执行指定的命令。exec命令通常用在shell脚本程序中，可以调用其他的命令。如果在当前终端中使用命令，则当指定的命令执行完毕后会立即退出终端。系统调用 exec 是以新的进程去代替原来的进程，但进程的PID保持不变。因此，可以这样认为，exec系统调用并没有创建新的进程，只是替换了原来进程上下文的内容。原进程的代码段，数据段，堆栈段被新的进程所代替。</p>
+</blockquote>
+<p>除此之外，还有一些值得注意的地方：</p>
+<ol>
+<li>exec系统调用会保留当前的文件描述符表单。所以任何在exec系统调用之前的文件描述符，例如0，1，2等，它们在新的程序中表示相同的东西。</li>
+<li>通常来说exec系统调用不会返回，因为exec会完全替换当前进程的内存，相当于当前进程不复存在了，所以exec系统调用已经没有地方能返回了。exec系统调用只会当出错时才会返回，例如程序文件根本不存在，因为exec系统调用不能找到文件，exec会返回-1。</li>
+</ol>
+<p>如果不想原进程被替代的话，可以先 fork 一个子进程，然后在子进程里调用exec系统调用。下面是一个应用场景<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// forkexec.c: fork then exec</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user/user.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> pid, status;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="type">char</span> *argv[] = &#123;<span class="string">&quot;echo&quot;</span>, <span class="string">&quot;THIS&quot;</span>, <span class="string">&quot;IS&quot;</span>, <span class="string">&quot;ECHO&quot;</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        exec(<span class="string">&quot;echo&quot;</span>, argv);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;exec failed!\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent waiting\n&quot;</span>);</span><br><span class="line">        wait(&amp;status);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;the child exited with status %d\n&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个程序中先调用了fork，在子进程中与前一个程序一样调用exec。子进程会用echo命令来代替自己，echo执行完成之后就退出。之后父进程重新获得了控制。fork会在父进程中返回大于0的值。</p>
+<blockquote>
+<p>Unix提供了一个wait系统调用，如第20行所示。wait会等待之前创建的子进程退出。当我在命令行执行一个指令时，我们一般会希望Shell等待指令执行完成。所以wait系统调用，使得父进程可以等待任何一个子进程返回。这里wait的参数status，是一种让退出的子进程以一个整数（32bit的数据）的格式与等待的父进程通信方式。所以在第17行，exit的参数是1，操作系统会将1从退出的子进程传递到第20行，也就是等待的父进程处。&amp;status，是将status对应的地址传递给内核，内核会向这个地址写入子进程向exit传入的参数。wait返回子进程的进程号。</p>
+<p>Unix中的风格是，如果一个程序成功的退出了，那么exit的参数会是0，如果出现了错误，那么就会像第17行一样，会向exit传递1。</p>
+</blockquote>
+<h4 id="IO重定向-Redirect"><a href="#IO重定向-Redirect" class="headerlink" title="IO重定向(Redirect)"></a>IO重定向(Redirect)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// redirect.c: run a command with output redirected</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> pid;</span><br><span class="line"></span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid == <span class="number">0</span>) &#123;</span><br><span class="line">        close(<span class="number">1</span>);</span><br><span class="line">        open(<span class="string">&quot;output.txt&quot;</span>, O_WRONLY|O_CREATE);</span><br><span class="line">        </span><br><span class="line">        <span class="type">char</span> *argv[] = &#123;<span class="string">&quot;echo&quot;</span>, <span class="string">&quot;this&quot;</span>, <span class="string">&quot;is&quot;</span>, <span class="string">&quot;redirect&quot;</span>, <span class="string">&quot;echo&quot;</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        exec(<span class="string">&quot;echo&quot;</span>, argv);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;exec failed!\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        wait((<span class="type">int</span> *) <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shell提供了方便的IO重定向工具，<code>echo hello &gt; out</code> 会将 <code>echo</code> 的输出重定向到 <code>out</code> 文件中，然后运行 <code>cat &lt; out</code> 就可以看到输出。</p>
+<blockquote>
+<p>Shell之所以有这样的能力，是因为Shell首先会先fork一个子进程，然后再子进程里，Shell改变了文件描述符。文件描述符1通常是进程用来作为输出的(也就是console的输出文件符)，Shell会先将文件描述符1改为output文件，之后再运行你的指令。同时，父进程的文件描述符1并没有改变。所以这里先fork，再更改子进程的文件描述符，是Unix中常见的重定向指令的输入输出的方法。</p>
+</blockquote>
+<p>运行上面的代码，没有看到任何的输出，但实际上 redirect 程序里运行了 echo，并且把 echo 的输出重定向到 output.txt。在output.txt里可以看到 “this is redirect echo”。代码里 <code>close(1)</code> 的意义是我们希望文件描述符1指向一个其他的位置，也就是说，在子进程里，我们不想使用原本指向console的文件描述符1。后面的 <code>open</code> 语句一定会返回1，因为 open 会返回当前进程未使用的最小文件描述符。因为刚刚关闭了文件描述符1，而文件描述符0又对应着console的输入，所以open一定会返回1。再之后，文件描述符1就和output.txt关联起来了。</p>
+<h4 id="管道-PIPE"><a href="#管道-PIPE" class="headerlink" title="管道-PIPE"></a>管道-PIPE</h4><p>管道是一种通信机制，通常用于进程间的通信，将前一个进程的输出(stdout)作为下一下进程的输入(stdin)。管道命令仅能处理standard output，也就是说类似 <code>less</code>、<code>head</code>、<code>tail</code>等可以接受标准输入的命令，而管道又可以分为匿名管道和有名管道。</p>
+<p>匿名管道用 <code>|</code> 来表示，用完即销毁，例如 <code>ls -al /etc | less</code> 。而有名管道又被称为先进先出队列(FIFO)，可以通过 <code>mkfifo</code> 命令来显式地常见，例如<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo hello</span><br></pre></td></tr></table></figure><br>会在当前文件夹下创建一个管道文件 <code>hello</code> ，然后可以执行 <code>echo &quot;hello world&quot; &gt; hello</code> 往管道里写入 <code>hello world</code> ，然后因为管道是同步的，所以在当前终端下会发生阻塞，需要新打开一个终端，然后执行 <code>cat &lt; hello</code> 命令就可以将管道中的数据读取出来并打印，然后之前的终端阻塞也停止了。</p>
+<p>需要注意的是，当进程对命名管道的使用结束后，命名管道依然存在于文件系统中，使用 <code>ls</code> 命令可以看到该文件，需要手动删除。</p>
+<p>管道的创建是系统调用 <code>pipe()</code> ，该函数创建了一个管道 <code>pipe</code> 并且返回两个文件描述符用来表示管道的两端，读取端描述符是 <code>fd[0]</code> ，写入端描述符是 <code>fd[1]</code> 。</p>
+<p>而我们之所以能够使用类似 <code>ls -al /etc | less</code> 这样的命令来进行两个进程之间的通信，主要是进行了如下实现:</p>
+<ol>
+<li>首先在当前进程下创建一个管道 <code>fd[2]</code> ，然后使用 <code>fork</code> 创建一个子进程，此时 <code>fd</code> 数组同样会被复制，但是由于它们指向了同一个文件(管道)，所以就实现了两个进程通过 <code>fd</code> 数组对同一个管道进行跨进程读写操作。</li>
+<li>禁用父进程的读取端，禁用子进程的写入端，就实现了从父进程写入由子进程读取的单向操作。</li>
+</ol>
+<p>下面这段程序运行了 <code>wc</code> ，并将它的标准输出绑定到了一个管道的读端口:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> fd[<span class="number">2</span>];</span><br><span class="line"><span class="type">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">pipe(fd);</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    dup(fd[<span class="number">0</span>]);</span><br><span class="line">    close(fd[<span class="number">0</span>]);</span><br><span class="line">    close(fd[<span class="number">1</span>]);</span><br><span class="line">    exec(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    write(fd[<span class="number">1</span>], <span class="string">&quot;hello world\n&quot;</span>, <span class="number">12</span>);</span><br><span class="line">    close(fd[<span class="number">0</span>]);</span><br><span class="line">    close(fd[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这段程序首先创建了一个管道，然后 <code>fork</code> 出一个子进程，这样父子进程都指向同一个管道。</p>
+<p>在子进程中，首先关闭了标准输入(文件描述符为0)，然后使用 <code>dup(fd[0])</code> 复制了管道的读端，由于复制操作会使用最小可用的文件描述符，所以管道的读端成为了新的标准输入。接着，关闭了管道的两个端口，因为复制后就不再需要原来的文件描述符。最后，使用 <code>exec</code> 函数执行了 <code>wc</code> 命令，wc命令会从标准输入(现在是管道的读端)读取数据。</p>
+<p>在父进程中，使用write函数向管道的写端写入了字符串”hello world\n”。然后，关闭了管道的两个端口。总的来说就是这里实现了父进程向子进程传输 “hello world\n” ，然后子进程调用 <code>wc</code> 命令处理这个字符串，输出行数、单词数和字节数，在这里应该是输出 <code>1 2 12</code> 。</p>
+<p>如果数据没有准备好，那么对管道执行的 <code>read</code> 会一直等待，直到有数据了或者其他绑定在这个管道写端口的描述符都已经关闭了。后者 <code>read</code> 会返回 0，这也是为什么执行 <code>wc</code> 之前要关闭子进程的写端口 —— 防止堵塞。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
