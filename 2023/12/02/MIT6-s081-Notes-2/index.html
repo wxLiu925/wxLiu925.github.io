@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        MIT6.s081-Notes-2 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#OS-Organization-and-System-Calls"><span class="toc-text">OS Organization and System Calls</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%9A%94%E7%A6%BB%E6%80%A7-isolation"><span class="toc-text">操作系统的隔离性(isolation)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%98%B2%E5%BE%A1%E6%80%A7-Defensive"><span class="toc-text">操作系统的防御性(Defensive)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8F%E5%86%85%E6%A0%B8-vs-%E5%BE%AE%E5%86%85%E6%A0%B8-Monolithic-Kernel-vs-Micro-Kernel"><span class="toc-text">宏内核 vs 微内核(Monolithic Kernel vs Micro Kernel)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-text">内核编译过程</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        MIT6.s081-Notes-2
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-12-02 00:13:01</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#OS" title="OS">OS</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#mit6.s081" title="mit6.s081">mit6.s081</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="OS-Organization-and-System-Calls"><a href="#OS-Organization-and-System-Calls" class="headerlink" title="OS Organization and System Calls"></a>OS Organization and System Calls</h3><h4 id="操作系统的隔离性-isolation"><a href="#操作系统的隔离性-isolation" class="headerlink" title="操作系统的隔离性(isolation)"></a>操作系统的隔离性(isolation)</h4><p>某种程度上来说, 使用操作系统的一个主要原因就是为了实现multiplexing(CPU在多进程同分时复用)和内存隔离。所以如果不适用操作系统, 并且让应用程序和硬件交互就很难实现这两点, 所以将操作系统设计成一个库并不是一个常见的设计, 或许在一些实时操作系统中可以看到这样的设计, 但那时因为在这些实时操作系统里应用程序之间彼此相互信任。但是在大部分操作系统中都会强制硬件资源的隔离。</p>
+<blockquote>
+<p>举几个例子:<br>进程抽象了cpu。fork创建了进程, 进程本身不是cpu, 但是它们对应了cpu, 应用程序通过和进程交互来实现在cpu上的计算。同一个cpu核一次只能运行一个进程, 它是分时复用。<br>exec抽象了内存。当我们执行exec系统调用时, 会传入一个文件名, 而这个文件名对应了一个应用程序的内存镜像, 内存镜像里包括了程序对应的指令和全局的数据。应用程序可以逐渐扩展自己的内存, 但是应用程序并没有直接访问物理内存的权限。操作系统会提供内存隔离并控制内存，操作系统会在应用程序和硬件资源之间提供一个中间层。exec是这样一种系统调用，它表明了应用程序不能直接访问物理内存。<br>files抽象了磁盘。应用程序不会直接读写挂在计算机上的磁盘本身，并且在Unix中这也是不被允许的。在Unix中，与存储系统交互的唯一方式就是通过files。Files提供了非常方便的磁盘抽象，你可以对文件命名，读写文件等等。之后，操作系统会决定如何将文件与磁盘中的块对应，确保一个磁盘块只出现在一个文件中，并且确保用户A不能操作用户B的文件。通过files的抽象，可以实现不同用户之间和同一个用户的不同进程之间的文件强隔离。</p>
+<p>exec抽象内存是如何做到的?<br>chatgpt: 在操作系统中，exec 系统调用是用于在一个进程内执行一个新的程序的机制。它通过用一个新的程序替代当前进程的映像来实现。当一个进程调用 exec 系统调用时，操作系统会做以下主要步骤：</p>
+<ol>
+<li>加载新程序的可执行文件：首先，操作系统会从磁盘加载新程序的可执行文件到内存中。这个文件通常包含了程序的机器码、数据段、代码段等信息。</li>
+<li>创建新的内存映像：操作系统会为新的程序创建一个新的内存映像，这个内存映像将会包含新程序的代码、数据以及堆栈等区域。</li>
+<li>清理原有资源：操作系统会关闭或释放原有程序所占用的资源，比如文件描述符、堆内存等。这确保了新程序不会受到旧程序的影响。</li>
+<li>加载新程序的代码和数据：将新程序的机器码和数据从可执行文件加载到新的内存映像中。</li>
+<li>初始化程序的环境：设置新程序的环境变量、命令行参数等信息。</li>
+<li>跳转到新程序的入口点：通过设置程序计数器（PC）的值，将控制权转交给新程序的入口点，使其开始执行。</li>
+</ol>
+<p>总的来说，exec 系统调用通过将新程序加载到内存中并初始化环境，然后跳转到新程序的入口点，实现了在当前进程内执行一个新程序的功能。这样做使得进程可以动态地切换执行不同的程序，从而实现了程序的多样性和灵活性。</p>
+</blockquote>
+<h4 id="操作系统的防御性-Defensive"><a href="#操作系统的防御性-Defensive" class="headerlink" title="操作系统的防御性(Defensive)"></a>操作系统的防御性(Defensive)</h4><p>强隔离需要应用程序和操作系统之间的硬边界，如果应用程序出错，我们不希望操作系统失败或其他应用程序失败，相反，操作系统应该能够清理失败的应用程序，并继续运行其他应用程序，要实现强隔离，操作系统必须保证应用程序不能修改（甚至读取）操作系统的数据结构和指令，以及应用程序不能访问其他进程的内存。</p>
+<p>通常来说，需要通过硬件来实现这的强隔离性。这里的硬件支持包括了两部分，第一部分是user/kernel mode，kernel mode在RISC-V中被称为Supervisor mode但是其实是同一个东西；第二部分是page table或者虚拟内存(Virtual Memory)。</p>
+<p>为了支持 user/kernel mode , 处理器会有两种操作模式, 第一种是 user mode, 第二种是 kernel mode。前者下CPU只能运行普通权限的指令(unprivileged instructions), 后者可以运行特定权限的指令(privileged instructions)。</p>
+<blockquote>
+<p>切换kernel mode需要特定权限, 如何做到的？</p>
+</blockquote>
+<p>虚拟内存则是每个进程都会有自己独立的 page table, 每一个进程只能访问出现在自己page table中的物理内存。操作系统会设置page table，使得每一个进程都有不重合的物理内存，这样一个进程就不能访问其他进程的物理内存，因为其他进程的物理内存都不在它的page table中。</p>
+<blockquote>
+<p>就比如 ls 程序会有一个内存地址 0, echo 程序也会有一个内存地址 0, 但是操作系统会将两个程序的内存地址0映射到不同的物理内存地址，所以ls程序不能访问echo程序的内存，同样echo程序也不能访问ls程序的内存。</p>
+</blockquote>
+<p>我们可以认为user/kernel mode是分隔用户空间和内核空间的边界，用户空间运行的程序运行在user mode，内核空间的程序运行在kernel mode。操作系统位于内核空间。</p>
+<blockquote>
+<p>在内核空间(或管理模式)中运行的软件被称为内核。</p>
+</blockquote>
+<p>在RISC-V中, 有一个专门的指令让应用程序可以将控制权转移给内核(Entering Kernel), 叫做 <code>ECALL</code></p>
+<blockquote>
+<p>举个例子, 当我们在用户空间的 Shell 执行 fork 指令时, 它并不是直接调用操作系统中对应的函数, 而是调用 ecall 指令, 指令的参数是代表了fork系统调用的数字。之后控制权到了syscall函数，syscall会实际调用fork系统调用。</p>
+<p>用户不能直接调用fork，用户的应用程序执行系统调用的唯一方法就是通过这里的ECALL指令。</p>
+<p>想要调用内核函数的应用程序（例如xv6中的read系统调用）必须过渡到内核。CPU提供一个特殊的指令，将CPU从用户模式切换到管理模式，并在内核指定的入口点进入内核（RISC-V为此提供ecall指令）。一旦CPU切换到管理模式，内核就可以验证系统调用的参数，决定是否允许应用程序执行请求的操作，然后拒绝它或执行它。由内核控制转换到管理模式的入口点是很重要的；如果应用程序可以决定内核入口点， 那么恶意应用程序可以在跳过参数验证的地方进入内核。</p>
+</blockquote>
+<h4 id="宏内核-vs-微内核-Monolithic-Kernel-vs-Micro-Kernel"><a href="#宏内核-vs-微内核-Monolithic-Kernel-vs-Micro-Kernel" class="headerlink" title="宏内核 vs 微内核(Monolithic Kernel vs Micro Kernel)"></a>宏内核 vs 微内核(Monolithic Kernel vs Micro Kernel)</h4><p>一个关键的设计问题是操作系统的哪些部分应该以管理模式运行。</p>
+<p>一种可能是整个操作系统都驻留在内核中，这样所有系统调用的实现都以管理模式运行。这种组织被称为<strong>宏内核(monolithic kernel)</strong></p>
+<p>为了降低内核出错的风险，操作系统设计者可以最大限度地减少在管理模式下运行的操作系统代码量，并在用户模式下执行大部分操作系统。这种内核组织被称为<strong>微内核(microkernel)</strong></p>
+<p>微内核是一种很好的设计。但是也有一些缺点。举个例子, Shell调用了exec, 必须有种方式可以接入到文件系统中, 通常来说, 这里的工作方式是, Shell 会通过内核中的IPC系统发送一条消息, 内核会查看这条消息并发现这是给文件系统发的消息, 之后内核会把消息发送给文件系统。文件系统完成工作后会向IPC系统回送一条消息表示exec系统调用后的结果, 之后IPC系统再将这条消息发送给Shell。和宏内核对比会多一次用户空间到内核空间的跳转, 所以导致<strong>通常微内核性能更差</strong></p>
+<p>大部分Unix操作系统(例如xv6)都是宏内核。</p>
+<h4 id="内核编译过程"><a href="#内核编译过程" class="headerlink" title="内核编译过程"></a>内核编译过程</h4><p>首先, Makefile 会按顺序读取xv6目录下的所有 .c 文件, 然后调用 gcc 编译器, 生成一个 .s 文件, 这是 RISC-V 汇编语言文件, 然后再走到汇编解释器, 生成 .o 文件, 这是汇编语言的二进制格式。Makefile会为所有内核文件(.c)做相同的操作。之后, 系统加载器(Loader)会收集所有的 .o 文件, 将它们链接在一起, 并生成内核文件。这里生成的内核文件就是将在QEMU中运行的文件。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
