@@ -6,7 +6,7 @@
   <link href="https://wxliu925.github.io/atom.xml" rel="self"/>
   
   <link href="https://wxliu925.github.io/"/>
-  <updated>2023-12-01T16:14:15.489Z</updated>
+  <updated>2024-01-03T08:09:54.769Z</updated>
   <id>https://wxliu925.github.io/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Unity3D C#小汇总</title>
+    <link href="https://wxliu925.github.io/2024/01/03/Unity3D-C-%E5%B0%8F%E6%B1%87%E6%80%BB/"/>
+    <id>https://wxliu925.github.io/2024/01/03/Unity3D-C-%E5%B0%8F%E6%B1%87%E6%80%BB/</id>
+    <published>2024-01-03T07:49:37.000Z</published>
+    <updated>2024-01-03T08:09:54.769Z</updated>
+    
+    <content type="html"><![CDATA[<p>大概23年初的时候，开始在 <a href="https://learnopengl-cn.github.io/">learn-opengl</a> 学 OpenGL 渲染, 然后萌生了学习游戏的想法, 于是乎就去学习了 Unity3D 游戏引擎, 大概半年, 做了一些小废品游戏, 最后做了一个仿原神游戏(跑步模拟器?), 然后因为训练 ACM 就搁置了半年的时间, 到现在可以说忘的差不多了, 最近看到了一个 <a href="https://catlikecoding.com/unity/">catlike-coding</a> 的教程(个人觉得不适合完全零基础的人看), 即时是在考试周也还是吸引到了我, 讲的深入浅出, 同时介绍了一些渲染的知识而不仅仅只是调一下 UI , 让我慢慢又把以前的东西捡起来了, 为了防止又学了后面忘记前面的情况, 这里做一点小记录。</p><hr><ol><li>继承自 MonoBehaviour 才能作为游戏中的组件</li><li><code>[SerializeField]</code> 序列化: 帮助用户将[成员变量]在Inspector中显示, 并且自定义Serialize关系</li><li>rotation 是返回世界坐标旋转四元数信息， localRotation 是返回本地旋转(围绕父)四元数信息</li><li>Awake() 方法只在开始调用一次, Update() 方法每一帧渲染时都调用一次</li><li><code>Debug.Log(DateTime.Now);</code> 打印日志(当前时间)</li><li>定义变量时, 如果是在定义的时候同时赋值, 即可以推断出变量类型时可以用 var 代替数据类型(和 golang 类似)</li><li><code>[SerializeField, Range(10, 100)]</code> 这里的 <code>Range(10, 100)</code> 是让游戏内添加一个范围在10到100的滑块</li><li><code>Object.Instantiate</code> 方法用于实例化游戏对象, 因为我们的类继承了 MonoBehaviour , 所以间接继承了 Object(完整继承链是: MonoBehaviour - Behaviour - Component - Object)</li><li><code>Object.Instantiate</code> 方法还会返回一个对其创建内容的引用, 可以使用 <code>Transform point = Instantiate(pointPrefab);</code> 来获取位置</li><li><code>Prefab</code> 是预制件, 只需要把游戏对象拖到 Assets 里就行, 即可以重复使用, 而且只需要修改预制件, 游戏内所有的实例对象都会修改, 可以用来做比如说 树、草之类的东西</li><li><p>Vector3 是 Unity 中表示三维向量的结构体，用于表示在三维空间中的位置、方向或缩放。它包含三个浮点数成员：x、y 和 z</p><ul><li>构造函数：Vector3(x, y, z)： 通过给定的 x、y 和 z 值创建一个新的 Vector3</li><li>静态属性:<br>  (1).Vector3.zero： 表示零向量 (0, 0, 0)<br>  (2).Vector3.one： 表示全一向量 (1, 1, 1)<br>  (3).Vector3.up： 表示单位向量指向正Y轴方向<br>  (4).Vector3.down： 表示单位向量指向负Y轴方向<br>  (5).Vector3.forward： 表示单位向量指向正Z轴方向<br>  (6).Vector3.back： 表示单位向量指向负Z轴方向<br>  (7).Vector3.right： 表示单位向量指向正X轴方向<br>  (8).Vector3.left： 表示单位向量指向负X轴方向</li><li>常用方法:<br>  (1).Vector3.Normalize()： 将向量转化为单位向量，即长度为 1<br>  (2).Vector3.magnitude： 返回向量的长度(模)<br>  (3).Vector3.sqrMagnitude： 返回向量长度的平方，用于比较向量的大小而无需进行平方根运算，提高性能<br>  (4).Vector3.Distance(a, b)： 返回两个点之间的距离<br>  (5).Vector3.Dot(a, b)： 返回两个向量的点积<br>  (6).Vector3.Cross(a, b)： 返回两个向量的叉积</li><li>运算符重载:<br>  (1).+、-、*、/： 支持向量之间的常规数学运算<br>  (2).==、!=： 用于比较两个向量是否相等</li></ul></li><li><p>localPosition 是 Transform 类的一个属性, 用于表示游戏对象在其父级坐标系中的位置。换句话说, localPosition 描述了一个对象相对于其父对象的位置。在三维空间中，localPosition 是一个 Vector3 类型的属性, 与之相对应的是 position 属性, 它表示对象在世界坐标系中的位置。如果没有父对象, localPosition 和 position 是相同的。但如果有父对象, 那么 position 将考虑到了所有父对象的变换, 而 localPosition 只考虑了直接的父对象的变换。</p></li><li>localScale 是相对于父对象的缩放因子, 如果一个对象的 localScale 是 (2, 1, 0.5), 那么它相对于其父对象的尺寸在 X 轴上放大了两倍, 在 Y 轴上没有变化, 在 Z 轴上缩小了一半, 注意, localScale 会受到父对象变化的影响</li></ol><p>后面想到什么再加, 如果实变函数能顺利通过考试的话….等考完试应该会去看《Unity Shader 入门精要》, 复习去了..</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;大概23年初的时候，开始在 &lt;a href=&quot;https://learnopengl-cn.github.io/&quot;&gt;learn-opengl&lt;/a&gt; 学 OpenGL 渲染, 然后萌生了学习游戏的想法, 于是乎就去学习了 Unity3D 游戏引擎, 大概半年, 做了一些小废</summary>
+      
+    
+    
+    
+    
+    <category term="Unity3D" scheme="https://wxliu925.github.io/tags/Unity3D/"/>
+    
+    <category term="C#" scheme="https://wxliu925.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>xv6 Lab2: system calls</title>
+    <link href="https://wxliu925.github.io/2023/12/02/xv6-Lab2-system-calls/"/>
+    <id>https://wxliu925.github.io/2023/12/02/xv6-Lab2-system-calls/</id>
+    <published>2023-12-01T16:17:11.000Z</published>
+    <updated>2023-12-03T04:48:04.702Z</updated>
+    
+    <content type="html"><![CDATA[<p>Lab: <a href="https://pdos.csail.mit.edu/6.S081/2022/labs/syscall.html">https://pdos.csail.mit.edu/6.S081/2022/labs/syscall.html</a></p><blockquote><p>attention: 在你开始写代码之前，请阅读xv6手册《book-riscv-rev1》的第2章、第4章的第4.3节和第4.4节以及相关源代码文件：<br>系统调用的用户空间代码在user/user.h和user/usys.pl中。<br>内核空间代码是kernel/syscall.h、kernel/syscall.c。<br>与进程相关的代码是kernel/proc.h和kernel/proc.c。</p></blockquote><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Lab: &lt;a href=&quot;https://pdos.csail.mit.edu/6.S081/2022/labs/syscall.html&quot;&gt;https://pdos.csail.mit.edu/6.S081/2022/labs/syscall.html&lt;/a&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="OS" scheme="https://wxliu925.github.io/tags/OS/"/>
+    
+    <category term="mit6.s081" scheme="https://wxliu925.github.io/tags/mit6-s081/"/>
+    
+    <category term="xv6 Lab" scheme="https://wxliu925.github.io/tags/xv6-Lab/"/>
+    
+  </entry>
   
   <entry>
     <title>MIT6.s081-Notes-2</title>
@@ -119,17 +170,15 @@
     <link href="https://wxliu925.github.io/2023/11/15/%E4%B8%87%E7%89%A9%E7%9A%84%E5%BC%80%E5%A7%8B-Riemann%E7%A7%AF%E5%88%86/"/>
     <id>https://wxliu925.github.io/2023/11/15/%E4%B8%87%E7%89%A9%E7%9A%84%E5%BC%80%E5%A7%8B-Riemann%E7%A7%AF%E5%88%86/</id>
     <published>2023-11-15T11:46:37.000Z</published>
-    <updated>2023-11-21T15:16:11.399Z</updated>
+    <updated>2024-01-03T07:48:48.971Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p><em>“微积分是近代数学中最伟大的成就，对它的重要性无论做怎样的估计都不会。”</em></p></blockquote><p>在现代数学体系里，「微积分」是及其重要的组成部分，而积分又由不定积分和定级分组成，后者又被称作「黎曼积分」(Riemann integral)。微积分发展至今，黎曼积分首次对函数在给定区间上的积分给出了一个精确定义。</p><h3 id="Riemann积分定义"><a href="#Riemann积分定义" class="headerlink" title="Riemann积分定义"></a>Riemann积分定义</h3><p>设函数 $f$ 在区间 $[a,b]$ 上有定义</p><p>$\rm \textbf{Definition 1.}$ 如果点集 $P=\{x_0,x_1,\cdots,x_n\}$ 满足 $a=x_0&lt;x_1&lt;\cdots&lt;x_{n-1}&lt;x_n=b$ , 则称 $P$ 为 $[a,b]$ 的一个<strong>分划</strong>. 设 $\Delta x_i = x_i-x_{i-1},i=1,2,\cdots,n$ , 则称 $||P|| = \max\limits_{1\le i\le n} \{\Delta x_i\}$ 为分划 $P$ 的<strong>细度</strong> . 如果 $\Delta x_i=\frac{b-a}{n},i=1,2,\cdots,n$ , 则称 $P$ 为<strong>等距分划</strong></p><p>$\rm \textbf{Definition 2.}$ 设 $P$ 是区间 $[a, b]$ 的一个分划，对每个子区间 $[x_{i-1},x_i]$ , 任取 $\xi_i\in [x_{i-1},x_i]$ , 则称 $\xi = \{\xi_i|i=1,2,\cdots,n\}$ 为从属于 $P$ 的一个<strong>介点集</strong>; 并称和式 $\sum\limits_{i=1}^n f(\xi_i)\Delta x_i$ 为 $f$ 在区间 $[a,b]$ 上的一个<strong>Riemann和</strong>.</p><p>$\rm \textbf{Definition 3.}$ 设 $I$ 为实数，且有 $\lim\limits_{||P||\to 0}\sum\limits_{i=1}^n f(\xi_i)\Delta x_i = I$ , 即 $\forall \varepsilon &gt;0$ , $\exists \delta &gt; 0$ , 对 $||P||&lt;\delta$ 的每个分划 $P$, 以及对从属于 $P$ 的每个介点集 $\xi$ , 成立 $|\sum\limits_{i=1}^n f(\xi_i)\Delta x_i - I|&lt;\varepsilon$ , 则称函数 $f$ 在区间 $[a,b]$ 上<strong>Riemann可积</strong>或简称<strong>可积</strong>, 记为 $f\in R[a,b]$ . 并称 $I$ 为 $f$ 在区间 $[a,b]$ 上的<strong>Riemann积分</strong>或<strong>定积分</strong>, 简称积分, 记为 $\int_a^b f = I$ .</p><h3 id="Riemann可积条件"><a href="#Riemann可积条件" class="headerlink" title="Riemann可积条件"></a>Riemann可积条件</h3><p>$\rm \textbf{Definitions 4.}$ 设函数 $f$ 在 $[a,b]$ 上有界, $P$ 为 $[a,b]$ 的一个分划, 对 $i=1,2,\cdots,n$ , 记</p><script type="math/tex; mode=display">\begin{align*}M_i &= \sup\{f(x)|x\in [x_{i-1},x_i]\}\\m_i &= \inf\{f(x)|x\in [x_{i-1},x_i]\}\\\end{align*}</script><p>称 $w_i = M_i-m_i$ 为 $f$ 在 $[x_{i-1},x_i]$ 上的<strong>振幅</strong>, $\sum\limits_{i=1}^n w_i\Delta x_i$ 为 $f$ 的<strong>振幅面积</strong>.</p><p>$\rm \textbf{Proposition 1.}$(可积的第一充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是</p><script type="math/tex; mode=display">\begin{align}\lim_{||P||\to 0}\sum_{i=1}^n w_i \Delta x_i = 0\end{align}</script><p>$\rm \textbf{Proposition 2.}$(可积的第二充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是对每个 $\varepsilon &gt; 0$ , 存在区间 $[a,b]$ 的一个分划 $P$ 使得</p><script type="math/tex; mode=display">\begin{align}\sum_{P}w_i\Delta x_i< \varepsilon\end{align}</script><p>$\rm \textbf{Proposition 3.}$(可积的第三充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是 $\forall \varepsilon, \eta &gt;0$, 存在 $[a,b]$ 的分划 $P$ , 使振幅不小于 $\eta$ 的子区间的长度之和小于 $\varepsilon$ .</p><p>利用定级分定义以及三个充分必要条件可以得到一些推论:</p><ol><li>设 $f\in R[a, b]$ , 则 $f$ 在 $[a, b]$ 上有界</li><li>设 $f\in C[a, b]$ , 则 $f\in R[a, b]$</li><li>设 $f$ 在 $[a, b]$ 上有界且只有有限个间断点，则 $f\in R[a, b]$</li><li>设 $f$ 在 $[a, b]$ 上单调, 则 $f\in R[a, b]$</li></ol><p>下面对这四个结论一一进行证明</p><p>$\rm \textbf{Corollary 1.1} \quad Proof.$ 记 $\int_a^b f = I$ , 由定积分定义知, 对于 $\varepsilon = 1$, 存在一个分划 $P$ , 使得对于从属于这个 $P$ 的任何介点集 $\xi$ 均成立</p><script type="math/tex; mode=display">\left|\sum_{i=1}^n f(\xi_i)\Delta x_i - I\right| < 1</script><p>对于确定的子区间 $[x_{i-1},x_i]$ , 固定所有的 $\xi_k$($k\ne i$) 对 $f(\xi_i)$ 作出如下估计</p><script type="math/tex; mode=display">\frac{1}{\Delta x_i}(I-1-\sum_{k\ne i}f(\xi_{k}\Delta x_k)) < f(\xi_i)<\frac{1}{\Delta x_i}(I+1-\sum_{k\ne i}f(\xi_k)\Delta x_k)</script><p>由于 $\xi_i \in I_i = [x_{i-1},x_i]$ 的任意性, 可得 $f$ 在 $[a, b]$ 上有界.</p><p>$\rm \textbf{Corollary 1.2} \quad Proof.$</p><p>考虑如下热传导方程的初边值问题</p><script type="math/tex; mode=display">\begin{cases}u_t -a^2u_{xx}=f(x,t), (x,t)\in(0,L)\times (0,+\infty)\\u(x,0) = \varphi(x), x\in (0, L)\\u_x(0, t) = g_1(t), u_x(L,t) = g_2(t), t\in (0, +\infty)\end{cases}</script><p>请证明该问题的解是唯一的. (提示: 请考虑与 Dirichlet 边界条件的异同和关系)</p><p>考虑如下热传导方程的 Cauchy 问题</p><script type="math/tex; mode=display">\begin{cases}u_t - a^2 \Delta u = f(x, t), (x, t)\in R^3 \times (0, +\infty)\\u(x,0) = \varphi(x) , x\in R^3\end{cases}</script><p>若存在着某一正常数 $B$, 使对任何 $t\ge 0$ 和 $x\in R^3$ 都有 $|u(x, t)|\le B$ .请证明该 Cauchy 问题的解是唯一的</p>]]></content>
+    <content type="html"><![CDATA[<p>[TOC]</p><h2 id="0-一切的开始-「黎曼积分」"><a href="#0-一切的开始-「黎曼积分」" class="headerlink" title="0. 一切的开始:「黎曼积分」"></a>0. 一切的开始:「黎曼积分」</h2><p>在现代数学体系里, 「微积分」是及其重要的组成部分, 而积分又由不定积分和定积分组成, 后者又被称作「黎曼积分」(Riemann integral)。微积分发展至今, 黎曼将柯西只对连续函数定义的积分概念扩张成黎曼积分, 扩大了积分的应用范围, 黎曼积分也首次对函数在给定区间上的积分给出了一个精确定义。</p><h3 id="0-1-黎曼积分定义"><a href="#0-1-黎曼积分定义" class="headerlink" title="0.1 黎曼积分定义"></a>0.1 黎曼积分定义</h3><p>设函数 $f$ 在区间 $[a,b]$ 上有定义</p><p>$\rm \textbf{Definition 0.1.1}$ 如果点集 $P=\{x_0,x_1,\cdots,x_n\}$ 满足 $a=x_0&lt;x_1&lt;\cdots&lt;x_{n-1}&lt;x_n=b$ , 则称 $P$ 为 $[a,b]$ 的一个<strong>分划</strong>. 设 $\Delta x_i = x_i-x_{i-1},i=1,2,\cdots,n$ , 则称 $||P|| = \max\limits_{1\le i\le n} \{\Delta x_i\}$ 为分划 $P$ 的<strong>细度</strong> . 如果 $\Delta x_i=\frac{b-a}{n},i=1,2,\cdots,n$ , 则称 $P$ 为<strong>等距分划</strong></p><p>$\rm \textbf{Definition 0.1.2}$ 设 $P$ 是区间 $[a, b]$ 的一个分划, 对每个子区间 $[x_{i-1},x_i]$ , 任取 $\xi_i\in [x_{i-1},x_i]$ , 则称 $\xi = \{\xi_i|i=1,2,\cdots,n\}$ 为从属于 $P$ 的一个<strong>介点集</strong>; 并称和式 $\sum\limits_{i=1}^n f(\xi_i)\Delta x_i$ 为 $f$ 在区间 $[a,b]$ 上的一个<strong>Riemann和</strong>.</p><p>$\rm \textbf{Definition 0.1.3}$ 设 $I$ 为实数, 且有 $\lim\limits_{||P||\to 0}\sum\limits_{i=1}^n f(\xi_i)\Delta x_i = I$ , 即 $\forall \varepsilon &gt;0$ , $\exists \delta &gt; 0$ , 对 $||P||&lt;\delta$ 的每个分划 $P$, 以及对从属于 $P$ 的每个介点集 $\xi$ , 成立 $|\sum\limits_{i=1}^n f(\xi_i)\Delta x_i - I|&lt;\varepsilon$ , 则称函数 $f$ 在区间 $[a,b]$ 上<strong>Riemann可积</strong>或简称<strong>可积</strong>, 记为 $f\in R[a,b]$ . 并称 $I$ 为 $f$ 在区间 $[a,b]$ 上的<strong>Riemann积分</strong>或<strong>定积分</strong>, 简称积分, 记为 $\int_a^b f = I$ .</p><h3 id="0-2-黎曼可积条件"><a href="#0-2-黎曼可积条件" class="headerlink" title="0.2 黎曼可积条件"></a>0.2 黎曼可积条件</h3><p>$\rm \textbf{Definitions 0.2.1}$ 设函数 $f$ 在 $[a,b]$ 上有界, $P$ 为 $[a,b]$ 的一个分划, 对 $i=1,2,\cdots,n$ , 记</p><script type="math/tex; mode=display">\begin{align*}M_i &= \sup\{f(x)|x\in [x_{i-1},x_i]\}\\m_i &= \inf\{f(x)|x\in [x_{i-1},x_i]\}\\\end{align*}</script><p>称 $w_i = M_i-m_i$ 为 $f$ 在 $[x_{i-1},x_i]$ 上的<strong>振幅</strong>, $\sum\limits_{i=1}^n w_i\Delta x_i$ 为 $f$ 的<strong>振幅面积</strong>.</p><p>$\rm \textbf{Proposition 0.2.1}$(可积的第一充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是</p><script type="math/tex; mode=display">\begin{align}\lim_{||P||\to 0}\sum_{i=1}^n w_i \Delta x_i = 0\end{align}</script><p>$\rm \textbf{Proposition 0.2.2}$(可积的第二充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是对每个 $\varepsilon &gt; 0$ , 存在区间 $[a,b]$ 的一个分划 $P$ 使得</p><script type="math/tex; mode=display">\begin{align}\sum_{P}w_i\Delta x_i< \varepsilon\end{align}</script><p>$\rm \textbf{Proposition 0.2.3}$(可积的第三充要条件): 有界函数 $f\in R[a, b]$ 的充分必要条件是 $\forall \varepsilon, \eta &gt;0$, 存在 $[a,b]$ 的分划 $P$ , 使振幅不小于 $\eta$ 的子区间的长度之和小于 $\varepsilon$ .</p><p>利用定级分定义以及三个充分必要条件可以得到一些推论:</p><ol><li>设 $f\in R[a, b]$ , 则 $f$ 在 $[a, b]$ 上有界</li><li>设 $f\in C[a, b]$ , 则 $f\in R[a, b]$</li><li>设 $f$ 在 $[a, b]$ 上有界且只有有限个间断点, 则 $f\in R[a, b]$</li><li>设 $f$ 在 $[a, b]$ 上单调, 则 $f\in R[a, b]$</li></ol><p>写一下第一个结论的证明。</p><p>$\rm \textbf{Corollary 0.2.1} \quad \textbf{Proof}.$ 记 $\int_a^b f = I$ , 由定积分定义知, 对于 $\varepsilon = 1$, 存在一个分划 $P$ , 使得对于从属于这个 $P$ 的任何介点集 $\xi$ 均成立</p><script type="math/tex; mode=display">\left|\sum_{i=1}^n f(\xi_i)\Delta x_i - I\right| < 1</script><p>对于确定的子区间 $[x_{i-1},x_i]$ , 固定所有的 $\xi_k$($k\ne i$) 对 $f(\xi_i)$ 作出如下估计</p><script type="math/tex; mode=display">\frac{1}{\Delta x_i}(I-1-\sum_{k\ne i}f(\xi_{k}\Delta x_k)) < f(\xi_i)<\frac{1}{\Delta x_i}(I+1-\sum_{k\ne i}f(\xi_k)\Delta x_k)</script><p>由于 $\xi_i \in I_i = [x_{i-1},x_i]$ 的任意性, 可得 $f$ 在 $[a, b]$ 上有界.</p><h3 id="0-3-黎曼积分的缺陷"><a href="#0-3-黎曼积分的缺陷" class="headerlink" title="0.3 黎曼积分的缺陷"></a>0.3 黎曼积分的缺陷</h3><p>即时在有界函数范围内, 黎曼积分依旧存在着很大的缺陷。主要表现为以下两个方面:</p><ol><li>黎曼积分与极限可交换的条件太强</li></ol><p>为了使</p><script type="math/tex; mode=display">\int_{a}^{b} \lim_{n\to \infty} f_n(x)dx = \lim_{n\to \infty}\int_{a}^{b}f_n(x)dx</script><p>对一列收敛的黎曼可积函数 $\{f_n(x)\}$ 成立, 需要满足 $f_n(x)$ <strong>一致收敛</strong>.</p><ol><li>积分运算不完全是微分运算的逆运算</li></ol><p>一方面, 任意一个黎曼可积的函数 $f(x)$ 的变上限积分 $F(x) = \int_{a}^{x}f(t)dt$ 的所有连续点都有 $F’(x) = f(x)$ , 即积分之后再微分可以还原。</p><p>另一方面, 一个可微函数 $F(x)$ 的导函数 $f(x)$ 即时有界也不一定黎曼可积, 也就无法成立 Newton-Leibniz 公式。</p><p>为了改进黎曼积分的缺陷, 勒贝格基于可列可加的测度引入了一种新的积分——勒贝格积分。为了引入测度, 先从集合开始。</p><h2 id="1-从集合出发"><a href="#1-从集合出发" class="headerlink" title="1. 从集合出发"></a>1. 从集合出发</h2><h3 id="1-1-集合的定义"><a href="#1-1-集合的定义" class="headerlink" title="1.1 集合的定义"></a>1.1 集合的定义</h3><p>$\rm \textbf{Definitions 1.1.1}$ 以某种方式给定的一些事物的全体称为一个集合(简称为集), 集中的成员称为这个集的元素。</p><p>$\rm \textbf{Definitions 1.1.2}$ 设 $A$ 和 $B$ 是两个集, 如果 $A$ 和 $B$ 具有完全相同的元素, 则称 $A$ 和 $B$ 相等, 记为 $A=B$ ; 如果 $A$ 的元素都是 $B$ 的元素, 则称 $A$ 为 $B$ 的子集, 记为 $A\subset B$ , 若 $A\subset B$ 且 $A\ne B$ 则称 $A$ 为 $B$ 的真子集。</p><p>由定义1.1.2可知, $A=B$ 当且仅当 $A\subset B$ 且 $B\subset A$ , 这也是证明两个集合相等最常用的方法。</p><p>$\rm \textbf{Definitions 1.1.3}$ 设 $X$ 是一个给定的集, 由 $X$ 的所有子集构成的集称为 $X$ 的<strong>幂集</strong>, 记为 $\mathcal{P}(X)$ . 一般地, 若 $X$ 是由 $n$ 个元素构成的集, 则 $X$ 有 $2^n$ 个不同的子集.</p><h3 id="1-2-集合的运算"><a href="#1-2-集合的运算" class="headerlink" title="1.2 集合的运算"></a>1.2 集合的运算</h3><p>设 $I$ 是一非空集, 若对每个 $\alpha\in I$ 都对应一个集 $A_{\alpha}$ , 则称 $\{A_{\alpha}\}_{\alpha\in I}$ 为<strong>集族</strong>, 称 $I$ 为<strong>指标集</strong>. 特别地, 若指标集是自然数集 $N$ , 则称 $\{A_{\alpha}\}_{\alpha\in N}$ 为<strong>集列</strong>, 简记为 $\{A_n\}$ . </p>]]></content>
     
     
       
       
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;“微积分是近代数学中最伟大的成就，对它的重要性无论做怎样的估计都不会。”&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;在现代数学体系里，「微积分」是及其重要的组成部分，而积分又由不定积分和定级分组成，后者又被称作「黎曼积分」(Rie</summary>
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;0-一切的开始-「黎曼积分」&quot;&gt;&lt;a href=&quot;#0-一切的开始-「黎曼积分」&quot; class=&quot;headerlink&quot; title=&quot;0. 一切的开始:「黎曼积分」&quot;&gt;&lt;/a&gt;0. 一切的开始:「黎曼积分」&lt;/h2&gt;&lt;p&gt;在现代数学体系</summary>
       
     
     
