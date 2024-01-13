@@ -160,9 +160,7 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>大概23年初的时候，开始在 <a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/">learn-opengl</a> 学 OpenGL 渲染, 然后萌生了学习游戏的想法, 于是乎就去学习了 Unity3D 游戏引擎, 大概半年, 做了一些小废品游戏, 最后做了一个仿原神游戏(跑步模拟器?), 然后因为训练 ACM 就搁置了半年的时间, 到现在可以说忘的差不多了, 最近看到了一个 <a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/">catlike-coding</a> 的教程(个人觉得不适合完全零基础的人看), 即时是在考试周也还是吸引到了我, 讲的深入浅出, 同时介绍了一些渲染的知识而不仅仅只是调一下 UI , 让我慢慢又把以前的东西捡起来了, 为了防止又学了后面忘记前面的情况, 这里做一点小记录。</p>
-<hr>
-<ol>
+        <ol>
 <li>继承自 MonoBehaviour 才能作为游戏中的组件</li>
 <li><code>[SerializeField]</code> 序列化: 帮助用户将[成员变量]在Inspector中显示, 并且自定义Serialize关系</li>
 <li>rotation 是返回世界坐标旋转四元数信息， localRotation 是返回本地旋转(围绕父)四元数信息</li>
@@ -183,9 +181,11 @@
 </li>
 <li><p>localPosition 是 Transform 类的一个属性, 用于表示游戏对象在其父级坐标系中的位置。换句话说, localPosition 描述了一个对象相对于其父对象的位置。在三维空间中，localPosition 是一个 Vector3 类型的属性, 与之相对应的是 position 属性, 它表示对象在世界坐标系中的位置。如果没有父对象, localPosition 和 position 是相同的。但如果有父对象, 那么 position 将考虑到了所有父对象的变换, 而 localPosition 只考虑了直接的父对象的变换。</p>
 </li>
-<li>localScale 是相对于父对象的缩放因子, 如果一个对象的 localScale 是 (2, 1, 0.5), 那么它相对于其父对象的尺寸在 X 轴上放大了两倍, 在 Y 轴上没有变化, 在 Z 轴上缩小了一半, 注意, localScale 会受到父对象变化的影响</li>
+<li><p>localScale 是相对于父对象的缩放因子, 如果一个对象的 localScale 是 (2, 1, 0.5), 那么它相对于其父对象的尺寸在 X 轴上放大了两倍, 在 Y 轴上没有变化, 在 Z 轴上缩小了一半, 注意, localScale 会受到父对象变化的影响</p>
+</li>
+<li><p>Awake方法在对象被实例化之后就调用，不管对象是否被设置为Active以及脚本是否被激活，只调用一次; Start方法在Awake方法调用完毕之后调用，但是必须要求对象被设置为Active且脚本被激活，只调用一次; Update方法在Start之后调用，需要对象被设置为Active以及脚本被激活，每次渲染(一帧)调用一次; OnEnable 方法在 Awake 和 Start 之后调用，是每一次脚本激活时调用，通常用在一个GameObject会被取消激活并且每次激活都要进行初始化等操作时，还有就是在Awake里初始化的东西无法在热重载中保留，但是OnEnable里初始化的东西可以在热重载里保留，与之对应的还有OnDisEnable方法在每次脚本取消激活时调用</p>
+</li>
 </ol>
-<p>后面想到什么再加, 如果实变函数能顺利通过考试的话….等考完试应该会去看《Unity Shader 入门精要》, 复习去了..</p>
 
         
         <br />
