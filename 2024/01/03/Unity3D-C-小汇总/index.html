@@ -187,14 +187,20 @@
 </li>
 <li><p>两个碰撞体(Collider)发生碰撞(Collision)，且至少有其中的一个游戏对象附加了刚体(Rigibody)，会向它们附加的对象发射三条碰撞信息</p>
 <ul>
-<li><code>void OnCollisionEnter(Collision collision)</code>: 两个碰撞体刚发生碰撞时</li>
-<li><code>void OnCollisionStay(Collision collision)</code>: 两个碰撞体持续保持接触状态时</li>
-<li><code>void OnCollisionExit(Collision collision)</code>: 两个碰撞体停止互相接触时</li>
+<li><code>void OnCollisionEnter(Collision collision)</code>: 两个碰撞体刚发生碰撞时，只会调用一次</li>
+<li><code>void OnCollisionStay(Collision collision)</code>: 两个碰撞体持续保持接触状态时，会一直调用，直到两个物体没有碰撞后才会停止</li>
+<li><code>void OnCollisionExit(Collision collision)</code>: 两个碰撞体停止互相接触时，只会调用一次</li>
 </ul>
 </li>
 <li><p>碰撞器和触发器的区别: 碰撞器是触发器的载体，而触发器只是碰撞器身上的一个属性，当 <code>Is Trigger = false</code> 时，同样会收到三条触发消息 <code>OnCollisionEnter/Stay/Exit</code> 分别是当碰撞体进入到触发器时、当碰撞体和触发器有重叠区域时、当碰撞体离开触发器时，当 <code>Is Trigger = true</code> 时，碰撞器会被物理引擎忽略，没有碰撞效果。</p>
 </li>
 <li><p><code>FixedUpdate</code> 和 <code>Update</code> 之间的区别在于，前者间隔固定的时间步长调用一次，而后者每一帧调用一次，会受到帧速率的影响。通常，因为Unity内置的物理引擎(NVIDIA的PhysX物理仿真引擎)是隔固定时间计算一次，所以一般在需要对物理游戏对象计算比如速度之类的属性时，也会使用 <code>FixedUpdate</code> 。</p>
+</li>
+<li><p><code>RequireComponent</code> 是一个属性标签，如</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line">[<span class="meta">RequireComponent(typeof(Camera))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OrbitCamera</span> : <span class="title">MonoBehaviour</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>作用是该脚本所附加的游戏对象必须具有指定类型的组件，否则Unity会自动添加该组件</p>
+</li>
+<li><p><code>LateUpdate</code> 是一个特殊的生命周期方法，与 <code>Update</code> 不同，它在每一帧渲染之后调用，假如有多个脚本，则会在执行完所有脚本的 <code>Update</code> 之后才会调用 <code>LateUpdate</code> ，常常用来处理摄像机跟随、相机控制和其他需要在对象位置被更新后执行的任务，因为相机跟随角色时，一般是等角色移动好了，再把相机移动过去。</p>
 </li>
 </ol>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
