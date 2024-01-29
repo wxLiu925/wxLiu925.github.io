@@ -212,6 +212,14 @@
 </li>
 <li><p>自制的轨道摄像机不穿墙/物体的话，可以使用 box cast，匹配到世界空间中相机的近平面矩阵</p>
 </li>
+<li><p>Unity里给一个游戏对象添加一个Animation来移动它的位置，在脚本里这个对象的速度为0,需要通过跟踪其位置来自己推断出连接速度。</p>
+</li>
+<li><p><code>Transform.InverseTransformPoint(Vector3 B)</code> 将世界坐标转化为当前物体下的相对坐标，<code>Transform.TransformPoint()</code>相反。</p>
+</li>
+<li><p>射线检测: <a target="_blank" rel="noopener" href="https://dullsword.github.io/2020/05/13/Unity-%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B/">https://dullsword.github.io/2020/05/13/Unity-%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://dullsword.github.io/2020/05/13/Unity-%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B/">https://dullsword.github.io/2020/05/13/Unity-%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B/</a></p>
+</li>
 </ol>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
 <li><p>在图形学里，我们用 $(x, y, z, 1)$ 表示点，用 $(x, y, z, 0)$ 表示向量，即用一个额外的分量来区分点和向量，这叫做齐次坐标系。这是通常的，但是由于经常做变换操作时会使得 $w$ 分量改变，因此只要 $w$ 为 0 就表示向量，不为0就表示点，如果要从齐次坐坐标得到3D坐标只需要将 $x、y、z$ 都除以 $w$ 即可。</p>
@@ -297,22 +305,6 @@
 
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 <script>
