@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="liuwx&#39;s home">
+    <meta property="og:type" content="website">
+    <meta name="description" content="liuwx&#39;s home">
+    <meta name="keyword"  content="退役amer, 数学系在读">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        UnityGenshin项目总结 - 刘刘大顺wx
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="刘刘大顺" type="application/atom+xml">
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 宁在一思进，莫在一思停。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>liuwx</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%84%E5%83%8F%E6%9C%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">摄像机系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-text">动作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IdlingState"><span class="toc-text">IdlingState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DashingState"><span class="toc-text">DashingState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StoppingState"><span class="toc-text">StoppingState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LandingState"><span class="toc-text">LandingState</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%87%8D%E7%94%A8"><span class="toc-text">数据重用</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 宁在一思进，莫在一思停。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        UnityGenshin项目总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-02-02 00:09:49</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p><code>new input system</code> 插件的使用可以归纳为两个步骤</p>
+<ol>
+<li>创建行为资产(Input Action Assets), 绑定输入控件</li>
+<li>编写自定义脚本, 定义用于响应输入事件的回调函数</li>
+</ol>
+<h2 id="摄像机系统"><a href="#摄像机系统" class="headerlink" title="摄像机系统"></a>摄像机系统</h2><p>摄像机系统是根据 <code>Cinemachine</code> 插件来进行制作的, 先创建了一个虚拟相机命名为  “PlayerCamera” , 然后因为相机需要一个 <code>Follow</code> 和 <code>LookAt</code> 目标, <code>Follow</code> 用来作为相机跟随的目标, <code>LookAt</code> 来作为相机的朝向, 这里给角色创建一个空物体 “CameraLookPoint” 来作为相机的 <code>LookAt</code> 和 <code>Follow</code> 的目标, 然后是使用 <code>CameraZoom.cs</code> 来控制摄像机的变焦。主要就是设置一个默认距离、最小距离和最大距离, 然后获取到摄像机的引用之后, 计算出目标距离, 然后使用线性插值平滑地将当前摄像机的距离移动到目标距离去.<br>&lt;!— ```csharp<br>private void Zoom() {<br>    float zoomValue = inputProvider.GetAxisValue(2) * zoomSensitivity; // 获取缩放值</p>
+<pre><code>currentTargetDistance = Mathf.Clamp(currentTargetDistance + zoomValue, minimumDistance, maximumDistance); // 更新目标距离并确保在 min/max 之间
+
+float currentDistance = framingTransposer.m_CameraDistance;
+
+if (currentDistance == currentTargetDistance) &#123;
+    return;
+&#125;
+
+float lerpedZoomValue = Mathf.Lerp(currentDistance, currentTargetDistance, smoothing * Time.deltaTime);
+
+framingTransposer.m_CameraDistance = lerpedZoomValue;
+</code></pre><p>}<br>``` —&gt;</p>
+<h2 id="动作系统"><a href="#动作系统" class="headerlink" title="动作系统"></a>动作系统</h2><p>要设计一个动作系统主要是考虑两个部分, 第一个部分就是要实现的不同动作, 项目的动作是可以分成两个方面的, 一方面是空中的动作, 包括跳跃(<code>Jump</code>)和下落(<code>Fall</code>) , 另一方面是在地面上的动作, 包括猛冲(<code>Dash</code>)和待机(<code>Idle</code>), 重着陆(<code>Hard Landing</code>)、轻着陆(<code>Light Landing</code>)、翻滚(<code>Rall</code>), 步行(<code>Walk</code>)、跑步(<code>Run</code>)和冲刺(<code>Dash</code>)。第二个部分就是要实现不同的动作之间的相互转换。</p>
+<p>首先要考虑设计不同的动作, 在 “PlayerInputActions” 窗口里绑定各个动作的输入控件, 比如”Dash” 绑定了 “Left Shift” 键和 “Right Button(Mouse)” 键。</p>
+<p>这里实现了一个玩家控制移动的状态机, 这个状态机将会处理所有玩家的移动, 首先定义一个接口 <code>IState</code><br>&lt;!— ```csharp<br>using UnityEngine;</p>
+<p>namespace GenshinImpactMovementSystem {<br>    public interface IState {<br>        public void Enter(); // 进入状态时调用<br>        public void Exit(); // 退出状态时调用<br>        public void HandleInput(); // 处理输入, 用于检测和响应玩家的输入<br>        public void Update(); // 更新状态时调用<br>        public void PhysicsUpdate(); // 物理更新时调用<br>        public void OnTriggerEnter(Collider collider); // 当状态碰撞器进入其他碰撞器时调用<br>        public void OnTriggerExit(Collider collider); // 当状态碰撞器离开其他碰撞器时调用<br>        public void OnAnimationEnterEvent(); // 响应动画进入事件<br>        public void OnAnimationExitEvent(); // 响应动画退出事件<br>        public void OnAnimationTransitionEvent(); // 处理状态的过渡<br>    }<br>}<br><code>`` --&gt;
+在接口中定义了状态需要的多个函数, 然后定义一个状态机的抽象基类</code>StateMachine<code>作为状态机的基础, 以一个</code>IState<code>接口为成员变量, 每次调用不同的方法都会委托给当前状态的相应方法进行处理。然后</code>PlayerMovementStateMachine<code>作为</code>StateMachine<code>的子类, 里面为每个状态创建了相应的实例, 以便于后续状态之间的转化. 除此之外, 还编写了一个</code>PlayerMovementState<code>类来实现了</code>IState<code>接口, 后续再针对不同的状态的话, 都从这个</code>PlayerMovementState<code>类继承过来, 这里的继承分为几步, 首先是定义</code>PlayerGroundedState<code>从</code>PlayerMovementState<code>继承过来, 然后再先根据状态的不同分别定义几个大类从</code>PlayerGroundedState<code>继承, 静止状态单独为一类, 猛冲状态也单独为一类, 从</code>PlayerGroundedState` 继承, 然后着陆分为重着陆和轻着陆以及重着陆之后的翻滚, 这三种着陆姿势的场景分别是</p>
+<ul>
+<li>“Light Landing” 从一个小的高度坠落, 比如 “Jumping” 之后</li>
+<li>“Hard Landing” 从一个比较高的高度坠落</li>
+<li>“Roll” 从一个更高的地方坠落, 但是前提是按下了移动键</li>
+</ul>
+<p>因此先总的有一个着陆状态 <code>PlayerLandingState</code> 从 <code>PlayerGroundedState</code> 继承过来, 再对每一个单独的状态从着陆状态继承过去, 再之后是移动状态可以分为慢跑、快跑和步行, 总的定义一个 <code>PlayerMovingState</code> 完成继承过渡, 最后是停止行动, 停止之后状态又变成待机状态。</p>
+<p>这是动作系统的一个大致的架构, 然后继续分下去的话, 控制一个动作大概可以分为动画 Animation 和位置移动, 位置移动有几种方式, 要不然就直接修改人物 transform 组件的位置(Position), 要不然就自己计算速度和加速度, 然后每一次 <code>Update</code> 或者 <code>FixedUpdate</code> 时就根据速度和加速度的变化计算位置, 因为这里的人物挂了刚体(Rigidbody) 组件, 所以一般就考虑 <code>Rigidbody.velocity</code> 直接更改它的速度, 或者是 <code>Rigidbody.addForce</code> , 给它添加力。这里实现基本上使用的是后者, 因为这样过渡更加自然。动画就只需要给人物添加一个 <code>Animator</code> 组件, 然后在资产文件夹下创建一个 <code>Animator Controller</code> , 因为本项目的动作不是很复杂, 所以只用到了可重用子状态机, 而没有用到混合树</p>
+<h3 id="IdlingState"><a href="#IdlingState" class="headerlink" title="IdlingState"></a>IdlingState</h3><p>静止状态主要就是控制设置速度修正量设置为0, 以及刚体速度为 0 即可。</p>
+<h3 id="DashingState"><a href="#DashingState" class="headerlink" title="DashingState"></a>DashingState</h3><p>猛冲状态把地面冲刺数据中的速度修正为设定值, 然后设置相应的动画状态、跳跃力和旋转数据。</p>
+<h3 id="StoppingState"><a href="#StoppingState" class="headerlink" title="StoppingState"></a>StoppingState</h3><p>主要有三个状态, <code>HardStoppingState</code> 、<code>LightStoppingState</code> 和 <code>MediumStoppingState</code> , 也是调用动画和添加不同的停止减速力。</p>
+<h3 id="LandingState"><a href="#LandingState" class="headerlink" title="LandingState"></a>LandingState</h3><p>启用着陆动画, 禁用移动、禁用玩家的移动输入并且重置玩家的速度, 然后等动画过渡事件发生后根据玩家输入切换不同的状态(静止、行走等)</p>
+<h2 id="数据重用"><a href="#数据重用" class="headerlink" title="数据重用"></a>数据重用</h2><p>要实现数据重用的话一般就是使用静态变量或单例模式来实现</p>
+<ul>
+<li>静态变量(Static Variables): 在脚本中声明一个静态变量, 并在需要重用数据的地方进行访问和修改。静态变量的值在整个应用程序中都是唯一的。</li>
+<li>单例模式(Singleton Pattern): 单例模式可以确保只存在一个实例对象, 并且可以通过该实例访问和修改数据。这是一种更具封装性和可控性的方式。</li>
+</ul>
+<p>静态变量适用于简单的数据共享，而单例模式适用于需要更复杂操作和管理的情况。</p>
+<p>这里通过 <code>PlayerOS</code> 来保存大部分数据, 用 <code>PlayerStateReusableData</code> 来保存多个状态重复使用的数据。</p>
+<p>这里用到的是可编程对象(ScriptableObject), ScriptableObject 是一个可独立于类实例来保存大量数据的数据容器。它可以通过将数据存储在ScriptableObject对象中来减少工程以及游戏运行时因拷贝值所造成的内存占用。这里需要存储很多数据, 比如当前是否需要旋转、是否处于冲刺状态、当前的移动速度、前进方向等等。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/DanielGrif67907">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/li-zhi-meng-49">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/wxLiu925">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">Copyright © 2023 liuwx</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+    data-repo="wxLiu925/blog-comments"
+    data-repo-id="R_kgDOKi3_Rw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKi3_R84CaTAG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+
+</html>
