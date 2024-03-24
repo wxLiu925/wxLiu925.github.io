@@ -40,58 +40,6 @@
   </entry>
   
   <entry>
-    <title>柠檬微趣-游戏客户端-笔试</title>
-    <link href="https://wxliu925.github.io/2024/02/07/%E6%9F%A0%E6%AA%AC%E5%BE%AE%E8%B6%A3-%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF-%E7%AC%94%E8%AF%95/"/>
-    <id>https://wxliu925.github.io/2024/02/07/%E6%9F%A0%E6%AA%AC%E5%BE%AE%E8%B6%A3-%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF-%E7%AC%94%E8%AF%95/</id>
-    <published>2024-02-07T13:30:41.000Z</published>
-    <updated>2024-02-07T13:59:28.711Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li><p>两两翻转链表节点(lc24)</p></li><li><p>有如下约定:</p><ol><li>“abc” 是好串</li><li>设 s 是好串，且 s = X+Y ，其中 X 和 Y 可以是空串，则称 X+”abc”+Y 也是好串<br>给定一个字符串，判断该串是不是好串</li></ol></li><li><p>给定一个数组和一个正整数 n ，如果有 $x\bmod n = y\bmod n$ 则称 $x$ 和 $y$ 同余，并称 $x+y$ 为该同余组的值，求出所有同余组里值最大的那一组，要求: 不能使用取模运算符</p></li><li><p>正则表达式，给定一个待匹配字符串和模式串，询问是否匹配，其中模式串只会出现以下字符:</p><ol><li>字母</li><li>‘.’ 可以匹配任意单一字符</li><li>‘*’ 可以匹配任意次前一个字符，可以为0次</li><li>‘?’ 可以匹配任意次前一个字符，至少为1次</li></ol></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;两两翻转链表节点(lc24)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;有如下约定:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;“abc” 是好串&lt;/li&gt;
-&lt;li&gt;设 s 是好串，且 s = X+Y ，其中 X 和 Y 可以是空串，则称 X+”abc”+Y 也是好串&lt;br&gt;给定</summary>
-      
-    
-    
-    
-    
-    <category term="面经" scheme="https://wxliu925.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UnityGenshin项目总结</title>
-    <link href="https://wxliu925.github.io/2024/02/02/UnityGenshin%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/"/>
-    <id>https://wxliu925.github.io/2024/02/02/UnityGenshin%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</id>
-    <published>2024-02-01T16:09:49.000Z</published>
-    <updated>2024-02-07T14:01:31.363Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>new input system</code> 插件的使用可以归纳为两个步骤</p><ol><li>创建行为资产(Input Action Assets), 绑定输入控件</li><li>编写自定义脚本, 定义用于响应输入事件的回调函数</li></ol><h2 id="摄像机系统"><a href="#摄像机系统" class="headerlink" title="摄像机系统"></a>摄像机系统</h2><p>摄像机系统是根据 <code>Cinemachine</code> 插件来进行制作的, 先创建了一个虚拟相机命名为  “PlayerCamera” , 然后因为相机需要一个 <code>Follow</code> 和 <code>LookAt</code> 目标, <code>Follow</code> 用来作为相机跟随的目标, <code>LookAt</code> 来作为相机的朝向, 这里给角色创建一个空物体 “CameraLookPoint” 来作为相机的 <code>LookAt</code> 和 <code>Follow</code> 的目标, 然后是使用 <code>CameraZoom.cs</code> 来控制摄像机的变焦。主要就是设置一个默认距离、最小距离和最大距离, 然后获取到摄像机的引用之后, 计算出目标距离, 然后使用线性插值平滑地将当前摄像机的距离移动到目标距离去.<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Zoom</span>()</span> &#123;</span><br><span class="line">    <span class="built_in">float</span> zoomValue = inputProvider.GetAxisValue(<span class="number">2</span>) * zoomSensitivity; <span class="comment">// 获取缩放值</span></span><br><span class="line"></span><br><span class="line">    currentTargetDistance = Mathf.Clamp(currentTargetDistance + zoomValue, minimumDistance, maximumDistance); <span class="comment">// 更新目标距离并确保在 min/max 之间</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">float</span> currentDistance = framingTransposer.m_CameraDistance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (currentDistance == currentTargetDistance) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">float</span> lerpedZoomValue = Mathf.Lerp(currentDistance, currentTargetDistance, smoothing * Time.deltaTime);</span><br><span class="line"></span><br><span class="line">    framingTransposer.m_CameraDistance = lerpedZoomValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="动作系统"><a href="#动作系统" class="headerlink" title="动作系统"></a>动作系统</h2><p>要设计一个动作系统主要是考虑两个部分, 第一个部分就是要实现的不同动作, 项目的动作是可以分成两个方面的, 一方面是空中的动作, 包括跳跃(<code>Jump</code>)和下落(<code>Fall</code>) , 另一方面是在地面上的动作, 包括猛冲(<code>Dash</code>)和待机(<code>Idle</code>), 重着陆(<code>Hard Landing</code>)、轻着陆(<code>Light Landing</code>)、翻滚(<code>Rall</code>), 步行(<code>Walk</code>)、跑步(<code>Run</code>)和冲刺(<code>Dash</code>)。第二个部分就是要实现不同的动作之间的相互转换。</p><p>首先要考虑设计不同的动作, 在 “PlayerInputActions” 窗口里绑定各个动作的输入控件, 比如”Dash” 绑定了 “Left Shift” 键和 “Right Button(Mouse)” 键。</p><p>这里实现了一个玩家控制移动的状态机, 这个状态机将会处理所有玩家的移动, 首先定义一个接口 <code>IState</code></p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">GenshinImpactMovementSystem</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IState</span> &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Enter</span>()</span>; <span class="comment">// 进入状态时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Exit</span>()</span>; <span class="comment">// 退出状态时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HandleInput</span>()</span>; <span class="comment">// 处理输入, 用于检测和响应玩家的输入</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>()</span>; <span class="comment">// 更新状态时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PhysicsUpdate</span>()</span>; <span class="comment">// 物理更新时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnTriggerEnter</span>(<span class="params">Collider collider</span>)</span>; <span class="comment">// 当状态碰撞器进入其他碰撞器时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnTriggerExit</span>(<span class="params">Collider collider</span>)</span>; <span class="comment">// 当状态碰撞器离开其他碰撞器时调用</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnAnimationEnterEvent</span>()</span>; <span class="comment">// 响应动画进入事件</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnAnimationExitEvent</span>()</span>; <span class="comment">// 响应动画退出事件</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnAnimationTransitionEvent</span>()</span>; <span class="comment">// 处理状态的过渡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在接口中定义了状态需要的多个函数, 然后定义一个状态机的抽象基类 <code>StateMachine</code> 作为状态机的基础, 以一个 <code>IState</code> 接口为成员变量, 每次调用不同的方法都会委托给当前状态的相应方法进行处理。然后 <code>PlayerMovementStateMachine</code> 作为 <code>StateMachine</code> 的子类, 里面为每个状态创建了相应的实例, 以便于后续状态之间的转化. 除此之外, 还编写了一个 <code>PlayerMovementState</code> 类来实现了 <code>IState</code> 接口, 后续再针对不同的状态的话, 都从这个 <code>PlayerMovementState</code> 类继承过来, 这里的继承分为几步, 首先是定义 <code>PlayerGroundedState</code> 从 <code>PlayerMovementState</code> 继承过来, 然后再先根据状态的不同分别定义几个大类从 <code>PlayerGroundedState</code> 继承, 静止状态单独为一类, 猛冲状态也单独为一类, 从 <code>PlayerGroundedState</code> 继承, 然后着陆分为重着陆和轻着陆以及重着陆之后的翻滚, 这三种着陆姿势的场景分别是</p><ul><li>“Light Landing” 从一个小的高度坠落, 比如 “Jumping” 之后</li><li>“Hard Landing” 从一个比较高的高度坠落</li><li>“Roll” 从一个更高的地方坠落, 但是前提是按下了移动键</li></ul><p>因此先总的有一个着陆状态 <code>PlayerLandingState</code> 从 <code>PlayerGroundedState</code> 继承过来, 再对每一个单独的状态从着陆状态继承过去, 再之后是移动状态可以分为慢跑、快跑和步行, 总的定义一个 <code>PlayerMovingState</code> 完成继承过渡, 最后是停止行动, 停止之后状态又变成待机状态。</p><p>这是动作系统的一个大致的架构, 然后继续分下去的话, 控制一个动作大概可以分为动画 Animation 和位置移动, 位置移动有几种方式, 要不然就直接修改人物 transform 组件的位置(Position), 要不然就自己计算速度和加速度, 然后每一次 <code>Update</code> 或者 <code>FixedUpdate</code> 时就根据速度和加速度的变化计算位置, 因为这里的人物挂了刚体(Rigidbody) 组件, 所以一般就考虑 <code>Rigidbody.velocity</code> 直接更改它的速度, 或者是 <code>Rigidbody.addForce</code> , 给它添加力。这里实现基本上使用的是后者, 因为这样过渡更加自然。动画就只需要给人物添加一个 <code>Animator</code> 组件, 然后在资产文件夹下创建一个 <code>Animator Controller</code> , 因为本项目的动作不是很复杂, 所以只用到了可重用子状态机, 而没有用到混合树</p><h3 id="IdlingState"><a href="#IdlingState" class="headerlink" title="IdlingState"></a>IdlingState</h3><p>静止状态主要就是控制设置速度修正量设置为0, 以及刚体速度为 0 即可。</p><h3 id="DashingState"><a href="#DashingState" class="headerlink" title="DashingState"></a>DashingState</h3><p>猛冲状态把地面冲刺数据中的速度修正为设定值, 然后设置相应的动画状态、跳跃力和旋转数据。</p><h3 id="StoppingState"><a href="#StoppingState" class="headerlink" title="StoppingState"></a>StoppingState</h3><p>主要有三个状态, <code>HardStoppingState</code> 、<code>LightStoppingState</code> 和 <code>MediumStoppingState</code> , 也是调用动画和添加不同的停止减速力。</p><h3 id="LandingState"><a href="#LandingState" class="headerlink" title="LandingState"></a>LandingState</h3><p>启用着陆动画, 禁用移动、禁用玩家的移动输入并且重置玩家的速度, 然后等动画过渡事件发生后根据玩家输入切换不同的状态(静止、行走等)</p><h2 id="数据重用"><a href="#数据重用" class="headerlink" title="数据重用"></a>数据重用</h2><p>要实现数据重用的话一般就是使用静态变量或单例模式来实现</p><ul><li>静态变量(Static Variables): 在脚本中声明一个静态变量, 并在需要重用数据的地方进行访问和修改。静态变量的值在整个应用程序中都是唯一的。</li><li>单例模式(Singleton Pattern): 单例模式可以确保只存在一个实例对象, 并且可以通过该实例访问和修改数据。这是一种更具封装性和可控性的方式。</li></ul><p>静态变量适用于简单的数据共享，而单例模式适用于需要更复杂操作和管理的情况。</p><p>这里通过 <code>PlayerOS</code> 来保存大部分数据, 用 <code>PlayerStateReusableData</code> 来保存多个状态重复使用的数据。</p><p>这里用到的是可编程对象(ScriptableObject), ScriptableObject 是一个可独立于类实例来保存大量数据的数据容器。它可以通过将数据存储在ScriptableObject对象中来减少工程以及游戏运行时因拷贝值所造成的内存占用。这里需要存储很多数据, 比如当前是否需要旋转、是否处于冲刺状态、当前的移动速度、前进方向等等。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;code&gt;new input system&lt;/code&gt; 插件的使用可以归纳为两个步骤&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;创建行为资产(Input Action Assets), 绑定输入控件&lt;/li&gt;
-&lt;li&gt;编写自定义脚本, 定义用于响应输入事件的回调函数&lt;/li&gt;
-&lt;/ol</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>LeetCode-Hot-100-链表</title>
     <link href="https://wxliu925.github.io/2024/01/31/LeetCode-Hot-100-%E9%93%BE%E8%A1%A8/"/>
     <id>https://wxliu925.github.io/2024/01/31/LeetCode-Hot-100-%E9%93%BE%E8%A1%A8/</id>
@@ -468,7 +416,7 @@
     <link href="https://wxliu925.github.io/2023/10/23/CSAPP-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/"/>
     <id>https://wxliu925.github.io/2023/10/23/CSAPP-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/</id>
     <published>2023-10-23T03:21:29.000Z</published>
-    <updated>2023-10-26T04:40:42.617Z</updated>
+    <updated>2024-03-24T20:20:31.977Z</updated>
     
     <content type="html"><![CDATA[<p>之前在读 xv6-book 的时候，发现自己对一些计算机底层的知识了解的太少，导致看到虚拟内存映射、物理地址这些东西的时候就很头大。在一个群友的推荐下，我决定先来看一下CSAPP的1、2、3、6、7、8、9章(当然，还有一种方案是学习CS61C)，于是有了这个系列。</p><p>gitbook: <a href="https://hansimov.gitbook.io/csapp/">https://hansimov.gitbook.io/csapp/</a></p><h2 id="系统的硬件组成"><a href="#系统的硬件组成" class="headerlink" title="系统的硬件组成"></a>系统的硬件组成</h2><h3 id="1-总线"><a href="#1-总线" class="headerlink" title="1.总线"></a>1.总线</h3><p>总线是贯穿整个系统的一组电子管道。它们携带者信息字节在各个部件之间传递，传送定长的字节块(字)。字中的字节数(字长)是一个基本的系统参数，通常是4个字节(32位)、8个字节(64位)。</p><h3 id="2-I-O-设备"><a href="#2-I-O-设备" class="headerlink" title="2.I/O 设备"></a>2.I/O 设备</h3><p>示例有作为用户输入的键盘和鼠标，作为用户输出的显示器，用于长期存储数据和程序的磁盘驱动器(磁盘)。每个 I/O 设备都通过一个<strong>控制器</strong>或者<strong>适配器</strong>与 I/O 总线相连。</p><blockquote><p>控制器和适配器之间的区别在于它们的封装方式: 控制器是 I/O 设备本身或系统的主板上的芯片组，而适配器则是一块插在主板插槽上的卡。功能都是在 I/O 总线和 I/O 设备之间传递信息。</p></blockquote><h3 id="3-主存"><a href="#3-主存" class="headerlink" title="3.主存"></a>3.主存</h3><p>主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组 <strong>动态随机获取存储器(DRAM)</strong> 芯片组成;从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址，这些地址是从零开始的。</p><h3 id="4-处理器"><a href="#4-处理器" class="headerlink" title="4.处理器"></a>4.处理器</h3><p><strong>中央处理单元(CPU)</strong>简称为处理器，是解释(或执行)存储在主存中指令的引擎。处理器的核心是一个大小为一个字的存储设备(或<strong>寄存器</strong>)，称为<strong>程序计数器(PC)</strong>。在任何时刻，PC都指向主存中的某条机器语言指令(该指令的地址)</p><p>处理器从通电到系统断电一直在不断从程序计数器指向的内存处读取指令，解释指令中的位，执行该指令指示的简单操作，然后更新 PC，使其指向下一条指令。</p><p>这样的操作围绕着主存、寄存器文件(register file)和算数/逻辑单元(ALU)进。寄存器文件是一个小的存储设备，由一些单个字长的寄存器组成，每个寄存器都有唯一的名字。ALU计算新的数据和地址值。</p><p>CPU在指令的要求下可能会执行如下操作:</p><ul><li><strong>加载:</strong> 从主存复制一个字节或者一个字到寄存器，以覆盖寄存器原来的内容;</li><li><strong>存储:</strong> 从寄存器复制一个字节或者一个字到主存的某个位置，以覆盖这个位置上原来的内容;</li><li><strong>操作:</strong> 把两个寄存器的内容复制到ALU，ALU对这两个字做算数运算，并将结果存放到一个寄存器中;</li><li><strong>跳转:</strong> 从指令本身抽取一个字，并将这个字复制到PC中，以覆盖PC中原先的值。</li></ul><h2 id="操作系统管理硬件"><a href="#操作系统管理硬件" class="headerlink" title="操作系统管理硬件"></a>操作系统管理硬件</h2><p>操作系统有两个基本功能∶ </p><ol><li>防止硬件被失控的应用程序滥用;</li><li>向应用程序提供简单一致的机制来控制复杂而又通常大不相同的低级硬件设备。</li></ol><p>操作系统通过几个基本的抽象概念(<strong>进程、虚拟内存和文件</strong>)来实现。</p><blockquote><p>文件是对 I/O 设备的抽象表示，虚拟内存是对主存和磁盘 I/O 设备的抽象表示，进程则是对处理器、主存和 I/O 设备的抽象表示。</p></blockquote><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是操作系统对一个正在运行的程序进行的一种抽象。一个CPU在同一时间只能执行一个进程，但是可以<strong>并发运行</strong>，即一个进程的指令和另一个进程的指令是交错执行，操作系统实现这种交错执行的机制称为<strong>上下文切换</strong>，而上下文就是操作系统保持跟踪进程运行所需的所有状态信息。</p><h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>在现代操作系统中，一个进程实际上可以由多个称为<strong>线程</strong>的执行单元组成，每个线程都运行在进程的上下文中，并共享同样的代码和全局数据。</p><h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>使用 xv6 里的解释</p><p>虚拟内存是每个进程都会有自己独立的 page table，每一个进程只能访问出现在自己page table中的物理内存。操作系统会设置page table，使得每一个进程都有不重合的物理内存，这样一个进程就不能访问其他进程的物理内存，因为其他进程的物理内存都不在它的 page table 中。</p><blockquote><p>就比如 ls 程序会有一个内存地址 0，echo 程序也会有一个内存地址 0，但是操作系统会将两个程序的内存地址0映射到不同的物理内存地址，所以ls程序不能访问echo程序的内存，同样echo程序也不能访问ls程序的内存。</p></blockquote><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件就是字节序列。每个I/O设备，包括磁盘、键盘、显示器，甚至网络，都可以看成是文件。系统中的所有输入输出都是通过使用一小组称为 Unix I/O 的系统函数调用读写文件来实现的。</p><h2 id="系统之间利用网络通信"><a href="#系统之间利用网络通信" class="headerlink" title="系统之间利用网络通信"></a>系统之间利用网络通信</h2><p>从一个单独的系统来看，网络可视为一个 I/O 设备，当系统从主存复制一串字节到网络适配器时，数据流经过网络到达另一台机器，相似地，系统可以读取从其他机器发送来的数据，并把数据复制到自己的主存。</p>]]></content>
     
@@ -507,6 +455,30 @@
     
     
     <category term="Robot" scheme="https://wxliu925.github.io/tags/Robot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://wxliu925.github.io/2023/10/19/hello/"/>
+    <id>https://wxliu925.github.io/2023/10/19/hello/</id>
+    <published>2023-10-19T08:14:03.000Z</published>
+    <updated>2023-10-22T14:11:39.505Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>你好, 世界!</p></blockquote><p>本博客搭建于2023年10月18日，使用 github pages + hexo 进行搭建，使用 aircloud 主题，这是一个简洁轻量的 hexo 博客主题。</p><p>这是笔者第三次搭建博客，第一次也是使用 hexo 搭建的一个静态博客，可惜后来在维护过程中遇到了一些当时无法解决的问题，于是放弃。第二次是使用腾讯云服务器，基于 wordpress 框架搭建的一个动态网站，还给它取了一个响亮的名字 —— 「牛牛网」，只是可惜在使用几个月之后因为一直忙于其他事没有管理，又刚好被人注入赌博网站的暗链，导致网站被查封了。</p><p>大概快一个月前，我在知乎上发布了这样一条想法:</p><blockquote><p>“感觉简中互联网环境下很难找到一个可以随便分享东西的平台，微信朋友圈发东西需要考虑一些微信好友的感受(浏览很多知乎问题可以看出来大家对朋友发pyq的戾气)，小红书和vb环境太差，知乎里发想法没试过，但是感觉应该也不怎么好用，其实tt是一个很合适的平台，但是感觉海外的中文互联网是一个很小的圈子大部分都是中国留学生和一些出去释放压力的非正常人完全融入不进去，而且也不想发的东西完全没人看(是的，我就是这么矛盾，想让别人看又不想让别人看)”</p></blockquote><p>今天突然想到，自己搭一个网站或许是一个不错的选择，于是就有了现在的这个网站。换句话说，搭建这个网站的初衷其实不是作为一个知识分享的平台，而且作为一个个人生活分享平台，平时也许会发布一些碎碎念、一些随想随记，又或者是一些学习笔记，总而言之，这将会是一个独属于我自己的小世界，发布的内容完全随机，所以，如果某些文章内容对你造成了一些不好的影响，在此我深表歉意。</p><p>我其实是一个分享欲比较强烈的人，但是从广义上来看，人生本来就是一场孤独的旅行，所以，我总是需要写点什么东西来聊以慰藉。也希望大家都能多多记录一下自己，不为被看见，只为留下痕迹。每一个当下，每一刻的感受，都是我们活着的证据。更重要的是，每一分、每一秒都是倒计时，请务必为自己而活。</p><p>2023年10月19日，于湖北武汉记。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;你好, 世界!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本博客搭建于2023年10月18日，使用 github pages + hexo 进行搭建，使用 aircloud 主题，这是一个简洁轻量的 hexo 博客主题。&lt;/p&gt;
+&lt;p&gt;这是笔者第三</summary>
+      
+    
+    
+    
     
   </entry>
   
